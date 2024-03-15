@@ -4,7 +4,7 @@ Izichartz is a [Next.js](https://nextjs.org/) project bootstrapped with [`create
 Its goal is to help users with software design through a grafic tool and various design model modules. Each module is specifically developed 
 for the relative design model, with effective functionalities that will help the user fastening his workflow and focusing on the design and the development, instead of wasting time with useless layout adjustments. 
 
----
+***
 
 ### Installed Dependencies
 - **Typescript**: for static types management. [Docs](https://www.typescriptlang.org/docs/)
