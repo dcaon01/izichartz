@@ -1,4 +1,7 @@
 ## Docs <!-- Scrivere in italiano sennò diventiamo solo che pazzi --->
+
+---
+
 ### Cos'è Izichartz
 Izichartz is a [Next.js](https://nextjs.org/) project bootstrapped with [`create-next-app`](https://github.com/vercel/next.js/tree/canary/packages/create-next-app).
 Its goal is to help users with software design through a grafic tool and various design model modules. Each module is specifically developed 
