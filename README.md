@@ -37,13 +37,48 @@ Le sottocartelle indicano il relativo routing o la sezione in cui sono utilizzat
 
 
 ## Components
+### Graphics
+Per fare robe grafiche utilizza <svg>. Trovi un tutorial [qui](https://www.w3schools.com/graphics/svg_intro.asp). 
 
 ### Workpane
 Il **workpane** è lo spazio di lavoro sulla quale andranno ad essere disegnati i componenti grafici. E' sulla base di esso e del suo contenuto che potranno essere generate le immagini. La sua dimensione è uguale a quella della pagina. Il suo interno invece sarà in overflow in modo che possa essere scrollabile sia in altezza che in larghezza.
-All'interno del workpane non si puà zoommare più della dimensione massima del progetto. 
-
+All'interno del workpane non si può zoommare all'infuori più della dimensione massima del progetto. 
+Bisognerebbe trovare un modo di calcolare delle funzioni di zoom in modo da zoommare. Potremmo tenere in memoria un fattore di zoom, che è fisso ogni volta che apriamo un progetto, ma poi andare a cambiarlo quando lavoriamo. Quel fattore potremmo metterlo moltiplicato a tutti i parametri assoluti e gestire dinamicamente la cosa in questo modo. 
+Trovare anche il modo di matchare il contenuto del workpane se la view del workpane è più ampia della dimensione del contenuto stesso. Infatti la view del worpane sarà sempre settata per essere uguale alla finestra, e far andare in overflow il contenuto. Non possiamo quindi avere una dimensione fissa del contenuto del workpane, ma deve essere dinamica.
 
 ## Modules
+I moduli sono 
+Il modulo ER viene richiamato una volta che deve essere mostrato un record di database del tipo ER. Riceve un oggetto JSON che ha questa struttura:
+```
+{
+    module: ...,
+    elements: [
+        {
+            type: ...,
+            options: {
+                ...
+            }
+        },
+        {
+            type: "",
+            options: {
+                ...
+            }
+        },
+        ...
+        ],
+        recommended: {
+            height: ...,
+            width: ...
+        }
+}
+```
+
+Questo tipo di oggetto racchiude le informazioni necessarie per la renderizzazione del progetto a video (mancano ancora i collegamenti e magari un sistema di chiavi in modo da poter interconnettere i componenti.)
+- **module**: indica il tipo di modulo salvato. 
+- **elements**: array di elementi presenti nel progetto.
+
+### ER
 
 
 ## Database
@@ -78,3 +113,5 @@ They are divided to
 
 ### Components
 -->
+
+[def]: https://www.w3schools.com/graphics/svg_intro.asp

@@ -1,4 +1,5 @@
 import Workpane from '@/components/modules/general/Workpane.js';
+import Rectangle from '@/components/modules/graphics/Rectangle.js';
 
 export default function ER() {
     let components = [];
@@ -13,7 +14,7 @@ export default function ER() {
     return (
         <>  
             <Workpane height={wpHeight} width={wpWidth}>
-
+                {}     
             </Workpane>
         </>
     );

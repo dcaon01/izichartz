@@ -4,5 +4,5 @@
     overflow: auto;
     background-image: url(../../../assets/workpane-bg.png);
     background-color: white;
-    background-repeat: true;
+    background-repeat: repeat;
 }
