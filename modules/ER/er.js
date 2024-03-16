@@ -14,7 +14,6 @@ export default function ER() {
     return (
         <>  
             <Workpane height={wpHeight} width={wpWidth}>
-                {}     
             </Workpane>
         </>
     );

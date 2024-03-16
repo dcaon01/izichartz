@@ -1,11 +1,11 @@
 'use client';
 
 import classes from './Workpane.module.css';
-import { useRef } from 'react';
+import Rectangle from '../graphics/Rectangle';
 
-export default function Workpane(props) {
-    let height = props.height;
-    let width = props.width;
+export default function Workpane({children, h, w}) {
+    let height = h;
+    let width = w;
 
     return (
         <div className={classes.view}>

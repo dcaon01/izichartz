@@ -1,4 +1,4 @@
-# DOCS <!-- Scrivere in italiano sennò diventiamo solo che pazzi --->
+# DOCS 
 
 
 ## Cos'è Izichartz
