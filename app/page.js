@@ -1,8 +1,9 @@
-import Image from "next/image";
+import ER from '@/modules/ER/er.js';
 
 export default function Home() {
   return (
-    <main className="flex">
+    <main>
+      <ER />
     </main>
   );
 }
