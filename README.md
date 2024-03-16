@@ -38,7 +38,7 @@ Le sottocartelle indicano il relativo routing o la sezione in cui sono utilizzat
 
 ## Components
 ### Graphics
-Per fare robe grafiche utilizza <svg>. Trovi un tutorial [qui](https://www.w3schools.com/graphics/svg_intro.asp). 
+Per fare robe grafiche utilizza **svg**. Trovi un tutorial [qui](https://www.w3schools.com/graphics/svg_intro.asp). 
 
 ### Workpane
 Il **workpane** è lo spazio di lavoro sulla quale andranno ad essere disegnati i componenti grafici. E' sulla base di esso e del suo contenuto che potranno essere generate le immagini. La sua dimensione è uguale a quella della pagina. Il suo interno invece sarà in overflow in modo che possa essere scrollabile sia in altezza che in larghezza.
