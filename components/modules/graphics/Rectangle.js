@@ -1,15 +1,18 @@
 'use client';
 
 import classes from "./Rectangle.module.css";
-import { useState } from "react";
+import { useState, useRef } from "react";
 
 export default function Rectangle({ t, x, y }) {
     /* Campi di esemplare */
     let [text, setText] = useState(t); // Testo interno al rettangolo
     let [position, setPositon] = useState({ x, y }); // Oggetto posizione
-    let [offset, setOffset] = useState({ x: 0, y: 0 })
+    let [offset, setOffset] = useState({ x: 0, y: 0 }) // Oggetto di offset
 
-    /* Variabili di stile */
+    /* Refs */
+    let inputRef = useRef();
+
+    /* Variabili usiliarie */
     let [clicked, setClicked] = useState(false);
 
     /* Funzione per la gestione del dragging dell'oggetto */
@@ -30,13 +33,17 @@ export default function Rectangle({ t, x, y }) {
         if (clicked) {
             let x = event.clientX - offset.x;
             let y = event.clientY - offset.y;
-            setPositon({x, y})
+            setPositon({ x, y })
         }
     }
 
     /* Funzione per gestire il mouse che se ne va dall'oggetto */
-    function handleLeaving(){
+    function handleLeaving() {
         setClicked(false);
+    }
+
+    function handleInput(event) {
+        setText(event.target.value);
     }
 
     /* RENDERING */
@@ -50,12 +57,18 @@ export default function Rectangle({ t, x, y }) {
             style={{
                 top: position.y,
                 left: position.x,
-                cursor: clicked ? 'grabbing' : 'grab'
+                cursor: clicked ? 'grabbing' : 'move'
             }}
         >
-            <p className={classes.text}>
+            <span
+                contentEditable
+                role="textbox"
+                ref={inputRef}
+                className={classes.rectangleInput}
+                onChange={handleInput}
+            >
                 {text}
-            </p>
+            </span>
         </div>
     );
 }

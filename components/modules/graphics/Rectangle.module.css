@@ -1,8 +1,8 @@
 .rectangle {
     position: absolute;
-    min-height: 40px;
+    min-height: 50px;
     min-width: 80px;
-    padding: 10px;
+    padding: 20px;
     background-color: white;
     border: 1px solid black;
     display: flex;
@@ -10,7 +10,24 @@
     border-radius: 5px;
 }
 
-.text {
+.rectangleText {
     font-size: 12px;
     user-select: none;
+}
+
+.rectangleInput {
+    display: flex;
+    min-width: 0px;
+    text-align: center;
+    font-size: 12px;
+    justify-content: center;
+    align-items: center;
+}
+
+.rectangleInput:hover {
+    cursor:text;
+}
+
+.rectangleInput:focus {
+    outline: none;
 }
