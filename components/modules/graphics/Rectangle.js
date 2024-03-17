@@ -39,6 +39,7 @@ export default function Rectangle({ t, x, y }) {
         setClicked(false);
     }
 
+    /* RENDERING */
     return (
         <div
             onMouseDown={handleClicking}
