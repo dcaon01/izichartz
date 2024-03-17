@@ -1,30 +1,18 @@
+import classes from "./Rectangle.module.css";
 
-export default function Rectangle({h, w, t, bgCol, posX, posY}) {
-    // Dimensions
-    let height = h;
-    let width = w;
+export default function Rectangle({t, x, y}) {
     // Text inside of the Reactangle
     let text = t;
-    // Color
-    let bgColor = bgCol;
     //Position of the top-left angle
-    let x = posX;
-    let y = posY;
+    let posX = x;
+    let posY = y;
 
     return (
-        <div style={{
-            position: "absolute",
-            top: y,
-            left: x,
-            backgroundColor: bgColor,
-            minHeight: 40,
-            minWidth: 100,
-            height: height,
-            width: width,
-            border: "1px solid black",
-            padding: 10
+        <div className={classes.rectangle} style={{
+            top: posY,
+            left: posX
         }}>
-            <p>
+            <p className={classes.text}>
                 {text}
             </p>
         </div>
