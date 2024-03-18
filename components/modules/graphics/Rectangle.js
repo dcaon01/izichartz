@@ -42,8 +42,8 @@ export default function Rectangle({ t, x, y }) {
         setClicked(false);
     }
 
-    function handleInput(event) {
-        setText(event.target.value);
+    function handleInput() {
+        setText(inputRef.current.value);
     }
 
     /* RENDERING */

@@ -14,7 +14,7 @@ export default function ER() {
     return (
         <>
             <Workpane h={wpHeight} w={wpWidth}>
-                <Rectangle t={"culo"} x={150} y={200}/>
+                <Rectangle t={"ciao"} x={150} y={200}/>
             </Workpane>
         </>
     );
