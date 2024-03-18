@@ -1,7 +1,6 @@
 'use client';
 
 import classes from './Workpane.module.css';
-import Rectangle from '../graphics/Rectangle';
 
 export default function Workpane(props) {
     let height = props.h;
