@@ -39,7 +39,7 @@ Le sottocartelle indicano il relativo routing o la sezione in cui sono utilizzat
 ## Components
 ### Graphics
 Per fare robe grafiche utilizza [svg](https://www.w3schools.com/graphics/svg_intro.asp). 
-- Rectangle: potremo fare in modo che per modificare un elemento lo dobbiamo selezionare. In questo modo possiamo far venire fuori tutte le opzioni del caso.
+- Rectangle: potremo fare in modo che per modificare un elemento lo dobbiamo selezionare. In questo modo possiamo far venire fuori tutte le opzioni del caso. Per gestire la deselection con un click al di fuori del 
 
 ### Workpane
 Il **workpane** è lo spazio di lavoro sulla quale andranno ad essere disegnati i componenti grafici. E' sulla base di esso e del suo contenuto che potranno essere generate le immagini. La sua dimensione è uguale a quella della pagina. Il suo interno invece sarà in overflow in modo che possa essere scrollabile sia in altezza che in larghezza.

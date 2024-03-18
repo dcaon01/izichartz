@@ -11,9 +11,21 @@ export default function Rectangle({ t, x, y }) {
 
     /* Refs */
     let inputRef = useRef();
+    let curs = "pointer";
 
     /* Variabili usiliarie */
     let [clicked, setClicked] = useState(false);
+    let [selected, setSelected] = useState(false);
+
+    function handleSelection() { 
+        setSelected(true);
+    }
+
+    function handleDeselection(event) {
+        if (event.key === 'Enter' || event.key === 'Esc') {
+            setSelected(false);
+        } 
+    }
 
     /* Funzione per la gestione del dragging dell'oggetto */
     function handleClicking(event) {
@@ -46,26 +58,40 @@ export default function Rectangle({ t, x, y }) {
         setText(inputRef.current.value);
     }
 
+    if (selected) {
+        if(clicked){
+            curs = "grabbing"
+        } else {
+            curs = "move";
+        }
+    }
+
     /* RENDERING */
     return (
         <div
-            onMouseDown={handleClicking}
-            onMouseUp={handleNotClickingAnymore}
-            onMouseMove={handleDragging}
+            onClick={handleSelection}
+            onMouseDown={selected ? handleClicking : null}
+            onMouseUp={selected ? handleNotClickingAnymore : null}
+            onMouseMove={selected ? handleDragging : null}
             onMouseLeave={handleLeaving}
             className={classes.rectangle}
+            onKeyDown={handleDeselection}
             style={{
                 top: position.y,
                 left: position.x,
-                cursor: clicked ? 'grabbing' : 'move'
+                cursor: curs,
+                border: selected ? "3px solid black" : "1px solid black"
             }}
         >
             <span
-                contentEditable
+                contentEditable={selected}
                 role="textbox"
                 ref={inputRef}
                 className={classes.rectangleInput}
                 onChange={handleInput}
+                style={{
+                    cursor: selected ? "text" : "pointer"
+                }}
             >
                 {text}
             </span>

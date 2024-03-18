@@ -4,7 +4,6 @@
     min-width: 80px;
     padding: 20px;
     background-color: white;
-    border: 1px solid black;
     display: flex;
     justify-content: center;
     border-radius: 5px;
@@ -22,10 +21,6 @@
     font-size: 12px;
     justify-content: center;
     align-items: center;
-}
-
-.rectangleInput:hover {
-    cursor:text;
 }
 
 .rectangleInput:focus {
