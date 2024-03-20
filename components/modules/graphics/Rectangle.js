@@ -1,7 +1,7 @@
 'use client';
 
 import classes from "./Rectangle.module.css";
-import { useState, useRef } from "react";
+import { useState, useRef, useEffect } from "react";
 
 export default function Rectangle({ t, x, y }) {
     /* Campi di esemplare */
@@ -27,8 +27,14 @@ export default function Rectangle({ t, x, y }) {
         } 
     }
 
+    useEffect(() => {
+        handleDeselection(Event);
+    }, [selected]);
+
+
     /* Funzione per la gestione del dragging dell'oggetto */
     function handleClicking(event) {
+        event.preventDefault();
         setClicked(true);
         let x = event.clientX - position.x;
         let y = event.clientY - position.y;
@@ -42,6 +48,7 @@ export default function Rectangle({ t, x, y }) {
 
     /* Funzione per la gestione del dragging dell'oggetto */
     function handleDragging(event) {
+        event.preventDefault();  // Non sistema il ritardo del dragging
         if (clicked) {
             let x = event.clientX - offset.x;
             let y = event.clientY - offset.y;
@@ -50,7 +57,7 @@ export default function Rectangle({ t, x, y }) {
     }
 
     /* Funzione per gestire il mouse che se ne va dall'oggetto */
-    function handleLeaving() {
+    function handleLeaving(event) {
         setClicked(false);
     }
 

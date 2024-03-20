@@ -8,7 +8,7 @@ Il suo obiettivo è quello di aiutare gli utenti con la progettazione grafica tr
 
 ## Installed Dependencies
 - **Typescript**: per la gestione di tipi statici. [Docs](https://www.typescriptlang.org/docs/)
-- **Redux**: per una gestione migliore degli stati. [Docs](https://redux.js.org/usage/)
+- **Redux Toolkit**: per una gestione migliore degli stati. [Docs](https://redux-toolkit.js.org/usage/nextjs)
 - **Framer Motion**: per animare l'applicazione. [Docs](https://www.framer.com/motion/?utm_source=google&utm_medium=adwords&utm_campaign=PerformanceMax-Framer_&gad_source=1&gclid=CjwKCAjw48-vBhBbEiwAzqrZVPK9OUm1ZKgYlNwriO01FcAHAsEpZ2kxMAWIwdV13ztZ8HaSvrPvXBoCBYEQAvD_BwE)
 - **Tailwind**: per uno styling CSS più rapido. [Docs](https://tailwindcss.com/docs/installation)
 
@@ -39,7 +39,7 @@ Le sottocartelle indicano il relativo routing o la sezione in cui sono utilizzat
 ## Components
 ### Graphics
 Per fare robe grafiche utilizza [svg](https://www.w3schools.com/graphics/svg_intro.asp). 
-- Rectangle: potremo fare in modo che per modificare un elemento lo dobbiamo selezionare. In questo modo possiamo far venire fuori tutte le opzioni del caso. Per gestire la deselection con un click al di fuori del 
+- Rectangle: potremo fare in modo che per modificare un elemento lo dobbiamo selezionare. In questo modo possiamo far venire fuori tutte le opzioni del caso. Per gestire la deselection con un click al di fuori del quadrato dovremo utilizzare stati condivisi. 
 
 ### Workpane
 Il **workpane** è lo spazio di lavoro sulla quale andranno ad essere disegnati i componenti grafici. E' sulla base di esso e del suo contenuto che potranno essere generate le immagini. La sua dimensione è uguale a quella della pagina. Il suo interno invece sarà in overflow in modo che possa essere scrollabile sia in altezza che in larghezza.
