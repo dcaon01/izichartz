@@ -3,8 +3,9 @@
 import classes from "./Rectangle.module.css";
 import { useState, useRef, useEffect } from "react";
 
-export default function Rectangle({ t, x, y }) {
+export default function Rectangle({ i, t, x, y }) {
     /* Campi di esemplare */
+    let [id, setId] = useState(i);
     let [text, setText] = useState(t); // Testo interno al rettangolo
     let [position, setPositon] = useState({ x, y }); // Oggetto posizione
     let [offset, setOffset] = useState({ x: 0, y: 0 }) // Oggetto di offset
@@ -16,6 +17,9 @@ export default function Rectangle({ t, x, y }) {
     /* Variabili usiliarie */
     let [clicked, setClicked] = useState(false);
     let [selected, setSelected] = useState(false);
+
+    /* 
+
 
     function handleSelection() { 
         setSelected(true);

@@ -7,7 +7,7 @@ Il suo obiettivo è quello di aiutare gli utenti con la progettazione grafica tr
 
 
 ## Installed Dependencies
-- **Typescript**: per la gestione di tipi statici. [Docs](https://www.typescriptlang.org/docs/)
+<!-- - **Typescript**: per la gestione di tipi statici. [Docs](https://www.typescriptlang.org/docs/) PER ORA LO LASCIAMO STARE-->
 - **Redux Toolkit**: per una gestione migliore degli stati. [Docs](https://redux-toolkit.js.org/usage/nextjs)
 - **Framer Motion**: per animare l'applicazione. [Docs](https://www.framer.com/motion/?utm_source=google&utm_medium=adwords&utm_campaign=PerformanceMax-Framer_&gad_source=1&gclid=CjwKCAjw48-vBhBbEiwAzqrZVPK9OUm1ZKgYlNwriO01FcAHAsEpZ2kxMAWIwdV13ztZ8HaSvrPvXBoCBYEQAvD_BwE)
 - **Tailwind**: per uno styling CSS più rapido. [Docs](https://tailwindcss.com/docs/installation)
@@ -47,6 +47,10 @@ All'interno del workpane non si può zoommare all'infuori più della dimensione 
 Bisognerebbe trovare un modo di calcolare delle funzioni di zoom in modo da zoommare. Potremmo tenere in memoria un fattore di zoom, che è fisso ogni volta che apriamo un progetto, ma poi andare a cambiarlo quando lavoriamo. Quel fattore potremmo metterlo moltiplicato a tutti i parametri assoluti e gestire dinamicamente la cosa in questo modo. 
 Trovare anche il modo di matchare il contenuto del workpane se la view del workpane è più ampia della dimensione del contenuto stesso. Infatti la view del worpane sarà sempre settata per essere uguale alla finestra, e far andare in overflow il contenuto. Non possiamo quindi avere una dimensione fissa del contenuto del workpane, ma deve essere dinamica.
 
+### Renderer
+Il **Renderer** è quello che si occupa di generare 
+
+
 ## Modules
 I moduli sono 
 Il modulo ER viene richiamato una volta che deve essere mostrato un record di database del tipo ER. Riceve un oggetto JSON che ha questa struttura:
@@ -55,12 +59,14 @@ Il modulo ER viene richiamato una volta che deve essere mostrato un record di da
     module: ...,
     elements: [
         {
+            id: ...,
             type: ...,
             options: {
                 ...
             }
         },
         {
+            id: ...,
             type: "",
             options: {
                 ...
@@ -80,9 +86,10 @@ Questo tipo di oggetto racchiude le informazioni necessarie per la renderizzazio
 - **elements**: array di elementi presenti nel progetto.
 
 ### ER
-
+Possiamo andare a creare dei componenti ER che ricalcano i concetti ER e che utilizzano componenti grafici. Quindi nei componenti, creiamo delle cartelle relative ai componenti dell'er, uml etc. Ad esempio, per l'appunto, nell'ER avremmo l'entità che non sarà solo composta dal rettangolo, ma anche dai pallini, stessa cosa le relazioni. Poi ci saranno componenti creati ad hoc, come la tendida che esce schiacciando il tasto destro, che potrebbe essere diversa da modulo a modulo, e anche il menu laterale.
 
 ## Database
+Utilizzare le tabelle per creare il diagramma relazionale del DB che andremo ad utilizzare.
 
 <!-- INGLESE
 ## Docs

@@ -1,14 +1,17 @@
 import { configureStore } from "@reduxjs/toolkit";
+import { globalSlice } from "./design/global-slice";
+import { componentsSlice } from "./design/components-slice";
 
 export function makeStore() {
     return configureStore({
-        reducer: {},
+        reducer: {
+            designGlobal: globalSlice.reducer,
+            designComponents: componentsSlice.reducer
+        }
     })
 }
 
-/* X TS
-// Infer the type of makeStore
-export type AppStore = ReturnType<typeof makeStore>
-// Infer the `RootState` and `AppDispatch` types from the store itself
-export type RootState = ReturnType<AppStore['getState']>
-export type AppDispatch = AppStore['dispatch'] */
+/* Non ha senso generare uno slice per ogni componente, 
+*  poiché non si riuscirebbe (o comunque sarebbe più complicato) ad aggiungerne (o tolierne) 
+*  nel caso aggiungessimo (o togliessimo) elementi 
+*/
