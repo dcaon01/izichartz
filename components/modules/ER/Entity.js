@@ -3,29 +3,29 @@
 import classes from "./Entity.module.css";
 import { useState, useRef, useEffect } from "react";
 
-export default function Entity({ i, t, x, y }) {
+export default function Entity({key, options}) {
     /* Campi di esemplare */
-    let [id, setId] = useState(i);
-    let [text, setText] = useState(t); // Testo interno al rettangolo
-    let [position, setPositon] = useState({ x, y }); // Oggetto posizione
-    let [offset, setOffset] = useState({ x: 0, y: 0 }) // Oggetto di offset
+    let [id, setId] = useState(key);
+    let [text, setText] = useState(options.text); // Testo interno al rettangolo
+    let [position, setPositon] = useState(options.position); // Oggetto posizione
 
     /* Refs */
     let inputRef = useRef();
-    let curs = "pointer";
 
     /* Variabili usiliarie */
     let [clicked, setClicked] = useState(false);
     let [selected, setSelected] = useState(false);
+    let [offset, setOffset] = useState({ x: 0, y: 0 }) // Oggetto di offset
+    let curs = "pointer";
 
-    function handleSelection() { 
+    function handleSelection() {
         setSelected(true);
     }
 
     function handleDeselection(event) {
         if (event.key === 'Enter' || event.key === 'Esc') {
             setSelected(false);
-        } 
+        }
     }
 
     useEffect(() => {
@@ -67,7 +67,7 @@ export default function Entity({ i, t, x, y }) {
     }
 
     if (selected) {
-        if(clicked){
+        if (clicked) {
             curs = "grabbing"
         } else {
             curs = "move";

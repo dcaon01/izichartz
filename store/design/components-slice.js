@@ -18,7 +18,6 @@ export const componentsSlice = createSlice({
         removeComponent() {
 
         },
-
         modifyComponent() {
 
         }

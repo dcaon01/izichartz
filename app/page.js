@@ -1,4 +1,4 @@
-import ER from '@/components/modules/ER/er.js';
+import ER from '@/components/modules/ER/ER.js';
 
 export default function Home() {
   return (

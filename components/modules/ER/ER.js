@@ -1,24 +1,27 @@
-import Workpane from '@/components/modules/general/Workpane.js';
-import Entity from '@/components/modules/ER/Entity.js';
+import Workpane from '../general/Workpane.js';
+import Generator from './Generator.js';
 
 export default function ER() {
     let components = [
         {
-            type: "Rectangle",
-        }
-    ]; // mettere il selector qui in modo.
-    let wpHeight = 0;
-    let wpWidth = 0
-
-    if (components.length === 0) {
-        wpWidth = 1920;
-        wpHeight = 720;
-    }
-
+            type: "Entity",
+            id: 1,
+            options: {
+                text: "Ciao",
+                position: {
+                    x: 150, 
+                    y: 200,
+                },
+            }
+        },
+    ]; // mettere il selector qui in modo da prelevare lo stato
+    let wpHeight = 1920;
+    let wpWidth = 720;
+    
     return (
         <>
             <Workpane h={wpHeight} w={wpWidth}>
-                <Entity t={"ciao"} x={150} y={200}/>
+                <Generator generate={components}/>
             </Workpane>
         </>
     );

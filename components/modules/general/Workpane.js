@@ -3,8 +3,8 @@
 import classes from './Workpane.module.css';
 
 export default function Workpane(props) {
-    let height = props.h;
-    let width = props.w;
+    const height = props.h;
+    const width = props.w;
 
     return (
         <div className={classes.view}>
