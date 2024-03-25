@@ -4,6 +4,7 @@
 ## Cos'è Izichartz
 Izichartz è un progetto [Next.js](https://nextjs.org/) creato con [`create-next-app`](https://github.com/vercel/next.js/tree/canary/packages/create-next-app).
 Il suo obiettivo è quello di aiutare gli utenti con la progettazione grafica tramite l'utilizzo di un tool grafico e diversi moduli che permettono di utilizzare diversi modelli di progettazione. Ciascun modulo è sviluppato sulla base del modello di riferimento, con funzionalità efficaci che velocizzano il workflow dell'utente, che dovrà pensare solamente alla progettazione e non a perdere tempo dietro a inutili e tediosi aggiustamenti di layout.
+Facciamo prima i componenti per l'ER che funzionano, poi cerchiamo di generalizzare per tutti i moduli.
 
 
 ## Installed Dependencies
@@ -33,7 +34,8 @@ Ecco la spiegazione della struttura del progetto:
 - **lib**: si trovano i file che gestiscono la parte server dell'applicazione, quindi le server actions. Le sottocartelle indicano il relativo routing o la sezione in cui sono utilizzate.
 - **components**: si trovano i file che definiscono i componenti che costruiscono il contenuto dell'applicazione e che verranno utilizzati all'interno della directory app. Non sono strettamente correlati al routing dell'applicazione ma, come detto, ne costituiscono il contenuto.   
 Le sottocartelle indicano il relativo routing o la sezione in cui sono utilizzati.
-- **modules**: si trovano i file che definiscono le funzioni relative ad un determinato modulo, o anche generali. Quindi il modulo er si occuperà di definire la logica per far funzionare al meglio il lavoro su un file di progettazione ER.
+- **modules**: si trovano i file che definiscono le funzioni relative ad un determinato modulo, o anche generali. Quindi il modulo er si occuperà di definire la logica per far funzionare al meglio il lavoro su un file di progettazione ER. 
+Per ora questa directory non ha senso, ma ha più senso tenere all'interno di components le cose necessarie per creare i moduli nella cartella modules. Quindi per ora la cancelliamo.
 
 
 ## Components
@@ -48,7 +50,7 @@ Bisognerebbe trovare un modo di calcolare delle funzioni di zoom in modo da zoom
 Trovare anche il modo di matchare il contenuto del workpane se la view del workpane è più ampia della dimensione del contenuto stesso. Infatti la view del worpane sarà sempre settata per essere uguale alla finestra, e far andare in overflow il contenuto. Non possiamo quindi avere una dimensione fissa del contenuto del workpane, ma deve essere dinamica.
 
 ### Renderer
-Il **Renderer** è quello che si occupa di generare 
+Il **Renderer** è quello che si occupa di generare.
 
 
 ## Modules
@@ -89,6 +91,27 @@ Questo tipo di oggetto racchiude le informazioni necessarie per la renderizzazio
 Possiamo andare a creare dei componenti ER che ricalcano i concetti ER e che utilizzano componenti grafici. Quindi nei componenti, creiamo delle cartelle relative ai componenti dell'er, uml etc. Ad esempio, per l'appunto, nell'ER avremmo l'entità che non sarà solo composta dal rettangolo, ma anche dai pallini, stessa cosa le relazioni. Poi ci saranno componenti creati ad hoc, come la tendida che esce schiacciando il tasto destro, che potrebbe essere diversa da modulo a modulo, e anche il menu laterale.
 
 ## Database
+L'applicazione deve gestire tutta una serie di funzionalità dell'utente. 
+Quindi abbiamo sicuro la tabella USER per memorizzare i dati dell'utente, che avrà i seguenti attributi:
+- name
+- surname
+- email, che farà da chiave primaria
+- birhtdate
+- employment (studente, lavoratore, privato, azienda... Per quest'ultima sarebbe da far inserira la partita iva) 
+(campo in integrità referenziale con una tabella in cui ci sono le varie opzioni disponibili).
+
+Dobbiamo memorizzare anche tutti i dati relativi ai progetti, che devono essere associati ad un determinato utente:
+- name
+- id progetto, che sarà un int incrementale, o una roba del genere
+- contenuto, che altro non sarà che un JSON con tutte le informazioni necessarie alla traduzione del progetto in grafica JSON o JSONB
+- proprietario, che sarà un campo in integrità referenziale con la chiave primaria della tabella USER.
+
+Potremmo pensare di implementare anche una tabella per le fatture:
+- client
+- date
+- id
+- 
+
 Utilizzare le tabelle per creare il diagramma relazionale del DB che andremo ad utilizzare.
 
 <!-- INGLESE

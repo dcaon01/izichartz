@@ -1,9 +1,9 @@
 'use client';
 
-import classes from "./Rectangle.module.css";
+import classes from "./Entity.module.css";
 import { useState, useRef, useEffect } from "react";
 
-export default function Rectangle({ i, t, x, y }) {
+export default function Entity({ i, t, x, y }) {
     /* Campi di esemplare */
     let [id, setId] = useState(i);
     let [text, setText] = useState(t); // Testo interno al rettangolo
@@ -17,9 +17,6 @@ export default function Rectangle({ i, t, x, y }) {
     /* Variabili usiliarie */
     let [clicked, setClicked] = useState(false);
     let [selected, setSelected] = useState(false);
-
-    /* 
-
 
     function handleSelection() { 
         setSelected(true);
