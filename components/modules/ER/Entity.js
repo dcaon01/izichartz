@@ -1,5 +1,3 @@
-'use client';
-
 import classes from "./Entity.module.css";
 import { useState, useRef, useEffect } from "react";
 

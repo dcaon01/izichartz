@@ -1,5 +1,3 @@
-'use client';
-
 import classes from './Workpane.module.css';
 
 export default function Workpane(props) {

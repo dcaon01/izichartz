@@ -5,7 +5,7 @@ import Workpane from '../general/Workpane.js';
 import Generator from './Generator.js';
 
 export default function ER() {
-    let components = useSelector(state );
+    let components = useSelector(state => state.designComponents);
     let wpHeight = 1920;
     let wpWidth = 720;
     
