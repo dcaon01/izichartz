@@ -21,17 +21,26 @@ const init = [
 /* Creiamo uno slice che memorizza gli elementi grafici che ci sono all'interno di
 *  un workpane come oggetti all'interno dell'array presente nello slice stesso.
 */
-export const componentsSlice = createSlice({
-    name: "designComponents",
+export const elementsSlice = createSlice({
+    name: "designElements",
     initialState: init,
     reducers: {
-        addComponent() {
+        addElement() {
         },
-        removeComponent() {
+
+        removeElement() {
 
         },
-        modifyComponent() {
 
+        /* modifyComponent 
+        *  Reducer che permette di modificare un elemento.
+        *  Nel payload inseriamo:
+        *  - id: id dell'elemento.
+        *  - option: nome dell'opzione da modificare.
+        *  - value: valore con cui modificare quell'opzione
+        */
+        modifyOptionsElement(state, action) {
+            state[action.payload.id - 1].options[action.payload.option] = action.payload.value;
         }
     }
 });

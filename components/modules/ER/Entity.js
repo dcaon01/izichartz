@@ -1,30 +1,34 @@
+import { useDispatch, useSelector } from "react-redux";
 import classes from "./Entity.module.css";
-import { useState, useRef, useEffect } from "react";
+import { useState, useRef } from "react";
+import { globalSlice } from "@/store/design/global-slice";
+import { elementsSlice } from "@/store/design/elements-slice";
 
-export default function Entity({key, options}) {
+export default function Entity({ id }) {
     /* Campi di esemplare */
-    let [id, setId] = useState(key);
-    let [text, setText] = useState(options.text); // Testo interno al rettangolo
-    let [position, setPositon] = useState(options.position); // Oggetto posizione
+    let text = useSelector(state => state.designElements[id - 1].options.text); // Testo interno al rettangolo
+    let position = useSelector(state => state.designElements[id - 1].options.position); // Oggetto posizione
 
     /* Refs */
     let inputRef = useRef();
 
-    /* Variabili usiliarie */
+    /* Variabili d'utility */
     let [clicked, setClicked] = useState(false);
-    let [selected, setSelected] = useState(false);
+    let selectedId = useSelector(state => state.designGlobal.selected);
     let [offset, setOffset] = useState({ x: 0, y: 0 }) // Oggetto di offset
     let curs = "pointer";
+    let dispatch = useDispatch();
 
     function handleSelection() {
-        setSelected(true);
+        dispatch(globalSlice.actions.selection(id));
     }
 
+    /*
     function handleDeselection(event) {
         if (event.key === 'Enter' || event.key === 'Esc') {
             setSelected(false);
         }
-    }
+    }*/
 
     /* Funzione per la gestione del dragging dell'oggetto */
     function handleClicking(event) {
@@ -46,7 +50,7 @@ export default function Entity({key, options}) {
         if (clicked) {
             let x = event.clientX - offset.x;
             let y = event.clientY - offset.y;
-            setPositon({ x, y })
+            dispatch(elementsSlice.actions.modifyOptionsElement({ id: id, option: 'position', value: { x, y } }))
         }
     }
 
@@ -59,7 +63,7 @@ export default function Entity({key, options}) {
         setText(inputRef.current.value);
     }
 
-    if (selected) {
+    if (selectedId === id) {
         if (clicked) {
             curs = "grabbing"
         } else {
@@ -71,27 +75,27 @@ export default function Entity({key, options}) {
     return (
         <div
             onClick={handleSelection}
-            onMouseDown={selected ? handleClicking : null}
-            onMouseUp={selected ? handleNotClickingAnymore : null}
-            onMouseMove={selected ? handleDragging : null}
+            onMouseDown={selectedId === id ? handleClicking : null}
+            onMouseUp={selectedId === id ? handleNotClickingAnymore : null}
+            onMouseMove={selectedId === id ? handleDragging : null}
             onMouseLeave={handleLeaving}
             className={classes.rectangle}
-            onKeyDown={handleDeselection}
+            /*onKeyDown={handleDeselection}*/
             style={{
                 top: position.y,
                 left: position.x,
                 cursor: curs,
-                border: selected ? "3px solid black" : "1px solid black"
+                border: selectedId === id ? "3px solid black" : "1px solid black"
             }}
         >
             <span
-                contentEditable={selected}
+                contentEditable={selectedId === id}
                 role="textbox"
                 ref={inputRef}
                 className={classes.rectangleInput}
                 onChange={handleInput}
                 style={{
-                    cursor: selected ? "text" : "pointer"
+                    cursor: selectedId === id ? "text" : "pointer"
                 }}
             >
                 {text}

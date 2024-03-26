@@ -1,12 +1,12 @@
 import { configureStore } from "@reduxjs/toolkit";
 import { globalSlice } from "./design/global-slice";
-import { componentsSlice } from "./design/components-slice";
+import { elementsSlice } from "./design/elements-slice";
 
 export default function makeStore() {
     return configureStore({
         reducer: {
             designGlobal: globalSlice.reducer,
-            designComponents: componentsSlice.reducer
+            designElements: elementsSlice.reducer
         }
     })
 }

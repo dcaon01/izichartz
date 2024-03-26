@@ -12,7 +12,7 @@ export default function Generator({ generate }) {
         switch (component.type) {
             case "Entity":
                 return (
-                    <Entity key={component.id} options={component.options} />
+                    <Entity key={component.id} id={component.id} />
                 );
             // end case
         }
