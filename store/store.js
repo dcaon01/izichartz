@@ -2,7 +2,7 @@ import { configureStore } from "@reduxjs/toolkit";
 import { globalSlice } from "./design/global-slice";
 import { componentsSlice } from "./design/components-slice";
 
-export function makeStore() {
+export default function makeStore() {
     return configureStore({
         reducer: {
             designGlobal: globalSlice.reducer,

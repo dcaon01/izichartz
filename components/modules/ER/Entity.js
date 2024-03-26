@@ -28,11 +28,6 @@ export default function Entity({key, options}) {
         }
     }
 
-    useEffect(() => {
-        handleDeselection(Event);
-    }, [selected]);
-
-
     /* Funzione per la gestione del dragging dell'oggetto */
     function handleClicking(event) {
         event.preventDefault();

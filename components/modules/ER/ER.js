@@ -1,20 +1,11 @@
+'use client';
+
+import { useSelector } from 'react-redux';
 import Workpane from '../general/Workpane.js';
 import Generator from './Generator.js';
 
 export default function ER() {
-    let components = [
-        {
-            type: "Entity",
-            id: 1,
-            options: {
-                text: "Ciao",
-                position: {
-                    x: 150, 
-                    y: 200,
-                },
-            }
-        },
-    ]; // mettere il selector qui in modo da prelevare lo stato
+    let components = useSelector(state );
     let wpHeight = 1920;
     let wpWidth = 720;
     

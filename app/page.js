@@ -1,9 +1,14 @@
+'use client';
+
 import ER from '@/components/modules/ER/ER.js';
+import StoreProvider from './StorePrivider.js';
 
 export default function Home() {
   return (
     <main>
-      <ER />
+        <StoreProvider>
+          {/*<ER />*/}
+        </StoreProvider>
     </main>
   );
 }
