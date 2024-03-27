@@ -7,9 +7,6 @@ import { globalSlice } from "@/store/design/global-slice";
 import { elementsSlice } from "@/store/design/elements-slice";
 
 export default function Entity({ id }) {
-    console.log('render');
-
-
     /* Campi di esemplare */
     let text = useSelector(state => state.designElements[id - 1].options.text); // Testo interno al rettangolo
     let position = useSelector(state => state.designElements[id - 1].options.position); // Oggetto posizione
@@ -21,6 +18,9 @@ export default function Entity({ id }) {
     let curs = "pointer";
     let dispatch = useDispatch();
 
+    /* Refs */
+    let inputRef = useRef();
+
     function handleSelection() {
         dispatch(globalSlice.actions.selection(id));
     }
@@ -28,6 +28,7 @@ export default function Entity({ id }) {
     /* Funzione per la gestione del dragging dell'oggetto */
     function handleGrabbing(event) {
         event.preventDefault();
+        inputRef.current.blur();
         setGrabbing(true);
         let x = event.clientX - position.x;
         let y = event.clientY - position.y;
@@ -90,6 +91,7 @@ export default function Entity({ id }) {
                 id="input"
                 type="text"
                 value={text}
+                ref={inputRef}
                 onChange={handleInput}
                 onMouseDown={handleInputInsert} // Abbiamo dovuto sovrascrivere l'evento del padre
                 className={classes.entityInput}          
