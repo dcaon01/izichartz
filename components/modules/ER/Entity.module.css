@@ -11,12 +11,8 @@
 }
 
 .entityInput {
-    display: flex;
-    min-width: 0px;
     text-align: center;
     font-size: 12px;
-    justify-content: center;
-    align-items: center;
     z-index: 2;
 }
 

@@ -87,14 +87,17 @@ export default function Entity({ id }) {
                 border: selectedId === id ? "3px solid black" : "1px solid black"
             }}
         >
-            <input 
+            <input
                 id="input"
                 type="text"
                 value={text}
                 ref={inputRef}
                 onChange={handleInput}
                 onMouseDown={handleInputInsert} // Abbiamo dovuto sovrascrivere l'evento del padre
-                className={classes.entityInput}          
+                className={classes.entityInput}
+                style = {{
+                    width: text.length +'ch'
+                }}         
             />
         </div>
     );
