@@ -10,11 +10,6 @@
     z-index: 1;
 }
 
-.entityText {
-    font-size: 12px;
-    user-select: none;
-}
-
 .entityInput {
     display: flex;
     min-width: 0px;
