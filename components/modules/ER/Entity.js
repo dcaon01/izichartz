@@ -16,9 +16,7 @@ export default function Entity({ id }) {
 
     /* Variabili d'utility */
     let [grabbing, setGrabbing] = useState(false);
-    console.log(grabbing);
     let selectedId = useSelector(state => state.designGlobal.selected);
-    console.log(selectedId);
     let [offset, setOffset] = useState({ x: 0, y: 0 }); // Oggetto di offset
     let curs = "pointer";
     let dispatch = useDispatch();
@@ -60,6 +58,10 @@ export default function Entity({ id }) {
         dispatch(elementsSlice.actions.modifyOptionElement({id: id, option: 'text', value: event.target.value}));
     }
 
+    function handleInputInsert(event) {
+        event.stopPropagation();
+    }
+
     if (selectedId === id) {
         if (grabbing) {
             curs = "grabbing"
@@ -86,10 +88,10 @@ export default function Entity({ id }) {
         >
             <input 
                 id="input"
-                readOnly={!(selectedId === id)}
                 type="text"
                 value={text}
                 onChange={handleInput}
+                onMouseDown={handleInputInsert} // Abbiamo dovuto sovrascrivere l'evento del padre
                 className={classes.entityInput}          
             />
         </div>
