@@ -39,7 +39,7 @@ export const elementsSlice = createSlice({
         *  - option: nome dell'opzione da modificare.
         *  - value: valore con cui modificare quell'opzione
         */
-        modifyOptionsElement(state, action) {
+        modifyOptionElement(state, action) {
             state[action.payload.id - 1].options[action.payload.option] = action.payload.value;
         }
     }

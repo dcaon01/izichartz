@@ -23,13 +23,6 @@ export default function Entity({ id }) {
         dispatch(globalSlice.actions.selection(id));
     }
 
-    /*
-    function handleDeselection(event) {
-        if (event.key === 'Enter' || event.key === 'Esc') {
-            setSelected(false);
-        }
-    }*/
-
     /* Funzione per la gestione del dragging dell'oggetto */
     function handleClicking(event) {
         event.preventDefault();
@@ -50,17 +43,17 @@ export default function Entity({ id }) {
         if (clicked) {
             let x = event.clientX - offset.x;
             let y = event.clientY - offset.y;
-            dispatch(elementsSlice.actions.modifyOptionsElement({ id: id, option: 'position', value: { x, y } }))
+            dispatch(elementsSlice.actions.modifyOptionElement({ id: id, option: 'position', value: { x, y } }))
         }
     }
 
     /* Funzione per gestire il mouse che se ne va dall'oggetto */
-    function handleLeaving(event) {
+    function handleLeaving() {
         setClicked(false);
     }
 
     function handleInput() {
-        setText(inputRef.current.value);
+        dispatch(elementsSlice.actions.modifyOptionElement({id: id, option: 'text', value: inputRef.current.value}));
     }
 
     if (selectedId === id) {
@@ -79,8 +72,7 @@ export default function Entity({ id }) {
             onMouseUp={selectedId === id ? handleNotClickingAnymore : null}
             onMouseMove={selectedId === id ? handleDragging : null}
             onMouseLeave={handleLeaving}
-            className={classes.rectangle}
-            /*onKeyDown={handleDeselection}*/
+            className={classes.entity}
             style={{
                 top: position.y,
                 left: position.x,
@@ -88,18 +80,24 @@ export default function Entity({ id }) {
                 border: selectedId === id ? "3px solid black" : "1px solid black"
             }}
         >
-            <span
-                contentEditable={selectedId === id}
-                role="textbox"
-                ref={inputRef}
-                className={classes.rectangleInput}
-                onChange={handleInput}
-                style={{
-                    cursor: selectedId === id ? "text" : "pointer"
-                }}
-            >
-                {text}
-            </span>
+            {
+                selectedId === id 
+                ?
+                    <input 
+                        id="input"
+                        ref={inputRef}
+                        type="text"
+                        value={text}
+                        onChange={handleInput}
+                        className={classes.entityInput}          
+                    />
+                :
+                    <p 
+                        className={classes.entityText}
+                    >
+                        {text}
+                    </p>
+            }
         </div>
     );
 }

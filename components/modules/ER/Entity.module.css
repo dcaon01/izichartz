@@ -1,4 +1,4 @@
-.rectangle {
+.entity {
     position: absolute;
     min-height: 50px;
     min-width: 80px;
@@ -7,22 +7,24 @@
     display: flex;
     justify-content: center;
     border-radius: 5px;
+    z-index: 1;
 }
 
-.rectangleText {
+.entityText {
     font-size: 12px;
     user-select: none;
 }
 
-.rectangleInput {
+.entityInput {
     display: flex;
     min-width: 0px;
     text-align: center;
     font-size: 12px;
     justify-content: center;
     align-items: center;
+    z-index: 2;
 }
 
-.rectangleInput:focus {
+.entityInput:focus {
     outline: none;
 }

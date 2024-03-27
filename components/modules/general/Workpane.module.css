@@ -6,4 +6,5 @@
     background-image: url(../../../assets/workpane-bg.png);
     background-color: white;
     background-repeat: repeat;
+    z-index: 0;
 }
