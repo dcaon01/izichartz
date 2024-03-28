@@ -16,9 +16,14 @@ export const globalSlice = createSlice({
     name: "designGlobal",
     initialState: init,
     reducers: {
-        /* selection 
-        *  Reducer che si occupa del setting di selected.
-        */
+        /**
+         * selection
+         * Reducer che si occupa della modifica dell'indice di selezione
+         * @param state: stato corrente.
+         * @param action: azione che ha scatenato questa reducer. Il payload dell'azione avrà i 
+         * seguenti parametri:
+         * - id: indice dell'elemento selezionato.
+         */
         selection(state, action) {
             state.selected = action.payload;
         }

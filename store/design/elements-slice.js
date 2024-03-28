@@ -1,9 +1,8 @@
 import { createSlice } from "@reduxjs/toolkit";
 
 /* Stato iniziale dello slice componentsSlice.
-* L'array contiene tutti i JSON che codificano gli elementi presenti nel
-* workpane.
-*/
+L'array contiene tutti i JSON che codificano gli elementi presenti nel
+workpane. */
 const init = [
     {
         type: "Entity",
@@ -30,8 +29,7 @@ const init = [
 ];
 
 /* Creiamo uno slice che memorizza gli elementi grafici che ci sono all'interno di
-*  un workpane come oggetti all'interno dell'array presente nello slice stesso.
-*/
+un workpane come oggetti all'interno dell'array presente nello slice stesso.*/
 export const elementsSlice = createSlice({
     name: "designElements",
     initialState: init,
@@ -40,16 +38,18 @@ export const elementsSlice = createSlice({
         },
 
         removeElement() {
-
         },
 
-        /* modifyComponent 
-        *  Reducer che permette di modificare un elemento.
-        *  Nel payload inseriamo:
-        *  - id: id dell'elemento.
-        *  - option: nome dell'opzione da modificare.
-        *  - value: valore con cui modificare quell'opzione
-        */
+        /**
+         * modifyOptionElement
+         * Reducer che si occupa della modifica di una opzione di un determinato elemento.
+         * @param state: stato corrente.
+         * @param action: azione che ha scatenato questa reducer. Il payload dell'azione avrà i 
+         * seguenti parametri:
+         * - id: id dell'elemento.
+         * - option: nome dell'opzione da modificare.
+         *  - value: valore con cui modificare quell'opzione.
+         */
         modifyOptionElement(state, action) {
             state[action.payload.id - 1].options[action.payload.option] = action.payload.value;
         }
