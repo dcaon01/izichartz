@@ -16,6 +16,17 @@ const init = [
             },
         }
     },
+    {
+        type: "Entity",
+        id: 2,
+        options: {
+            text: "CiaoCiao",
+            position: {
+                x: 400, 
+                y: 300,
+            },
+        }
+    }
 ];
 
 /* Creiamo uno slice che memorizza gli elementi grafici che ci sono all'interno di

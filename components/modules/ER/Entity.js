@@ -5,10 +5,13 @@ import classes from "./Entity.module.css";
 import { useState, useRef } from "react";
 import { globalSlice } from "@/store/design/global-slice";
 import { elementsSlice } from "@/store/design/elements-slice";
+import { motion } from 'framer-motion';
 
 export default function Entity({ id }) {
     /* Campi di esemplare */
     let text = useSelector(state => state.designElements[id - 1].options.text); // Testo interno al rettangolo
+    let tLength = text.length * 1.1;
+    console.log(tLength);
     let position = useSelector(state => state.designElements[id - 1].options.position); // Oggetto posizione
 
     /* Variabili d'utility */
@@ -16,12 +19,13 @@ export default function Entity({ id }) {
     let selectedId = useSelector(state => state.designGlobal.selected);
     let [offset, setOffset] = useState({ x: 0, y: 0 }); // Oggetto di offset
     let curs = "pointer";
-    let dispatch = useDispatch();
+    const dispatch = useDispatch();
 
     /* Refs */
     let inputRef = useRef();
 
-    function handleSelection() {
+    function handleSelection(event) {
+        event.stopPropagation();
         dispatch(globalSlice.actions.selection(id));
     }
 
@@ -56,7 +60,7 @@ export default function Entity({ id }) {
     }
 
     function handleInput(event) {
-        dispatch(elementsSlice.actions.modifyOptionElement({id: id, option: 'text', value: event.target.value}));
+        dispatch(elementsSlice.actions.modifyOptionElement({ id: id, option: 'text', value: event.target.value }));
     }
 
     function handleInputInsert(event) {
@@ -73,7 +77,7 @@ export default function Entity({ id }) {
 
     /* RENDERING */
     return (
-        <div
+        <motion.div
             onClick={handleSelection}
             onMouseDown={selectedId === id ? handleGrabbing : null}
             onMouseUp={selectedId === id ? handleNotGrabbingAnymore : null}
@@ -84,8 +88,9 @@ export default function Entity({ id }) {
                 top: position.y,
                 left: position.x,
                 cursor: curs,
-                border: selectedId === id ? "3px solid black" : "1px solid black"
             }}
+            animate={{border: selectedId === id ? "3px solid black" : "1px solid black"}}
+            transition={{duration: 0.1}}
         >
             <input
                 id="input"
@@ -95,10 +100,11 @@ export default function Entity({ id }) {
                 onChange={handleInput}
                 onMouseDown={handleInputInsert} // Abbiamo dovuto sovrascrivere l'evento del padre
                 className={classes.entityInput}
-                style = {{
-                    width: text.length +'ch'
-                }}         
+                style={{
+                    width: tLength === 0 ? 20 : tLength + 'ch',
+                    cursor: selectedId === id ? 'text' : 'pointer'
+                }}
             />
-        </div>
+        </motion.div>
     );
 }
