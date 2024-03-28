@@ -10,8 +10,8 @@ import Generator from './Generator.js';
  */
 export default function ER() {
     let components = useSelector(state => state.designElements);
-    let wpHeight = 1920;
-    let wpWidth = 720;
+    let wpHeight = 720;
+    let wpWidth = 1920;
     
     return (
         <>

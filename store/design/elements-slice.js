@@ -25,7 +25,19 @@ const init = [
                 y: 300,
             },
         }
+    },
+    {   
+        type: "Relationship",
+        id: 3,
+        options: {
+            text: "",
+            position: {
+                x: 600, 
+                y: 150,
+            }
+        }
     }
+
 ];
 
 /* Creiamo uno slice che memorizza gli elementi grafici che ci sono all'interno di

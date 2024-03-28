@@ -3,8 +3,11 @@
     width: 100% ;
     height: 100vh ;
     overflow: auto;
-    background-image: url(../../../assets/workpane-bg.png);
     background-color: white;
     background-repeat: repeat;
     z-index: 0;
+}
+
+.pane {
+    background-image: url(../../../assets/workpane-bg.png);
 }

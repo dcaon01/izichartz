@@ -34,7 +34,10 @@ export default function Workpane(props) {
             className={classes.view}
             onClick={handleClicked}
         >
-            <div style={{ height: height, width: width }}>
+            <div 
+                className={classes.pane}
+                style={{ height: height, width: width }}
+            >
                 {props.children}
             </div>
         </div>

@@ -1,6 +1,7 @@
 'use client';
 
 import Entity from "./Entity.js";
+import Relationship from "./Relationship.js";
 
 /**
  * Generator
@@ -15,6 +16,11 @@ export default function Generator({generate}) {
             case "Entity":
                 return (
                     <Entity key={component.id} id={component.id} />
+                );
+            // end case
+            case "Relationship":
+                return (
+                    <Relationship key={component.id} id={component.id}/>
                 );
             // end case
         }

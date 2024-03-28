@@ -73,7 +73,7 @@ export default function Entity({ id }) {
         if (grabbing) {
             let x = event.clientX - offset.x;
             let y = event.clientY - offset.y;
-            dispatch(elementsSlice.actions.modifyOptionElement({ id: id, option: 'position', value: { x, y } }))
+            dispatch(elementsSlice.actions.modifyOptionElement({ id: id, option: "position", value: { x, y } }))
         }
     }
 
@@ -93,7 +93,7 @@ export default function Entity({ id }) {
      * @param event: oggetto evento triggerato onChange.
      */
     function handleInput(event) {
-        dispatch(elementsSlice.actions.modifyOptionElement({ id: id, option: 'text', value: event.target.value }));
+        dispatch(elementsSlice.actions.modifyOptionElement({ id: id, option: "text", value: event.target.value }));
     }
 
     /**
@@ -130,7 +130,9 @@ export default function Entity({ id }) {
                 left: position.x,
                 cursor: curs,
             }}
-            animate={{border: selectedId === id ? "3px solid black" : "1px solid black"}}
+            animate={{
+                border: selectedId === id ? "3px solid black" : "1px solid black",
+            }}
             transition={{duration: 0.1}}
         >
             <input
@@ -142,8 +144,8 @@ export default function Entity({ id }) {
                 onMouseDown={handleInputInsert} // Abbiamo dovuto sovrascrivere l'evento del padre
                 className={classes.entityInput}
                 style={{
-                    width: tLength === 0 ? 20 : tLength + 'ch',
-                    cursor: selectedId === id ? 'text' : 'pointer'
+                    width: tLength === 0 ? 20 : tLength + "ch",
+                    cursor: selectedId === id ? "text" : "pointer"
                 }}
             />
         </motion.div>

@@ -1,25 +1,21 @@
-.entity {
+.relationship{
     position: absolute;
-    min-height: 50px;
-    min-width: 100px;
-    padding: 20px;
-    background-color: white;
     display: flex;
     justify-content: center;
     align-items: center;
-    border-radius: 5px;
+    min-width: 50;
+    min-height: 50;
     z-index: 1;
 }
 
-.entityInput {
+.relationshipInput{
+    position: absolute;
+    align-self: center;
+    justify-self: center;
     text-align: center;
     display: flex;
     align-items: center;
     justify-content: center;
     font-size: 12px;
-    z-index: 2;
-}
-
-.entityInput:focus {
-    outline: none;
+    z-index: 3;
 }
