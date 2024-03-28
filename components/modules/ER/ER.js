@@ -4,6 +4,10 @@ import { useSelector } from 'react-redux';
 import Workpane from '../general/Workpane.js';
 import Generator from './Generator.js';
 
+/**
+ * ER
+ * Componente che renderizza e gestisce il modulo ER.
+ */
 export default function ER() {
     let components = useSelector(state => state.designElements);
     let wpHeight = 1920;

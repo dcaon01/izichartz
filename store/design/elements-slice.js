@@ -9,7 +9,7 @@ const init = [
         type: "Entity",
         id: 1,
         options: {
-            text: "Ciao",
+            text: "ENTITY1",
             position: {
                 x: 150, 
                 y: 200,
@@ -20,7 +20,7 @@ const init = [
         type: "Entity",
         id: 2,
         options: {
-            text: "CiaoCiao",
+            text: "ENTITY2",
             position: {
                 x: 400, 
                 y: 300,
