@@ -22,13 +22,17 @@ export default function Relationship({ id }) {
     let selectedId = useSelector(state => state.designGlobal.selected);
     let [offset, setOffset] = useState({ x: 0, y: 0 }); // Oggetto di offset.
     let tLength = text.length * 1.5; // Oggetto che calcola un limite superiore alla grandezza della casella di testo.
+    let [svgWidth, setWidth] = useState(0);
+    let [svgHeight, setHeight] = useState(0);
     let curs = "pointer";
     const dispatch = useDispatch();
 
     /* Refs */
     let inputRef = useRef();
-    let svgWidth = tLength === 0 ? 60 : inputRef.current.offsetWidth + 60;
-    let svgHeight = tLength === 0 ? 60 : (inputRef.current.offsetHeight * svgWidth)/(2*(svgWidth - inputRef.current.offsetWidth)) + 60;
+    useEffect(() => {
+        setWidth(tLength === 0 ? 60 : inputRef.current.offsetWidth + 60);
+        setHeight(tLength === 0 ? 60 : (inputRef.current.offsetHeight * svgWidth)/(2*(svgWidth - inputRef.current.offsetWidth)) + 60);
+    }, [inputRef, svgWidth, text]);
 
     /**
      * handleSelection
@@ -135,6 +139,19 @@ export default function Relationship({ id }) {
                 cursor: curs,
             }}
         >
+            <input
+                id={`input-${id}`}
+                type="text"
+                value={text}
+                ref={inputRef}
+                onMouseDown={handleInputInsert}
+                onChange={handleInput}
+                className={classes.relationshipInput}
+                style={{
+                    width: tLength === 0 ? 20 : tLength + "ch",
+                    cursor: selectedId === id ? "text" : "pointer"
+                }}
+            />
             <svg
                 style={{
                     height: svgHeight,
@@ -152,19 +169,6 @@ export default function Relationship({ id }) {
                 // Al poligon non si possono assegnare cursori
                 />
             </svg>
-            <input
-                id={`input-${id}`}
-                type="text"
-                value={text}
-                ref={inputRef}
-                onMouseDown={handleInputInsert}
-                onChange={handleInput}
-                className={classes.relationshipInput}
-                style={{
-                    width: tLength === 0 ? 20 : tLength + "ch",
-                    cursor: selectedId === id ? "text" : "pointer"
-                }}
-            />
         </div>
     );
 }

@@ -30,7 +30,7 @@ const init = [
         type: "Relationship",
         id: 3,
         options: {
-            text: "",
+            text: "RELATIONSHIP1",
             position: {
                 x: 600, 
                 y: 150,
