@@ -22,12 +22,11 @@ export default function Entity({ id }) {
     let selectedId = useSelector(state => state.designGlobal.selected);
     let [offset, setOffset] = useState({ x: 0, y: 0 }); // Oggetto di offset.
     let curs = "pointer";
-    let tLength = text.length * 1.1; // Oggetto che calcola un limite superiore alla grandezza della casella di testo.
+    let tLength = text.length * 1.5; // Oggetto che calcola un limite superiore alla grandezza della casella di testo.
     const dispatch = useDispatch();
 
     /* Refs */
     let inputRef = useRef();
-
     /**
      * handleSelection
      * Funzione che gestisce la selezione dell'elemento aggiornando lo slice
@@ -36,6 +35,7 @@ export default function Entity({ id }) {
      */
     function handleSelection(event) {
         event.stopPropagation();
+
         dispatch(globalSlice.actions.selection(id));
     }
 
@@ -136,7 +136,7 @@ export default function Entity({ id }) {
             transition={{duration: 0.1}}
         >
             <input
-                id="input"
+                id={`input-${id}`}
                 type="text"
                 value={text}
                 ref={inputRef}
