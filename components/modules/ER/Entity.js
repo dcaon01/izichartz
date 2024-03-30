@@ -16,6 +16,16 @@ export default function Entity({ id }) {
     /* Campi di esemplare */
     let text = useSelector(state => state.designElements[id - 1].options.text); // Testo interno al rettangolo.
     let position = useSelector(state => state.designElements[id - 1].options.position); // Oggetto posizione.
+    // Preleviamo i links che hanno come uno dei due apici l'entità in modo da aggiornare il loro rendering durante le modifiche e spostamenti.
+    let links = useSelector((state) => {
+        let linksArr = [];
+        state.designElements.forEach((element, index) => {
+            if(element.type === "Link" && (element.options.linked[0] === id || element.options.linked[1] === id)) {
+                linksArr.push(element);
+            }
+        });
+        return linksArr;
+    }); // Da testare.
 
     /* Elementi d'utility */
     let [grabbing, setGrabbing] = useState(false);
@@ -27,6 +37,7 @@ export default function Entity({ id }) {
 
     /* Refs */
     let inputRef = useRef();
+
     /**
      * handleSelection
      * Funzione che gestisce la selezione dell'elemento aggiornando lo slice
@@ -132,7 +143,7 @@ export default function Entity({ id }) {
             animate={{
                 border: selectedId === id ? "3px solid black" : "1px solid black",
             }}
-            transition={{duration: 0.1}}
+            transition={{ duration: 0.1 }}
         >
             <input
                 id={`input-${id}`}

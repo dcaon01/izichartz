@@ -42,7 +42,7 @@ const init = [
         id: 4,
         options: {
             text: "",
-            elements: [1, 3], // Id degli Elementi che devono essere collegati.
+            linked: [1, 3], // Id degli Elementi che devono essere collegati.
             segments: [       // Segmenti che compongono la linea. Il primo parte dal primo elemento, il secondo termina nel secondo
                 {}
             ],
