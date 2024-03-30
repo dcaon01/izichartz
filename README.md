@@ -34,9 +34,10 @@ Ecco la spiegazione della struttura del progetto:
 - **lib**: si trovano i file che gestiscono la parte server dell'applicazione, quindi le server actions. Le sottocartelle indicano il relativo routing o la sezione in cui sono utilizzate.
 - **components**: si trovano i file che definiscono i componenti che costruiscono il contenuto dell'applicazione e che verranno utilizzati all'interno della directory app. Non sono strettamente correlati al routing dell'applicazione ma, come detto, ne costituiscono il contenuto.   
 Le sottocartelle indicano il relativo routing o la sezione in cui sono utilizzati.
+<!-- 
 - **modules**: si trovano i file che definiscono le funzioni relative ad un determinato modulo, o anche generali. Quindi il modulo er si occuperà di definire la logica per far funzionare al meglio il lavoro su un file di progettazione ER. 
 Per ora questa directory non ha senso, ma ha più senso tenere all'interno di components le cose necessarie per creare i moduli nella cartella modules. Quindi per ora la cancelliamo.
-
+-->
 
 ## Components
 ### Graphics
@@ -93,26 +94,32 @@ Possiamo andare a creare dei componenti ER che ricalcano i concetti ER e che uti
 ## Database
 L'applicazione deve gestire tutta una serie di funzionalità dell'utente. 
 Quindi abbiamo sicuro la tabella USER per memorizzare i dati dell'utente, che avrà i seguenti attributi:
-- name
-- surname
-- email, che farà da chiave primaria
-- birhtdate
+- name: nome dell'utente.
+- surname: cognome dell'utente.
+- email: che farà da chiave primaria.
+- birhtdate: data di nascita.
 - employment (studente, lavoratore, privato, azienda... Per quest'ultima sarebbe da far inserira la partita iva) 
 (campo in integrità referenziale con una tabella in cui ci sono le varie opzioni disponibili).
 
 Dobbiamo memorizzare anche tutti i dati relativi ai progetti, che devono essere associati ad un determinato utente:
-- name
-- id progetto, che sarà un int incrementale, o una roba del genere
-- contenuto, che altro non sarà che un JSON con tutte le informazioni necessarie alla traduzione del progetto in grafica JSON o JSONB
-- proprietario, che sarà un campo in integrità referenziale con la chiave primaria della tabella USER.
+- name: nome del progetto
+- id: progetto, che sarà un int incrementale, o una roba del genere
+- content: che altro non sarà che un JSON o JSONB con tutte le informazioni necessarie alla traduzione del progetto in grafica.
+- owner: che sarà un campo in integrità referenziale con la chiave primaria della tabella USER.
 
 Potremmo pensare di implementare anche una tabella per le fatture:
-- client
-- date
-- id
-- 
+- client: email del cliente a cui deve essere stilata la fattura
+- date: data di fatturazione.
+- id: identificativo della fattura.
+- amount: fatturato.
 
 Utilizzare le tabelle per creare il diagramma relazionale del DB che andremo ad utilizzare.
+
+## Responsiveness
+Lo zoom viene già gestito in automatico visto che i componenti hanno tutti una posizione e una dimensione assoluta e non relativa.
+L'unica cosa che dobbiamo gestire è la quantità di zoom che si può fare sul workapane, poiché è proprio quest'ultimo che deve sempre riempire
+la dimensione della finestra osservabile.
+
 
 <!-- INGLESE
 ## Docs

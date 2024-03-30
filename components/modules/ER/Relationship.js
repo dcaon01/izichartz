@@ -123,7 +123,6 @@ export default function Relationship({ id }) {
         }
     }
 
-
     /* Rendering */
     return (
         <div

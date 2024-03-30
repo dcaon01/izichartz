@@ -36,8 +36,18 @@ const init = [
                 y: 150,
             }
         }
+    },
+    {
+        type: "Link",
+        id: 4,
+        options: {
+            text: "",
+            elements: [1, 3], // Id degli Elementi che devono essere collegati.
+            segments: [       // Segmenti che compongono la linea. Il primo parte dal primo elemento, il secondo termina nel secondo
+                {}
+            ],
+        }
     }
-
 ];
 
 /* Creiamo uno slice che memorizza gli elementi grafici che ci sono all'interno di

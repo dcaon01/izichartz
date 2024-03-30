@@ -35,7 +35,6 @@ export default function Entity({ id }) {
      */
     function handleSelection(event) {
         event.stopPropagation();
-
         dispatch(globalSlice.actions.selection(id));
     }
 
