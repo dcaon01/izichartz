@@ -2,7 +2,7 @@
 
 import { useDispatch, useSelector } from "react-redux";
 import classes from "./Entity.module.css";
-import { useState, useRef } from "react";
+import { useState, useRef, useEffect } from "react";
 import { globalSlice } from "@/store/design/global-slice";
 import { elementsSlice } from "@/store/design/elements-slice";
 import { motion } from 'framer-motion';
@@ -17,6 +17,9 @@ export default function Entity({ id }) {
     let text = useSelector(state => state.designElements[id - 1].options.text); // Testo interno al rettangolo.
     let position = useSelector(state => state.designElements[id - 1].options.position); // Oggetto posizione.
     // Preleviamo i links che hanno come uno dei due apici l'entità in modo da aggiornare il loro rendering durante le modifiche e spostamenti.
+    // Siccome facciamo molte operazioni, e non è ottimizzato, dobbiamo spostare la logica in un createSelector che cacha gli stati e renderizza
+    // solo se alcune parti cambiano.
+    /*
     let links = useSelector((state) => {
         let linksArr = [];
         state.designElements.forEach((element, index) => {
@@ -25,7 +28,7 @@ export default function Entity({ id }) {
             }
         });
         return linksArr;
-    }); // Da testare.
+    }); // Funziona ma è da memoizare. */
 
     /* Elementi d'utility */
     let [grabbing, setGrabbing] = useState(false);
@@ -35,8 +38,16 @@ export default function Entity({ id }) {
     let tLength = text.length * 1.5; // Oggetto che calcola un limite superiore alla grandezza della casella di testo.
     const dispatch = useDispatch();
 
+    console.log(id);
+
     /* Refs */
     let inputRef = useRef();
+    let entityRef = useRef();
+
+    useEffect(() => {
+        console.log(entityRef.current.offsetWidth);
+        console.log(entityRef.current.offsetHeight);
+    }, []);
 
     /**
      * handleSelection
@@ -144,6 +155,7 @@ export default function Entity({ id }) {
                 border: selectedId === id ? "3px solid black" : "1px solid black",
             }}
             transition={{ duration: 0.1 }}
+            ref={entityRef}
         >
             <input
                 id={`input-${id}`}

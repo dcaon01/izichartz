@@ -77,3 +77,8 @@ export const elementsSlice = createSlice({
         }
     }
 });
+
+/** 
+ * selectItemsByType
+ * Seleziona gli elementi dallo stato con 
+ */
