@@ -3,6 +3,7 @@
 import { useDispatch } from 'react-redux';
 import classes from './Workpane.module.css';
 import { globalSlice } from '@/store/design/global-slice';
+import { elementsSlice } from '@/store/design/elements-slice';
 
 /**
  * Workpane
@@ -25,7 +26,7 @@ export default function Workpane(props) {
      * selezionati vengano deselezionati di default.
      */
     function handleClicked() {
-        dispatch(globalSlice.actions.selection(0));
+        dispatch(elementsSlice.actions.setSelectedElement(0));
     }
 
     /* Rendering */

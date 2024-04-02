@@ -7,6 +7,7 @@ const init = [
     {
         type: "Entity",
         id: 1,
+        selected: false,
         options: {
             text: "ENTITY1",
             position: {
@@ -18,6 +19,7 @@ const init = [
     {
         type: "Entity",
         id: 2,
+        selected: false,
         options: {
             text: "ENTITY2",
             position: {
@@ -29,17 +31,19 @@ const init = [
     {   
         type: "Relationship",
         id: 3,
+        selected: false,
         options: {
             text: "RELATIONSHIP1",
             position: {
                 x: 600, 
                 y: 150,
-            }
+            },
         }
     },
     {
         type: "Link",
         id: 4,
+        selected: false,
         options: {
             text: "",
             linked: [1, 3], // Id degli Elementi che devono essere collegati.
@@ -70,15 +74,34 @@ export const elementsSlice = createSlice({
          * seguenti parametri:
          * - id: id dell'elemento.
          * - option: nome dell'opzione da modificare.
-         *  - value: valore con cui modificare quell'opzione.
+         * - value: valore con cui modificare quell'opzione.
          */
-        modifyOptionElement(state, action) {
+        modifyElementOptions(state, action) {
             state[action.payload.id - 1].options[action.payload.option] = action.payload.value;
-        }
+        },
+
+        /**
+         * Reducer che si occupa del setting della selezione.
+         * @param state: stato corrente.
+         * @param action: azione che ha scatenato questa reducer. Il payload dell'azione avrà i 
+         * seguenti parametri:
+         * - id: id dell'elemento da selezionare. Se 0, imposta tutti gli elementi come non selezionati.
+         */
+        setSelectedElement(state, action) {
+            const id = action.payload;
+            if (id === 0) {
+                state.forEach((element) => {
+                    element.selected = false;
+                });  
+            } else {
+                state.forEach((element) => {
+                    if (element.id === id) {
+                        element.selected = true;
+                    } else {
+                        element.selected = false;
+                    }
+                });
+            }
+        },
     }
 });
-
-/** 
- * selectItemsByType
- * Seleziona gli elementi dallo stato con 
- */

@@ -1,9 +1,8 @@
 'use client';
 
-import { useDispatch, useSelector } from "react-redux";
+import { useDispatch } from "react-redux";
 import classes from "./Entity.module.css";
-import { useState, useRef, useEffect } from "react";
-import { globalSlice } from "@/store/design/global-slice";
+import { useState, useRef, useEffect, memo } from "react";
 import { elementsSlice } from "@/store/design/elements-slice";
 import { motion } from 'framer-motion';
 
@@ -11,14 +10,13 @@ import { motion } from 'framer-motion';
  * Entity
  * Componente che renderizza un'entità del modello ER.
  * @param id: indice e identificatore dell'elemento all'interno dell'array degli elementi.
+ * @param options: opzioni utili al rendering dell'elemento.
+ * @param selected: flag di selezione dell'elemento.
  */
-export default function Entity({ id }) {
-    /* Campi di esemplare */
-    let text = useSelector(state => state.designElements[id - 1].options.text); // Testo interno al rettangolo.
-    let position = useSelector(state => state.designElements[id - 1].options.position); // Oggetto posizione.
-    // Preleviamo i links che hanno come uno dei due apici l'entità in modo da aggiornare il loro rendering durante le modifiche e spostamenti.
-    // Siccome facciamo molte operazioni, e non è ottimizzato, dobbiamo spostare la logica in un createSelector che cacha gli stati e renderizza
-    // solo se alcune parti cambiano.
+export const Entity = memo(function Entity({ id, options, selected }) {
+    /* Prelevamento delle opzioni utili */
+    let text = options.text; // Testo interno al rettangolo.
+    let position = options.position; // Oggetto posizione.
     /*
     let links = useSelector((state) => {
         let linksArr = [];
@@ -32,7 +30,6 @@ export default function Entity({ id }) {
 
     /* Elementi d'utility */
     let [grabbing, setGrabbing] = useState(false);
-    let selectedId = useSelector(state => state.designGlobal.selected);
     let [offset, setOffset] = useState({ x: 0, y: 0 }); // Oggetto di offset.
     let curs = "pointer";
     let tLength = text.length * 1.5; // Oggetto che calcola un limite superiore alla grandezza della casella di testo.
@@ -44,6 +41,7 @@ export default function Entity({ id }) {
     let inputRef = useRef();
     let entityRef = useRef();
 
+    // Utilizzo di useEffect per permettere prima la renderizzazione e istanziazione delle ref.
     useEffect(() => {
         console.log(entityRef.current.offsetWidth);
         console.log(entityRef.current.offsetHeight);
@@ -57,7 +55,7 @@ export default function Entity({ id }) {
      */
     function handleSelection(event) {
         event.stopPropagation();
-        dispatch(globalSlice.actions.selection(id));
+        dispatch(elementsSlice.actions.setSelectedElement(id));
     }
 
     /**
@@ -94,7 +92,7 @@ export default function Entity({ id }) {
         if (grabbing) {
             let x = event.clientX - offset.x;
             let y = event.clientY - offset.y;
-            dispatch(elementsSlice.actions.modifyOptionElement({ id: id, option: "position", value: { x, y } }))
+            dispatch(elementsSlice.actions.modifyElementOptions({ id: id, option: "position", value: { x, y } }))
         }
     }
 
@@ -114,7 +112,7 @@ export default function Entity({ id }) {
      * @param event: oggetto evento triggerato onChange.
      */
     function handleInput(event) {
-        dispatch(elementsSlice.actions.modifyOptionElement({ id: id, option: "text", value: event.target.value }));
+        dispatch(elementsSlice.actions.modifyElementOptions({ id: id, option: "text", value: event.target.value }));
     }
 
     /**
@@ -129,7 +127,7 @@ export default function Entity({ id }) {
     }
 
     /* Gestione dinamica del cursore */
-    if (selectedId === id) {
+    if (selected) {
         if (grabbing) {
             curs = "grabbing"
         } else {
@@ -141,9 +139,9 @@ export default function Entity({ id }) {
     return (
         <motion.div
             onClick={handleSelection}
-            onMouseDown={selectedId === id ? handleGrabbing : null}
-            onMouseUp={selectedId === id ? handleNotGrabbingAnymore : null}
-            onMouseMove={selectedId === id ? handleDragging : null}
+            onMouseDown={selected ? handleGrabbing : null}
+            onMouseUp={selected ? handleNotGrabbingAnymore : null}
+            onMouseMove={selected ? handleDragging : null}
             onMouseLeave={handleLeaving}
             className={classes.entity}
             style={{
@@ -152,7 +150,7 @@ export default function Entity({ id }) {
                 cursor: curs,
             }}
             animate={{
-                border: selectedId === id ? "3px solid black" : "1px solid black",
+                border: selected ? "3px solid black" : "1px solid black",
             }}
             transition={{ duration: 0.1 }}
             ref={entityRef}
@@ -167,9 +165,9 @@ export default function Entity({ id }) {
                 className={classes.entityInput}
                 style={{
                     width: tLength === 0 ? 20 : tLength + "ch",
-                    cursor: selectedId === id ? "text" : "pointer"
+                    cursor: selected ? "text" : "pointer"
                 }}
             />
         </motion.div>
     );
-}
+});
