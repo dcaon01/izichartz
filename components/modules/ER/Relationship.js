@@ -1,31 +1,31 @@
 'use client';
 
-import { useState, useRef, useEffect } from "react";
-import { useDispatch, useSelector } from "react-redux";
+import { useState, useRef, useEffect, memo } from "react";
+import { useDispatch } from "react-redux";
 import { motion } from "framer-motion";
 import classes from "./Relationship.module.css";
 import { elementsSlice } from "@/store/design/elements-slice";
-import { globalSlice } from "@/store/design/global-slice";
 
 /**
  * Relationship
  * Componente che renderizza una relazione nel modello ER
  * @param id: indice e identificatore dell'elemento all'interno dell'array degli elementi.
 */
-export default function Relationship({ id }) {
-    /* Campi d'esemplare */
-    let text = useSelector(state => state.designElements[id - 1].options.text);
-    let position = useSelector(state => state.designElements[id - 1].options.position);
+export const Relationship = memo(function Relationship({ id, options, selected }) {
+   /* Prelevamento delle opzioni utili */
+   let text = options.text; // Testo interno al rettangolo.
+   let position = options.position; // Oggetto posizione.
 
     /* Elementi d'utility */
     let [grabbing, setGrabbing] = useState(false);
-    let selectedId = useSelector(state => state.designGlobal.selected);
     let [offset, setOffset] = useState({ x: 0, y: 0 }); // Oggetto di offset.
     let tLength = text.length * 1.5; // Oggetto che calcola un limite superiore alla grandezza della casella di testo.
     let [svgWidth, setWidth] = useState(0);
     let [svgHeight, setHeight] = useState(0);
     let curs = "pointer";
     const dispatch = useDispatch();
+
+    console.log(id);
 
     /* Refs */
     let inputRef = useRef();
@@ -42,7 +42,7 @@ export default function Relationship({ id }) {
      */
     function handleSelection(event) {
         event.stopPropagation();
-        dispatch(globalSlice.actions.selection(id));
+        dispatch(elementsSlice.actions.setSelectedElement(id));
     }
 
     /**
@@ -79,7 +79,7 @@ export default function Relationship({ id }) {
         if (grabbing) {
             let x = event.clientX - offset.x;
             let y = event.clientY - offset.y;
-            dispatch(elementsSlice.actions.modifyOptionElement({ id: id, option: "position", value: { x, y } }))
+            dispatch(elementsSlice.actions.modifyElementOptions({ id: id, option: "position", value: { x, y } }))
         }
     }
 
@@ -100,7 +100,7 @@ export default function Relationship({ id }) {
      */
     function handleInput(event) {
         //setPoints(`2,30 ${tLength === 0 ? 30 : svgWidth / 2},58 ${tLength === 0 ? 58 : (svgWidth - 2)},30 ${tLength === 0 ? 30 : svgWidth / 2},2`);
-        dispatch(elementsSlice.actions.modifyOptionElement({ id: id, option: "text", value: event.target.value }));
+        dispatch(elementsSlice.actions.modifyElementOptions({ id: id, option: "text", value: event.target.value }));
     }
 
     /**
@@ -115,7 +115,7 @@ export default function Relationship({ id }) {
     }
 
     /* Gestione dinamica del cursore */
-    if (selectedId === id) {
+    if (selected) {
         if (grabbing) {
             curs = "grabbing"
         } else {
@@ -127,9 +127,9 @@ export default function Relationship({ id }) {
     return (
         <div
             onClick={handleSelection}
-            onMouseDown={selectedId === id ? handleGrabbing : null}
-            onMouseUp={selectedId === id ? handleNotGrabbingAnymore : null}
-            onMouseMove={selectedId === id ? handleDragging : null}
+            onMouseDown={selected ? handleGrabbing : null}
+            onMouseUp={selected ? handleNotGrabbingAnymore : null}
+            onMouseMove={selected ? handleDragging : null}
             onMouseLeave={handleLeaving}
             className={classes.relationship}
             style={{
@@ -148,7 +148,7 @@ export default function Relationship({ id }) {
                 className={classes.relationshipInput}
                 style={{
                     width: tLength === 0 ? 20 : tLength + "ch",
-                    cursor: selectedId === id ? "text" : "pointer"
+                    cursor: selected ? "text" : "pointer"
                 }}
             />
             <svg
@@ -163,11 +163,11 @@ export default function Relationship({ id }) {
                     className={classes.relationshipDraw}
                     fill="white"
                     stroke="black"
-                    animate={{ strokeWidth: selectedId === id ? "2.5px" : "0.5px" }}
+                    animate={{ strokeWidth: selected ? "2.5px" : "0.5px" }}
                     transition={{ duration: 0.1 }}
                 // Al poligon non si possono assegnare cursori
                 />
             </svg>
         </div>
     );
-}
+});

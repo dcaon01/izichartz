@@ -1,7 +1,7 @@
 'use client';
 
 import { Entity } from "./Entity.js";
-import Relationship from "./Relationship.js";
+import { Relationship } from "./Relationship.js";
 
 /**
  * Generator
