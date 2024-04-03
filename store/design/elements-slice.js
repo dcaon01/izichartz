@@ -60,17 +60,28 @@ export const elementsSlice = createSlice({
     name: "designElements",
     initialState: init,
     reducers: {
-        addElement() {
+        /**
+         * addElement
+         * Reducer che si occupa dell'aggiunta di un elemento. 
+         * @param element oggetto contenente tutte le info da aggiungere all'array degli elementi.
+         */
+        addElement(element) {
+
         },
 
+        /**
+         * removeElement
+         * Reducer che si occupa dell'eliminazione di un elemento.
+         * @param id identificatore dell'elemento da eliminare.
+         */
         removeElement() {
         },
 
         /**
          * modifyOptionElement
          * Reducer che si occupa della modifica di una opzione di un determinato elemento.
-         * @param state: stato corrente.
-         * @param action: azione che ha scatenato questa reducer. Il payload dell'azione avrà i 
+         * @param state stato corrente.
+         * @param action azione che ha scatenato questa reducer. Il payload dell'azione avrà i 
          * seguenti parametri:
          * - id: id dell'elemento.
          * - option: nome dell'opzione da modificare.
@@ -82,8 +93,8 @@ export const elementsSlice = createSlice({
 
         /**
          * Reducer che si occupa del setting della selezione.
-         * @param state: stato corrente.
-         * @param action: azione che ha scatenato questa reducer. Il payload dell'azione avrà i 
+         * @param state stato corrente.
+         * @param action azione che ha scatenato questa reducer. Il payload dell'azione avrà i 
          * seguenti parametri:
          * - id: id dell'elemento da selezionare. Se 0, imposta tutti gli elementi come non selezionati.
          */

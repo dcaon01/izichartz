@@ -21,8 +21,3 @@ export default function ER() {
         </>
     );
 }
-
-/* Per generare i componenti giusti potremmo andare ad utilizzare un componente apposito,
-*  che gestisce tutti i casi di rendering di componente in base al campo "type" che deve gestire.
-*  In questo modo avremmo un mapping automatico e "quasi generale", da mettere in lib.
-*/

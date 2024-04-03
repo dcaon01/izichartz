@@ -9,18 +9,17 @@ import { globalSlice } from "@/store/design/global-slice";
 /**
  * Link
  * Componente che renderizza i collegamenti fra entità e relazioni. 
- * Una linea è composta da più segmenti svg.
+ * Una linea è composta da più segmenti svg. Collega il punto centrale di un elemento ad un altro punto centrale di un elemento.
  * @param id: indice e identificatore dell'elemento all'interno dell'array degli elementi.
+ * @param options: opzioni utili al rendering dell'elemento.
+ * @param selected: flag di selezione dell'elemento.
  */
-export default function Link({ id }) {
+export const Linker = memo(function Linker({ id, options, selected }) {
     /* Campi di esemplare */
-    let text = useSelector(state => state.designElements[id - 1].options.text);
-    let segments = useSelector(state => state.designElements[id - 1].options.segments);
+    let text = options.text;
+    let segments = options.segments;
     // Id degli elementi che collega la linea, fondamentali per calcolare 
-    let elements = useSelector(state => state.designElements[id - 1].options.elements);
-    /* Ora bisognerebbe prelevare le informazoni anche degli elementi che sono indicizzati da elemens, che sono
-    sempre e comunque 2, in modo da poter compiere delle operazioni di calcolo nel caso cambiassero posizione. 
-    Ma forse questo calcolo deve essere fatto in entity nella gestione dello spostamento. Anche senza forse */ 
+    let elements = options.elements;
 
     /* Elementi di utility */
     let generatedSegments = segments.map((segment) => {
@@ -34,4 +33,4 @@ export default function Link({ id }) {
             </svg>
         </div>
     );
-};
+});
