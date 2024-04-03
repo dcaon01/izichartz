@@ -2,7 +2,6 @@
 
 import { useDispatch } from 'react-redux';
 import classes from './Workpane.module.css';
-import { globalSlice } from '@/store/design/global-slice';
 import { elementsSlice } from '@/store/design/elements-slice';
 
 /**
