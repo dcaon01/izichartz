@@ -158,7 +158,6 @@ export const Relationship = memo(function Relationship({ id, options, selected }
             >
                 <motion.polygon
                     points={`2,${svgHeight / 2} ${svgWidth / 2},${svgHeight - 2} ${(svgWidth - 2)},${svgHeight / 2} ${svgWidth / 2},2`}
-                    className={classes.relationshipDraw}
                     fill="white"
                     stroke="black"
                     animate={{ strokeWidth: selected ? "2.5px" : "0.5px" }}

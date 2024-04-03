@@ -23,6 +23,8 @@ export const Entity = memo(function Entity({ id, options, selected, links }) {
     let [offset, setOffset] = useState({ x: 0, y: 0 }); // Oggetto di offset.
     let curs = "pointer";
     let tLength = text.length * 1.5; // Oggetto che calcola un limite superiore alla grandezza della casella di testo.
+    let [svgWidth, setWidth] = useState(0);
+    let [svgHeight, setHeight] = useState(0);
     const dispatch = useDispatch();
 
     /* Refs */
@@ -31,9 +33,9 @@ export const Entity = memo(function Entity({ id, options, selected, links }) {
 
     // Utilizzo di useEffect per permettere prima la renderizzazione e istanziazione delle ref.
     useEffect(() => {
-        console.log(entityRef.current.offsetWidth);
-        console.log(entityRef.current.offsetHeight);
-    }, []);
+        setHeight(entityRef.current.offsetHeight + 30);
+        setWidth(entityRef.current.offsetWidth + 30);
+    }, [entityRef, svgWidth, text]);
 
     /**
      * handleSelection
@@ -156,6 +158,20 @@ export const Entity = memo(function Entity({ id, options, selected, links }) {
                     cursor: selected ? "text" : "pointer"
                 }}
             />
+            { selected && 
+                <svg xmlns="http://www.w3.org/2000/svg"
+                    style={{
+                        position: "absolute",
+                        height: svgHeight,
+                        width: svgWidth
+                    }}
+                >
+                    <circle id="right"/>
+                    <circle id="top"/>
+                    <circle id="left"/>
+                    <circle id="bottom"/>
+                </svg>
+            }
         </motion.div>
     );
 });
