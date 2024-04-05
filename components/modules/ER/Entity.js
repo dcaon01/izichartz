@@ -5,6 +5,7 @@ import classes from "./Entity.module.css";
 import { useState, useRef, useEffect, memo, useCallback } from "react";
 import { elementsSlice } from "@/store/design/elements-slice";
 import { motion } from 'framer-motion';
+import LinkersCreators from './LinkersCreators.js';
 
 /**
  * Entity
@@ -19,13 +20,13 @@ export const Entity = memo(function Entity({ id, options, selected, links }) {
     let position = options.position; // Oggetto posizione.
 
     /* Elementi d'utility */
-    let [grabbing, setGrabbing] = useState(false);
+    let [grabbing, setGrabbing] = useState(false); // Gestione del grabbing.
     let [offset, setOffset] = useState({ x: 0, y: 0 }); // Oggetto di offset.
-    let curs = "pointer";
+    let curs = "pointer"; // Selettore del pointer.
     let tLength = text.length * 1.5; // Oggetto che calcola un limite superiore alla grandezza della casella di testo.
-    let [svgWidth, setWidth] = useState(0);
-    let [svgHeight, setHeight] = useState(0);
-    const dispatch = useDispatch();
+    let [linkersCircleSvgWidth, setLinkersCircleSvgWidth] = useState(0); // Gestione della larghezza dell'svg dei creatori di linkers.
+    let [linkersCircleSvgHeight, setLinkersCircleSvgHeight] = useState(0); // Gestione dell'altezza dell'svg dei creatori di linkers.
+    const dispatch = useDispatch(); // Prelevamento del riferimento di useDispatch per poterlo usare liberamente.
 
     /* Refs */
     let inputRef = useRef();
@@ -33,9 +34,9 @@ export const Entity = memo(function Entity({ id, options, selected, links }) {
 
     // Utilizzo di useEffect per permettere prima la renderizzazione e istanziazione delle ref.
     useEffect(() => {
-        setHeight(entityRef.current.offsetHeight + 30);
-        setWidth(entityRef.current.offsetWidth + 30);
-    }, [entityRef, svgWidth, text]);
+        setLinkersCircleSvgHeight(entityRef.current.offsetHeight + 40);
+        setLinkersCircleSvgWidth(entityRef.current.offsetWidth + 40);
+    }, [entityRef, linkersCircleSvgHeight, text]);
 
     /**
      * handleSelection
@@ -159,18 +160,7 @@ export const Entity = memo(function Entity({ id, options, selected, links }) {
                 }}
             />
             { selected && 
-                <svg xmlns="http://www.w3.org/2000/svg"
-                    style={{
-                        position: "absolute",
-                        height: svgHeight,
-                        width: svgWidth
-                    }}
-                >
-                    <circle id="right"/>
-                    <circle id="top"/>
-                    <circle id="left"/>
-                    <circle id="bottom"/>
-                </svg>
+                <LinkersCreators height={linkersCircleSvgHeight} width={linkersCircleSvgWidth}/>
             }
         </motion.div>
     );
