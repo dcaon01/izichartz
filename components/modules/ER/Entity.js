@@ -14,7 +14,7 @@ import LinkersCreators from './LinkersCreators.js';
  * @param options opzioni utili al rendering dell'elemento.
  * @param selected flag di selezione dell'elemento.
  */
-export const Entity = memo(function Entity({ id, options, selected, links }) {
+export const Entity = memo(function Entity({ id, options, selected, links, functs }) {
     /* Prelevamento delle opzioni utili */
     let text = options.text; // Testo interno al rettangolo.
     let position = options.position; // Oggetto posizione.
@@ -85,6 +85,7 @@ export const Entity = memo(function Entity({ id, options, selected, links }) {
             let y = event.clientY - offset.y;
             dispatch(elementsSlice.actions.modifyElementOptions({ id: id, option: "position", value: { x, y } }))
         }
+        console.log(event.target.id);
     });
 
     /**
@@ -160,7 +161,11 @@ export const Entity = memo(function Entity({ id, options, selected, links }) {
                 }}
             />
             { selected && 
-                <LinkersCreators height={linkersCircleSvgHeight} width={linkersCircleSvgWidth}/>
+                <LinkersCreators 
+                    height={linkersCircleSvgHeight} 
+                    width={linkersCircleSvgWidth}
+                    functs={functs}
+                />
             }
         </motion.div>
     );

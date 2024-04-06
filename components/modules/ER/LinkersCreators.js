@@ -1,9 +1,7 @@
 'use client';
 
-import { useDispatch } from "react-redux";
 import classes from "./LinkersCreators.module.css";
 import { useState, useRef, useEffect, memo, useCallback } from "react";
-import { elementsSlice } from "@/store/design/elements-slice";
 import { motion } from 'framer-motion';
 
 
@@ -14,7 +12,26 @@ import { motion } from 'framer-motion';
  * @param width larghezza dell'svg che contiene i cerchi.
  * @param height altezza dell'svg che contiene i cerchi. 
  */
-export default function LinkersCreators({ width, height }) {
+export default function LinkersCreators({ width, height, functs }) {
+    /* Elementi di utility */
+    let [grabbing, setGrabbing] = useState(false);
+    
+    /* Refs */
+    let creatorsRef = useRef();
+
+    /* Ci possono essere 2 opzioni e dobbiamo verificarle entrambe
+    - Creare una funzione handler per il mouseDown sui circle che richiama un'altra funzione in entity in modo che possa gestire
+    la creazione di un svg temporaneo all'interno del workpane che permetta di disegnare una linea per collegare due elementi.
+    La propagazione dell'evento potrebbe essere un dito nel culo ma ER è l'unico componente a possedere le informazioni su tutti i componenti
+    e poter gestire la logica di aggancio dei linkers. Potremmo renderizzare un svg momentaneo grande tutto il workpane in ER, all'interno del workpane
+    e fare in modo di disegnare la linea. 
+    - In alternativa si potremme pensare di disegnare direttamente sul linker creator ma non abbiamo info sui componenti.
+    */
+    const handleCreation = useCallback((event) => {
+        event.stopPropagation();
+        let rect = creatorsRef.current.getBoundingClientRect();
+        functs[0](event, rect.x, rect.y);
+    })
 
     return (
         <svg xmlns="http://www.w3.org/2000/svg"
@@ -38,6 +55,8 @@ export default function LinkersCreators({ width, height }) {
                     opacity: 1,
                 }}
                 className={classes.creatorHorizontal}
+                ref={creatorsRef}
+                onMouseDown={handleCreation}
             />
             <motion.circle
                 id="top"
@@ -53,6 +72,8 @@ export default function LinkersCreators({ width, height }) {
                     opacity: 1,
                 }}
                 className={classes.creatorVertical}
+                ref={creatorsRef}
+                onMouseDown={handleCreation}
             />
             <motion.circle
                 id="left"
@@ -68,6 +89,8 @@ export default function LinkersCreators({ width, height }) {
                     opacity: 1,
                 }}
                 className={classes.creatorHorizontal}
+                ref={creatorsRef}
+                onMouseDown={handleCreation}
             />
             <motion.circle
                 id="bottom"
@@ -83,6 +106,8 @@ export default function LinkersCreators({ width, height }) {
                     opacity: 1,
                 }}
                 className={classes.creatorVertical}
+                ref={creatorsRef}
+                onMouseDown={handleCreation}
             />
         </svg>
     );
