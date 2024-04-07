@@ -5,7 +5,6 @@ import classes from "./Entity.module.css";
 import { useState, useRef, useEffect, memo, useCallback } from "react";
 import { elementsSlice } from "@/store/design/elements-slice";
 import { motion } from 'framer-motion';
-import LinkersCreators from './LinkersCreators.js';
 
 /**
  * Entity
@@ -18,14 +17,15 @@ export const Entity = memo(function Entity({ id, options, selected, links, funct
     /* Prelevamento delle opzioni utili */
     let text = options.text; // Testo interno al rettangolo.
     let position = options.position; // Oggetto posizione.
+    let connecting = options.connecting // Gestione della connessione.
 
     /* Elementi d'utility */
+    let [svgWidth, setSvgWidth] = useState(0);
+    const svgHeight = 70;
     let [grabbing, setGrabbing] = useState(false); // Gestione del grabbing.
     let [offset, setOffset] = useState({ x: 0, y: 0 }); // Oggetto di offset.
     let curs = "pointer"; // Selettore del pointer.
     let tLength = text.length * 1.5; // Oggetto che calcola un limite superiore alla grandezza della casella di testo.
-    let [linkersCircleSvgWidth, setLinkersCircleSvgWidth] = useState(0); // Gestione della larghezza dell'svg dei creatori di linkers.
-    let [linkersCircleSvgHeight, setLinkersCircleSvgHeight] = useState(0); // Gestione dell'altezza dell'svg dei creatori di linkers.
     const dispatch = useDispatch(); // Prelevamento del riferimento di useDispatch per poterlo usare liberamente.
 
     /* Refs */
@@ -34,9 +34,8 @@ export const Entity = memo(function Entity({ id, options, selected, links, funct
 
     // Utilizzo di useEffect per permettere prima la renderizzazione e istanziazione delle ref.
     useEffect(() => {
-        setLinkersCircleSvgHeight(entityRef.current.offsetHeight + 40);
-        setLinkersCircleSvgWidth(entityRef.current.offsetWidth + 40);
-    }, [entityRef, linkersCircleSvgHeight, text]);
+        setSvgWidth(tLength === 0 ? 100 : inputRef.current.offsetWidth + 40);
+    }, [entityRef, svgWidth, entityRef, text]);
 
     /**
      * handleSelection
@@ -46,7 +45,23 @@ export const Entity = memo(function Entity({ id, options, selected, links, funct
      */
     const handleSelection = useCallback((event) => {
         event.stopPropagation();
-        dispatch(elementsSlice.actions.setSelectedElement(id));
+        if(selected === true) {
+            dispatch(elementsSlice.actions.setConnectingElement(id));
+        } else {
+            dispatch(elementsSlice.actions.setSelectedElement(id));
+            dispatch(elementsSlice.actions.setConnectingElement(0));
+        }
+    });
+
+    /**
+     * handleConnection
+     * Funzione che gestisce la connessione (provvisoria) dell'elemento, aggiornanod
+     * lo slice globale.
+     * @param event oggetto evento triggerato onDoubleClick.
+     */
+    const handleConnection = useCallback((event) => {
+        event.stopPropagation();
+        dispatch(elementsSlice.actions.setConnectingElement(id));
     });
 
     /**
@@ -58,6 +73,7 @@ export const Entity = memo(function Entity({ id, options, selected, links, funct
      */
     const handleGrabbing = useCallback((event) => {
         event.preventDefault();
+        dispatch(elementsSlice.actions.setConnectingElement(0));
         inputRef.current.blur();
         setGrabbing(true);
         let x = event.clientX - position.x;
@@ -85,7 +101,6 @@ export const Entity = memo(function Entity({ id, options, selected, links, funct
             let y = event.clientY - offset.y;
             dispatch(elementsSlice.actions.modifyElementOptions({ id: id, option: "position", value: { x, y } }))
         }
-        console.log(event.target.id);
     });
 
     /**
@@ -131,6 +146,7 @@ export const Entity = memo(function Entity({ id, options, selected, links, funct
     return (
         <motion.div
             onClick={handleSelection}
+            onDoubleClick={handleConnection}
             onMouseDown={selected ? handleGrabbing : null}
             onMouseUp={selected ? handleNotGrabbingAnymore : null}
             onMouseMove={selected ? handleDragging : null}
@@ -141,10 +157,10 @@ export const Entity = memo(function Entity({ id, options, selected, links, funct
                 left: position.x,
                 cursor: curs,
             }}
-            animate={{
-                border: selected ? "3px solid black" : "1px solid black",
+            /*animate={{
+                //border: selected ? "3px solid black" : "1px solid black",
             }}
-            transition={{ duration: 0.1 }}
+            transition={{ duration: 0.1 }}*/
             ref={entityRef}
         >
             <input
@@ -160,13 +176,51 @@ export const Entity = memo(function Entity({ id, options, selected, links, funct
                     cursor: selected ? "text" : "pointer"
                 }}
             />
-            { selected && 
-                <LinkersCreators 
-                    height={linkersCircleSvgHeight} 
-                    width={linkersCircleSvgWidth}
-                    functs={functs}
+            <svg
+                xmlns="http://www.w3.org/2000/svg"
+                style={{
+                    position: "absolute",
+                    height: svgHeight,
+                    width: svgWidth,
+                }}
+            >
+                <motion.rect
+                    height={0}
+                    width={0}
+                    x={0}
+                    y={0}
+                    rx="5"
+                    ry="5"
+                    fill="transparent"
+                    stroke="black"
+                    strokeWidth="1"
+                    style={{
+                        zIndex: 1
+                    }}
+                    animate={{
+                        height: connecting ? svgHeight - 8 : svgHeight - 14,
+                        width: connecting ? svgWidth - 8 : svgWidth - 14,
+                        x: connecting ? 4 : 7,
+                        y: connecting ? 4 : 7
+                    }}
+                    transition={{ duration: 0.1, type: "just" }}
                 />
-            }
+                <motion.rect
+                    height={svgHeight - 14}
+                    width={svgWidth - 14}
+                    x="7"
+                    y="7"
+                    rx="5"
+                    ry="5"
+                    fill="white"
+                    stroke="black"
+                    animate={{
+                        strokeWidth: selected ? "2.5px" : "0.5px",
+                        zIndex: 2
+                    }}
+                    transition={{ duration: 0.1 }}
+                />
+            </svg>
         </motion.div>
     );
 });

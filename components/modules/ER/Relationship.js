@@ -5,7 +5,6 @@ import { useDispatch } from "react-redux";
 import { motion } from "framer-motion";
 import classes from "./Relationship.module.css";
 import { elementsSlice } from "@/store/design/elements-slice.js";
-import LinkersCreators from "./LinkersCreators.js";
 
 /**
  * Relationship
@@ -23,8 +22,6 @@ export const Relationship = memo(function Relationship({ id, options, selected }
     let tLength = text.length * 1.5; // Oggetto che calcola un limite superiore alla grandezza della casella di testo.
     let [svgWidth, setWidth] = useState(0);
     let [svgHeight, setHeight] = useState(0);
-    let [linkersCircleSvgWidth, setLinkersCircleSvgWidth] = useState(0);
-    let [linkersCircleSvgHeight, setLinkersCircleSvgHeight] = useState(0);
     let curs = "pointer";
     const dispatch = useDispatch();
 
@@ -35,8 +32,6 @@ export const Relationship = memo(function Relationship({ id, options, selected }
     useEffect(() => {
         setWidth(tLength === 0 ? 60 : inputRef.current.offsetWidth + 60);
         setHeight(tLength === 0 ? 60 : (inputRef.current.offsetHeight * svgWidth) / (2 * (svgWidth - inputRef.current.offsetWidth)) + 60);
-        setLinkersCircleSvgHeight(relationshipRef.current.offsetHeight + 60);
-        setLinkersCircleSvgWidth(relationshipRef.current.offsetWidth + 35);
     }, [inputRef, svgWidth, relationshipRef, text]);
 
     /**
@@ -172,9 +167,6 @@ export const Relationship = memo(function Relationship({ id, options, selected }
                 // Al poligon non si possono assegnare cursori
                 />
             </svg>
-            { selected && 
-                <LinkersCreators height={linkersCircleSvgHeight} width={linkersCircleSvgWidth}/>
-            }
         </div>
     );
 });

@@ -114,5 +114,33 @@ export const elementsSlice = createSlice({
                 });
             }
         },
+
+        /**
+         * setConnectionElement
+         * Reducer che si occupa del setting della connessione.
+         * @param state stato corrente.
+         * @param action azione che ha scatenato questa reducer. Il payload dell'azione avrà i 
+         * seguenti parametri:
+         * - id: id dell'elemento da settare come "in connessione". Se 0, imposta tutti gli elementi come non "in connessione".
+         */
+        setConnectingElement(state, action){
+            const id = action.payload;
+            if (id === 0) {
+                state.forEach((element) => {
+                    // element.selected = false;
+                    if(element.options.connecting){
+                        element.options.connecting = false;
+                    }
+                });
+            } else {
+                state.forEach((element) => {
+                    if (element.id === id) {
+                        element.options.connecting = true;
+                    } else {
+                        element.options.connecting = false;
+                    }
+                });
+            }
+        }
     }
 });
