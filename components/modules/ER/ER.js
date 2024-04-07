@@ -19,6 +19,7 @@ export default function ER() {
     return (
         <>
             <Workpane h={wpHeight} w={wpWidth}>
+            <Workpane h={wpHeight} w={wpWidth}>
                 <Generator generate={elements} functs={functs}/>
             </Workpane>
         </>

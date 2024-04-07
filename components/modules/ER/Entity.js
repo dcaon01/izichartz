@@ -5,7 +5,6 @@ import classes from "./Entity.module.css";
 import { useState, useRef, useEffect, memo, useCallback } from "react";
 import { elementsSlice } from "@/store/design/elements-slice";
 import { motion } from 'framer-motion';
-import LinkersCreators from './LinkersCreators.js';
 
 /**
  * Entity
@@ -18,25 +17,24 @@ export const Entity = memo(function Entity({ id, options, selected, links, funct
     /* Prelevamento delle opzioni utili */
     let text = options.text; // Testo interno al rettangolo.
     let position = options.position; // Oggetto posizione.
+    let connecting = options.connecting // Gestione della connessione.
 
     /* Elementi d'utility */
+    let [svgWidth, setSvgWidth] = useState(100);
+    const svgHeight = 70;
     let [grabbing, setGrabbing] = useState(false); // Gestione del grabbing.
     let [offset, setOffset] = useState({ x: 0, y: 0 }); // Oggetto di offset.
     let curs = "pointer"; // Selettore del pointer.
     let tLength = text.length * 1.5; // Oggetto che calcola un limite superiore alla grandezza della casella di testo.
-    let [linkersCircleSvgWidth, setLinkersCircleSvgWidth] = useState(0); // Gestione della larghezza dell'svg dei creatori di linkers.
-    let [linkersCircleSvgHeight, setLinkersCircleSvgHeight] = useState(0); // Gestione dell'altezza dell'svg dei creatori di linkers.
     const dispatch = useDispatch(); // Prelevamento del riferimento di useDispatch per poterlo usare liberamente.
 
     /* Refs */
     let inputRef = useRef();
     let entityRef = useRef();
-
     // Utilizzo di useEffect per permettere prima la renderizzazione e istanziazione delle ref.
     useEffect(() => {
-        setLinkersCircleSvgHeight(entityRef.current.offsetHeight + 40);
-        setLinkersCircleSvgWidth(entityRef.current.offsetWidth + 40);
-    }, [entityRef, linkersCircleSvgHeight, text]);
+        setSvgWidth(tLength === 0 ? 100 : inputRef.current.offsetWidth + 40);
+    }, [entityRef, svgWidth, entityRef, text]);
 
     /**
      * handleSelection
@@ -48,6 +46,18 @@ export const Entity = memo(function Entity({ id, options, selected, links, funct
         event.stopPropagation();
         dispatch(elementsSlice.actions.setSelectedElement(id));
         //dispatch(elementsSlice.actions.setConnectingElement(0));
+        dispatch(elementsSlice.actions.setConnectingElement(0));
+    });
+
+    /**
+     * handleConnection
+     * Funzione che gestisce la connessione (provvisoria) dell'elemento, aggiornanod
+     * lo slice globale.
+     * @param event oggetto evento triggerato onDoubleClick.
+     */
+    const handleConnection = useCallback((event) => {
+        event.stopPropagation();
+        dispatch(elementsSlice.actions.setConnectingElement(id));
     });
 
     /**
@@ -59,6 +69,7 @@ export const Entity = memo(function Entity({ id, options, selected, links, funct
      */
     const handleGrabbing = useCallback((event) => {
         event.preventDefault();
+        dispatch(elementsSlice.actions.setConnectingElement(0));
         inputRef.current.blur();
         setGrabbing(true);
         let x = event.clientX - position.x;
@@ -112,11 +123,33 @@ export const Entity = memo(function Entity({ id, options, selected, links, funct
      * Funzione che gestisce la propagazione dell'evento onClick della textbox al div esterno.
      * Siccome l'evento che vogliamo prelevare è lo stesso dell'elemento contenente, di default viene
      * triggerata quella, non facendo più modificare la textbox.
-     * @param event oggetto evento triggerato onChange.
+     * @param event oggetto evento triggerato onClick.
      */
     const handleInputInsert = useCallback((event) => {
         event.stopPropagation();
     });
+
+    /**
+     * handleKeyPress
+     * Funzione che si occupa di rilevare se qualche tasto è stato premuto e agire di conseguenza.
+     * Per ora gestiamo solo l'invio, come mantenimento dello stato attuale e deselezione. Potremmo pensare di inviare
+     * le modifiche con una actionCreator. Quindi inviamo le modifiche (o le salviamo anche nello storico) solo se l'elemento è 
+     * stato deselezionato e lo stato è cambiato nello storico.
+     * Come esc si potrebbe implementare un indietro nello storico e inviare la modifica.
+     */
+    const handleKeyDown = useCallback((event) => {
+        console.log(event.key);
+        if (event.key === "Enter" && selected) {
+            event.stopPropagation();
+            dispatch(elementsSlice.actions.setSelectedElement(0));
+            dispatch(elementsSlice.actions.setConnectingElement(0));
+            // Salva lo stato nello storico.
+            // Invia i dati al DB.
+        }
+    });
+    useEffect(() => {
+        document.addEventListener('keydown', handleKeyDown);
+    }, []);
 
     /* Gestione dinamica del cursore */
     if (selected) {
@@ -131,6 +164,7 @@ export const Entity = memo(function Entity({ id, options, selected, links, funct
     return (
         <motion.div
             onClick={handleSelection}
+            onDoubleClick={handleConnection}
             onMouseDown={selected ? handleGrabbing : null}
             onMouseUp={selected ? handleNotGrabbingAnymore : null}
             onMouseMove={selected ? handleDragging : null}
@@ -141,10 +175,6 @@ export const Entity = memo(function Entity({ id, options, selected, links, funct
                 left: position.x,
                 cursor: curs,
             }}
-            animate={{
-                border: selected ? "3px solid black" : "1px solid black",
-            }}
-            transition={{ duration: 0.1 }}
             ref={entityRef}
         >
             <input
@@ -160,15 +190,53 @@ export const Entity = memo(function Entity({ id, options, selected, links, funct
                     cursor: selected ? "text" : "pointer"
                 }}
             />
-            { selected && 
-                <LinkersCreators 
-                    id={id}
-                    height={linkersCircleSvgHeight} 
-                    width={linkersCircleSvgWidth}
-                    //functs={functs}
-                    connecting={options.connecting}
+            <svg
+                xmlns="http://www.w3.org/2000/svg"
+                style={{
+                    position: "absolute",
+                    height: svgHeight,
+                    width: !(svgWidth === 0) ? svgWidth : 100,
+                }}
+            >
+                {connecting &&
+                    <motion.rect
+                        x="4"
+                        y="4"
+                        rx="5"
+                        ry="5"
+                        fill="transparent"
+                        stroke="black"
+                        strokeWidth="1"
+                        style={{
+                            zIndex: 1,
+                        }}
+                        initial={{
+                            height: svgHeight - 14,
+                            width: svgWidth - 14,
+                        }}
+                        animate={{
+                            height: svgHeight - 8,
+                            width: svgWidth - 8,
+                        }}
+                        transition={{ duration: 0.1 }}
+                    />
+                }
+                <motion.rect
+                    height={svgHeight - 14}
+                    width={svgWidth - 14}
+                    x="7"
+                    y="7"
+                    rx="5"
+                    ry="5"
+                    fill="white"
+                    stroke="black"
+                    animate={{
+                        strokeWidth: selected ? "2.5px" : "0.5px",
+                        zIndex: 2
+                    }}
+                    transition={{ duration: 0.1 }}
                 />
-            }
+            </svg>
         </motion.div>
     );
 });

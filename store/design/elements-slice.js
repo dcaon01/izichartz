@@ -43,6 +43,7 @@ const init = [
             connecting: false
         },
     },
+    /*
     {
         type: "Link",
         id: 4,
@@ -54,7 +55,7 @@ const init = [
                 {}
             ],
         }
-    }
+    }*/
 ];
 
 /* Creiamo uno slice che memorizza gli elementi grafici che ci sono all'interno di

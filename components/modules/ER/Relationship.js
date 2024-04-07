@@ -5,7 +5,6 @@ import { useDispatch } from "react-redux";
 import { motion } from "framer-motion";
 import classes from "./Relationship.module.css";
 import { elementsSlice } from "@/store/design/elements-slice.js";
-import LinkersCreators from "./LinkersCreators.js";
 
 /**
  * Relationship
@@ -16,15 +15,14 @@ export const Relationship = memo(function Relationship({ id, options, selected }
     /* Prelevamento delle opzioni utili */
     let text = options.text; // Testo interno al rettangolo.
     let position = options.position; // Oggetto posizione.
+    let connecting = options.connecting // Gestione della connessione.
 
     /* Elementi d'utility */
     let [grabbing, setGrabbing] = useState(false);
     let [offset, setOffset] = useState({ x: 0, y: 0 }); // Oggetto di offset.
     let tLength = text.length * 1.5; // Oggetto che calcola un limite superiore alla grandezza della casella di testo.
-    let [svgWidth, setWidth] = useState(0);
-    let [svgHeight, setHeight] = useState(0);
-    let [linkersCircleSvgWidth, setLinkersCircleSvgWidth] = useState(0);
-    let [linkersCircleSvgHeight, setLinkersCircleSvgHeight] = useState(0);
+    let [svgWidth, setWidth] = useState(74);
+    let [svgHeight, setHeight] = useState(74);
     let curs = "pointer";
     const dispatch = useDispatch();
 
@@ -33,10 +31,8 @@ export const Relationship = memo(function Relationship({ id, options, selected }
     let relationshipRef = useRef();
 
     useEffect(() => {
-        setWidth(tLength === 0 ? 60 : inputRef.current.offsetWidth + 60);
-        setHeight(tLength === 0 ? 60 : (inputRef.current.offsetHeight * svgWidth) / (2 * (svgWidth - inputRef.current.offsetWidth)) + 60);
-        setLinkersCircleSvgHeight(relationshipRef.current.offsetHeight + 60);
-        setLinkersCircleSvgWidth(relationshipRef.current.offsetWidth + 35);
+        setWidth(tLength === 0 ? 74 : inputRef.current.offsetWidth + 74);
+        setHeight(tLength === 0 ? 74 : (inputRef.current.offsetHeight * svgWidth) / (2 * (svgWidth - inputRef.current.offsetWidth)) + 74);
     }, [inputRef, svgWidth, relationshipRef, text]);
 
     /**
@@ -49,6 +45,18 @@ export const Relationship = memo(function Relationship({ id, options, selected }
         event.stopPropagation();
         dispatch(elementsSlice.actions.setSelectedElement(id));
     });
+
+    /**
+     * handleConnection
+     * Funzione che gestisce la connessione (provvisoria) dell'elemento, aggiornanod
+     * lo slice globale.
+     * @param event oggetto evento triggerato onDoubleClick.
+     */
+    const handleConnection = useCallback((event) => {
+        event.stopPropagation();
+        dispatch(elementsSlice.actions.setConnectingElement(id));
+    });
+
 
     /**
      * handleGrabbing
@@ -131,6 +139,7 @@ export const Relationship = memo(function Relationship({ id, options, selected }
     return (
         <div
             onClick={handleSelection}
+            onDoubleClick={handleConnection}
             onMouseDown={selected ? handleGrabbing : null}
             onMouseUp={selected ? handleNotGrabbingAnymore : null}
             onMouseMove={selected ? handleDragging : null}
@@ -163,8 +172,23 @@ export const Relationship = memo(function Relationship({ id, options, selected }
                 }}
                 xmlns="http://www.w3.org/2000/svg"
             >
+                {connecting &&
+                    <motion.polygon
+                        fill="transparent"
+                        stroke="black"
+                        strokeWidth="2,5"
+                        style={{ zIndex: 1 }}
+                        initial={{
+                            points: `8,${svgHeight / 2} ${svgWidth / 2},${svgHeight - 8} ${(svgWidth - 2)},${svgHeight / 2} ${svgWidth / 2},8`
+                        }}
+                        animate={{
+                            points: `2,${svgHeight / 2} ${svgWidth / 2},${svgHeight - 2} ${(svgWidth - 2)},${svgHeight / 2} ${svgWidth / 2},2`
+                        }}
+                        transition={{ duration: 0.1 }}
+                    />
+                }
                 <motion.polygon
-                    points={`2,${svgHeight / 2} ${svgWidth / 2},${svgHeight - 2} ${(svgWidth - 2)},${svgHeight / 2} ${svgWidth / 2},2`}
+                    points={`8,${svgHeight / 2} ${svgWidth / 2},${svgHeight - 8} ${(svgWidth - 8)},${svgHeight / 2} ${svgWidth / 2},8`}
                     fill="white"
                     stroke="black"
                     animate={{ strokeWidth: selected ? "2.5px" : "0.5px" }}
@@ -172,9 +196,6 @@ export const Relationship = memo(function Relationship({ id, options, selected }
                 // Al poligon non si possono assegnare cursori
                 />
             </svg>
-            { selected && 
-                <LinkersCreators height={linkersCircleSvgHeight} width={linkersCircleSvgWidth}/>
-            }
         </div>
     );
 });
