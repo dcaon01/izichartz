@@ -31,7 +31,6 @@ export const Entity = memo(function Entity({ id, options, selected, links, funct
     /* Refs */
     let inputRef = useRef();
     let entityRef = useRef();
-
     // Utilizzo di useEffect per permettere prima la renderizzazione e istanziazione delle ref.
     useEffect(() => {
         setSvgWidth(tLength === 0 ? 100 : inputRef.current.offsetWidth + 40);
@@ -123,11 +122,33 @@ export const Entity = memo(function Entity({ id, options, selected, links, funct
      * Funzione che gestisce la propagazione dell'evento onClick della textbox al div esterno.
      * Siccome l'evento che vogliamo prelevare è lo stesso dell'elemento contenente, di default viene
      * triggerata quella, non facendo più modificare la textbox.
-     * @param event oggetto evento triggerato onChange.
+     * @param event oggetto evento triggerato onClick.
      */
     const handleInputInsert = useCallback((event) => {
         event.stopPropagation();
     });
+
+    /**
+     * handleKeyPress
+     * Funzione che si occupa di rilevare se qualche tasto è stato premuto e agire di conseguenza.
+     * Per ora gestiamo solo l'invio, come mantenimento dello stato attuale e deselezione. Potremmo pensare di inviare
+     * le modifiche con una actionCreator. Quindi inviamo le modifiche (o le salviamo anche nello storico) solo se l'elemento è 
+     * stato deselezionato e lo stato è cambiato nello storico.
+     * Come esc si potrebbe implementare un indietro nello storico e inviare la modifica.
+     */
+    const handleKeyDown = useCallback((event) => {
+        console.log(event.key);
+        if (event.key === "Enter" && selected) {
+            event.stopPropagation();
+            dispatch(elementsSlice.actions.setSelectedElement(0));
+            dispatch(elementsSlice.actions.setConnectingElement(0));
+            // Salva lo stato nello storico.
+            // Invia i dati al DB.
+        }
+    });
+    useEffect(() => {
+        document.addEventListener('keydown', handleKeyDown);
+    }, []);
 
     /* Gestione dinamica del cursore */
     if (selected) {
@@ -153,10 +174,6 @@ export const Entity = memo(function Entity({ id, options, selected, links, funct
                 left: position.x,
                 cursor: curs,
             }}
-            /*animate={{
-                //border: selected ? "3px solid black" : "1px solid black",
-            }}
-            transition={{ duration: 0.1 }}*/
             ref={entityRef}
         >
             <input
@@ -180,32 +197,32 @@ export const Entity = memo(function Entity({ id, options, selected, links, funct
                     width: !(svgWidth === 0) ? svgWidth : 100,
                 }}
             >
-            {connecting && 
-                <motion.rect
-                    x="4"
-                    y="4"
-                    rx="5"
-                    ry="5"
-                    fill="transparent"
-                    stroke="black"
-                    strokeWidth="1"
-                    style={{
-                        zIndex: 1,
-                    }}
-                    initial={{
-                        height: svgHeight - 14,
-                        width: svgWidth - 14,
-                    }}
-                    animate={{
-                        height: svgHeight - 8,
-                        width: svgWidth - 8,
-                    }}
-                    transition={{ duration: 0.1 }}
-                />
+                {connecting &&
+                    <motion.rect
+                        x="4"
+                        y="4"
+                        rx="5"
+                        ry="5"
+                        fill="transparent"
+                        stroke="black"
+                        strokeWidth="1"
+                        style={{
+                            zIndex: 1,
+                        }}
+                        initial={{
+                            height: svgHeight - 14,
+                            width: svgWidth - 14,
+                        }}
+                        animate={{
+                            height: svgHeight - 8,
+                            width: svgWidth - 8,
+                        }}
+                        transition={{ duration: 0.1 }}
+                    />
                 }
                 <motion.rect
                     height={svgHeight - 14}
-                    width={svgWidth -14}
+                    width={svgWidth - 14}
                     x="7"
                     y="7"
                     rx="5"

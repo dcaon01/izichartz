@@ -15,7 +15,7 @@ const init = [
                 y: 200,
             },
         }
-    },/*
+    },
     {
         type: "Entity",
         id: 2,
@@ -40,6 +40,7 @@ const init = [
             },
         }
     },
+    /*
     {
         type: "Link",
         id: 4,
