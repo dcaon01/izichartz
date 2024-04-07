@@ -44,9 +44,16 @@ export const Entity = memo(function Entity({ id, options, selected, links, funct
      */
     const handleSelection = useCallback((event) => {
         event.stopPropagation();
-        dispatch(elementsSlice.actions.setSelectedElement(id));
-        //dispatch(elementsSlice.actions.setConnectingElement(0));
-        dispatch(elementsSlice.actions.setConnectingElement(0));
+        // Fare una funzione che verifichi se qualcuno è in connessione, ritorni l'id di quel qualcuno.
+        // Se qualcuno è in connessione richiamare una funzione in ER, passando ad essa i due id, e le due refs.
+        let idConnect = functs.whoIsConnecting();
+        console.log(idConnect);
+        if (idConnect !== 0) {
+            functs.createLinker(entityRef);
+        } else {
+            dispatch(elementsSlice.actions.setSelectedElement(id));
+            dispatch(elementsSlice.actions.setConnectingElement(0));
+        }
     });
 
     /**
@@ -163,6 +170,7 @@ export const Entity = memo(function Entity({ id, options, selected, links, funct
     /* Rendering */
     return (
         <motion.div
+            id={id}
             onClick={handleSelection}
             onDoubleClick={handleConnection}
             onMouseDown={selected ? handleGrabbing : null}

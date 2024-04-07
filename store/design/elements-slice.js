@@ -146,6 +146,6 @@ export const elementsSlice = createSlice({
                     }
                 });
             }
-        }
+        },
     }
 });

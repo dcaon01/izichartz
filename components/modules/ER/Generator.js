@@ -9,13 +9,13 @@ import { Linker } from "./Linker.js";
  * elemente che genera i elementi all'interno di un workpane.
  * @param generate array di JSON da renderizzare.
  */
-export default function Generator({ generate, functs}) {
+export default function Generator({ generate, functs }) {
     /* Creiamo la matrice di collegamenti, in modo da riuscire a passarli agli elementi che non sono
     link e gestirli all'interno di essi - Ma ha senso? */
     let linksMatrix = [];
     generate.forEach((element, index) => {
         linksMatrix.push([]);
-        if(element.type === "Link") {
+        if (element.type === "Link") {
             element.options.linked.forEach((id, index) => {
                 linksMatrix[id - 1].push(element);
             });
@@ -28,24 +28,24 @@ export default function Generator({ generate, functs}) {
         switch (element.type) {
             case "Entity":
                 return (
-                    <Entity 
-                        key={element.type + element.id} 
-                        id={element.id} 
-                        options={element.options} 
-                        selected={element.selected} 
-                        links={linksMatrix[element.id-1]}
+                    <Entity
+                        key={element.type + element.id}
+                        id={element.id}
+                        options={element.options}
+                        selected={element.selected}
+                        links={linksMatrix[element.id - 1]}
                         functs={functs}
                     />
                 );
             // end case
             case "Relationship":
                 return (
-                    <Relationship 
-                        key={element.type + element.id} 
-                        id={element.id} 
-                        options={element.options} 
+                    <Relationship
+                        key={element.type + element.id}
+                        id={element.id}
+                        options={element.options}
                         selected={element.selected}
-                        links={linksMatrix[element.id-1]}
+                        links={linksMatrix[element.id - 1]}
                         functs={functs}
                     />
                 );

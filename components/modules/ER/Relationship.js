@@ -57,7 +57,6 @@ export const Relationship = memo(function Relationship({ id, options, selected }
         dispatch(elementsSlice.actions.setConnectingElement(id));
     });
 
-
     /**
      * handleGrabbing
      * Funzione che gestisce il calcolo dell'offset tra la posizione
@@ -67,6 +66,7 @@ export const Relationship = memo(function Relationship({ id, options, selected }
      */
     const handleGrabbing = useCallback((event) => {
         event.preventDefault();
+        dispatch(elementsSlice.actions.setConnectingElement(0));
         inputRef.current.blur();
         setGrabbing(true);
         let x = event.clientX - position.x;
