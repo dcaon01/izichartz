@@ -15,7 +15,7 @@ const init = [
                 y: 200,
             },
         }
-    },
+    },/*
     {
         type: "Entity",
         id: 2,
@@ -51,7 +51,7 @@ const init = [
                 {}
             ],
         }
-    }
+    }*/
 ];
 
 /* Creiamo uno slice che memorizza gli elementi grafici che ci sono all'interno di

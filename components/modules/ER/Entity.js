@@ -20,7 +20,7 @@ export const Entity = memo(function Entity({ id, options, selected, links, funct
     let connecting = options.connecting // Gestione della connessione.
 
     /* Elementi d'utility */
-    let [svgWidth, setSvgWidth] = useState(0);
+    let [svgWidth, setSvgWidth] = useState(100);
     const svgHeight = 70;
     let [grabbing, setGrabbing] = useState(false); // Gestione del grabbing.
     let [offset, setOffset] = useState({ x: 0, y: 0 }); // Oggetto di offset.
@@ -45,12 +45,8 @@ export const Entity = memo(function Entity({ id, options, selected, links, funct
      */
     const handleSelection = useCallback((event) => {
         event.stopPropagation();
-        if(selected === true) {
-            dispatch(elementsSlice.actions.setConnectingElement(id));
-        } else {
-            dispatch(elementsSlice.actions.setSelectedElement(id));
-            dispatch(elementsSlice.actions.setConnectingElement(0));
-        }
+        dispatch(elementsSlice.actions.setSelectedElement(id));
+        dispatch(elementsSlice.actions.setConnectingElement(0));
     });
 
     /**
@@ -181,33 +177,35 @@ export const Entity = memo(function Entity({ id, options, selected, links, funct
                 style={{
                     position: "absolute",
                     height: svgHeight,
-                    width: svgWidth,
+                    width: !(svgWidth === 0) ? svgWidth : 100,
                 }}
             >
+            {connecting && 
                 <motion.rect
-                    height={0}
-                    width={0}
-                    x={0}
-                    y={0}
+                    x="4"
+                    y="4"
                     rx="5"
                     ry="5"
                     fill="transparent"
                     stroke="black"
                     strokeWidth="1"
                     style={{
-                        zIndex: 1
+                        zIndex: 1,
+                    }}
+                    initial={{
+                        height: svgHeight - 14,
+                        width: svgWidth - 14,
                     }}
                     animate={{
-                        height: connecting ? svgHeight - 8 : svgHeight - 14,
-                        width: connecting ? svgWidth - 8 : svgWidth - 14,
-                        x: connecting ? 4 : 7,
-                        y: connecting ? 4 : 7
+                        height: svgHeight - 8,
+                        width: svgWidth - 8,
                     }}
-                    transition={{ duration: 0.1, type: "just" }}
+                    transition={{ duration: 0.1 }}
                 />
+                }
                 <motion.rect
                     height={svgHeight - 14}
-                    width={svgWidth - 14}
+                    width={svgWidth -14}
                     x="7"
                     y="7"
                     rx="5"
