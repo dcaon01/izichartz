@@ -21,11 +21,14 @@ export default function Workpane(props) {
 
     /**
      * handleClicked
-     * Funzione che gestisce il click sull'elemento. Si vuole che tutti gli elementi
-     * selezionati vengano deselezionati di default.
+     * Funzione che gestisce il click sull'elemento. 
+     * Si vuole che tutti gli elementi selezionati vengano deselezionati di default.
+     * Si vuole che tutti gli elementi in connessione vengano resettati.
      */
     function handleClicked() {
+        // Creare un'azione solo per il resetting?
         dispatch(elementsSlice.actions.setSelectedElement(0));
+        dispatch(elementsSlice.actions.setConnectingElement(0));
     }
 
     /* Rendering */

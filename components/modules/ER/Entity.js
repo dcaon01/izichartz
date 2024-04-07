@@ -47,6 +47,7 @@ export const Entity = memo(function Entity({ id, options, selected, links, funct
     const handleSelection = useCallback((event) => {
         event.stopPropagation();
         dispatch(elementsSlice.actions.setSelectedElement(id));
+        //dispatch(elementsSlice.actions.setConnectingElement(0));
     });
 
     /**
@@ -85,7 +86,6 @@ export const Entity = memo(function Entity({ id, options, selected, links, funct
             let y = event.clientY - offset.y;
             dispatch(elementsSlice.actions.modifyElementOptions({ id: id, option: "position", value: { x, y } }))
         }
-        console.log(event.target.id);
     });
 
     /**
@@ -162,9 +162,11 @@ export const Entity = memo(function Entity({ id, options, selected, links, funct
             />
             { selected && 
                 <LinkersCreators 
+                    id={id}
                     height={linkersCircleSvgHeight} 
                     width={linkersCircleSvgWidth}
-                    functs={functs}
+                    //functs={functs}
+                    connecting={options.connecting}
                 />
             }
         </motion.div>
