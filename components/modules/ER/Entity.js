@@ -47,7 +47,6 @@ export const Entity = memo(function Entity({ id, options, selected, links, funct
         // Fare una funzione che verifichi se qualcuno è in connessione, ritorni l'id di quel qualcuno.
         // Se qualcuno è in connessione richiamare una funzione in ER, passando ad essa i due id, e le due refs.
         let idConnect = functs.whoIsConnecting();
-        console.log(idConnect);
         if (idConnect !== 0) {
             functs.createLinker(entityRef);
         } else {
@@ -145,7 +144,6 @@ export const Entity = memo(function Entity({ id, options, selected, links, funct
      * Come esc si potrebbe implementare un indietro nello storico e inviare la modifica.
      */
     const handleKeyDown = useCallback((event) => {
-        console.log(event.key);
         if (event.key === "Enter" && selected) {
             event.stopPropagation();
             dispatch(elementsSlice.actions.setSelectedElement(0));
