@@ -5,7 +5,7 @@ L'array contiene tutti i JSON che codificano gli elementi presenti nel
 workpane. */
 const init = [
     {
-        type: "Entity",
+        type: "entity",
         id: 1,
         selected: false,
         options: {
@@ -15,14 +15,14 @@ const init = [
                 y: 200,
             },
             size: {
-                width: 119,
+                width: 120,
                 height: 70,
             },
             connecting: false,
         }
     },
     {
-        type: "Entity",
+        type: "entity",
         id: 2,
         selected: false,
         options: {
@@ -32,14 +32,14 @@ const init = [
                 y: 300,
             },
             size: {
-                width: 119,
+                width: 120,
                 height: 70,
             },
             connecting: false,
         },
     },
     {   
-        type: "Relationship",
+        type: "relationship",
         id: 3,
         selected: false,
         options: {
@@ -53,7 +53,7 @@ const init = [
     },
     /*
     {
-        type: "Link",
+        type: "link",
         id: 4,
         selected: false,
         options: {

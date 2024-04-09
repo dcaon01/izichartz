@@ -9,6 +9,8 @@ import { elementsSlice } from '@/store/design/elements-slice.js';
 /**
  * ER
  * Componente che renderizza e gestisce il modulo ER.
+ * Ci sono definite tutte le funzioni che gestiscono una logica generale.
+ * Le logiche dei singoli componenti, anche se ridondanti, sono all'interno di essi stessi.
  */
 export default function ER() {
     /* Campi di Esemplare */

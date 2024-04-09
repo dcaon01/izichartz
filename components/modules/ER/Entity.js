@@ -18,23 +18,57 @@ export const Entity = memo(function Entity({ id, options, selected, links, funct
     let text = options.text; // Testo interno al rettangolo.
     let position = options.position; // Oggetto posizione.
     let connecting = options.connecting // Gestione della connessione.
+    let size = options.size // Dimensioni del componente, svg
 
     /* Elementi d'utility */
-    let [svgWidth, setSvgWidth] = useState(100);
-    const svgHeight = 70;
-    let [grabbing, setGrabbing] = useState(false); // Gestione del grabbing.
+    const minWidth = 70;
+    const minHeight = 70;
+    let [moving, setMoving] = useState(false); // Gestione del moving.
+    let [resizing, setResizing] = useState(false); // Gestione del resising.
     let [offset, setOffset] = useState({ x: 0, y: 0 }); // Oggetto di offset.
+    let [borders, setBorders] = useState([false, false, false, false, false]);
     let curs = "pointer"; // Selettore del pointer.
-    let tLength = text.length * 1.3; // Oggetto che calcola un limite superiore alla grandezza della casella di testo.
+    let tLength = text.length * 1.1; // Oggetto che calcola un limite superiore alla grandezza della casella di testo.
     const dispatch = useDispatch(); // Prelevamento del riferimento di useDispatch per poterlo usare liberamente.
 
     /* Refs */
     let inputRef = useRef();
     let entityRef = useRef();
-    // Utilizzo di useEffect per permettere prima la renderizzazione e istanziazione delle ref.
-    useEffect(() => {
-        setSvgWidth(tLength === 0 ? 100 : inputRef.current.offsetWidth + 40);
-    }, [entityRef, svgWidth, entityRef, text]);
+
+    /**
+     * isOnBorder
+     * Funzione che mi indica se un offset è vicino al bordo oppure no.
+     * @param offset offset da verificare, che è una coppia di punti.
+     * @return borders, array di 5 booleani: il primo indica se qualche bordo è triggerato 
+     * mentre gli altri indicano quale o quali bordi sono triggerati.
+     */
+    const isOnBorder = useCallback((offset) => {
+        // flag, dx, top, sn, bot
+        let bords = [false, false, false, false, false];
+        console.log(offset);
+        console.log(size.width);
+        console.log("richiamato");
+        if (offset.x < 10) {
+            bords[3] = true; // lato sinistro
+            console.log(bords);
+        }
+        if (offset.x > size.width - 10) {
+            bords[1] = true; // lato destro
+        }
+        if (offset.y < 10) {
+            bords[4] = true; // top
+        }
+        if (offset.y > size.height - 10) {
+            bords[2] = true; // bottom
+        }
+        for (let i = 1; i < bords.length; i++) {
+            if (bords[i]) {
+                bords[0] = true;
+            }
+            break;
+        }
+        return bords;
+    });
 
     /**
      * handleSelection
@@ -48,7 +82,7 @@ export const Entity = memo(function Entity({ id, options, selected, links, funct
         // Se qualcuno è in connessione richiamare una funzione in ER, passando ad essa i due id, e le due refs.
         let idConnect = functs.whoIsConnecting();
         if (idConnect !== 0) {
-            functs.createLinker(entityRef);
+            functs.createLinker();
         } else {
             dispatch(elementsSlice.actions.setSelectedElement(id));
             dispatch(elementsSlice.actions.setConnectingElement(0));
@@ -70,16 +104,24 @@ export const Entity = memo(function Entity({ id, options, selected, links, funct
      * handleGrabbing
      * Funzione che gestisce il calcolo dell'offset tra la posizione
      * dell'elemento cliccato e quella dl puntatore, in modo da gestire al
-     * meglio il trascinamento. 
+     * meglio il trascinament. 
      * @param event oggetto evento triggerato onMouseDown.
      */
     const handleGrabbing = useCallback((event) => {
         event.preventDefault();
         dispatch(elementsSlice.actions.setConnectingElement(0));
         inputRef.current.blur();
-        setGrabbing(true);
+        // Calcoliamo l'offset, quanto è distante il puntatore dall'origine del componente
         let x = event.clientX - position.x;
         let y = event.clientY - position.y;
+        // Controlliamo se è sui bordi
+        setBorders(isOnBorder({ x, y }));
+        console.log(borders);
+        if (borders[0]) {
+            setResizing(true);
+        } else {
+            setMoving(true);
+        }
         setOffset({ x, y });
     });
 
@@ -88,7 +130,8 @@ export const Entity = memo(function Entity({ id, options, selected, links, funct
      * Funzione che gestisce il fatto che l'utente non prema più sull'elemento.
      */
     const handleNotGrabbingAnymore = useCallback(() => {
-        setGrabbing(false);
+        setMoving(false);
+        setResizing(false);
     });
 
     /**
@@ -98,21 +141,27 @@ export const Entity = memo(function Entity({ id, options, selected, links, funct
      */
     const handleDragging = useCallback((event) => {
         event.preventDefault();  // Sistema il dragging merdoso
-        if (grabbing) {
+        if (moving) {
             let x = event.clientX - offset.x;
             let y = event.clientY - offset.y;
             dispatch(elementsSlice.actions.modifyElementOptions({ id: id, option: "position", value: { x, y } }))
+        }
+        if (resizing) {
+            let x = event.clientX - offset.x;
+            let y = event.clientY - offset.y;
+            console.log("facciamo resizing");
         }
     });
 
     /**
      * handleLeaving
      * Funzione che gestisce il mouse che se va dalla superficie dell'elemento.
-     * Deve essere messa per forza sennò grabbing rimarrebbe settato, fornendo
+     * Deve essere messa per forza sennò movine e resizing rimarrebbero settati, fornendo
      * una brutta UE. 
      */
     const handleLeaving = useCallback(() => {
-        setGrabbing(false);
+        setMoving(false);
+        setResizing(false);
     });
 
     /**
@@ -122,6 +171,14 @@ export const Entity = memo(function Entity({ id, options, selected, links, funct
      */
     const handleInput = useCallback((event) => {
         dispatch(elementsSlice.actions.modifyElementOptions({ id: id, option: "text", value: event.target.value }));
+        dispatch(elementsSlice.actions.modifyElementOptions({
+            id: id,
+            option: "size",
+            value: {
+                width: inputRef.current.offsetWidth + minWidth,
+                height: minHeight,
+            }
+        }));
     });
 
     /**
@@ -158,8 +215,8 @@ export const Entity = memo(function Entity({ id, options, selected, links, funct
 
     /* Gestione dinamica del cursore */
     if (selected) {
-        if (grabbing) {
-            curs = "grabbing"
+        if (moving) {
+            curs = "grabbing";
         } else {
             curs = "move";
         }
@@ -168,7 +225,7 @@ export const Entity = memo(function Entity({ id, options, selected, links, funct
     /* Rendering */
     return (
         <motion.div
-            id={id}
+            id={`entity-${id}`}
             onClick={handleSelection}
             onDoubleClick={handleConnection}
             onMouseDown={selected ? handleGrabbing : null}
@@ -179,12 +236,12 @@ export const Entity = memo(function Entity({ id, options, selected, links, funct
             style={{
                 top: position.y,
                 left: position.x,
-                cursor: curs,
+                cursor: curs
             }}
             ref={entityRef}
         >
             <input
-                id={`input-${id}`}
+                id={`input-entity-${id}`}
                 type="text"
                 value={text}
                 ref={inputRef}
@@ -199,13 +256,13 @@ export const Entity = memo(function Entity({ id, options, selected, links, funct
             <svg
                 xmlns="http://www.w3.org/2000/svg"
                 style={{
-                    position: "absolute",
-                    height: svgHeight,
-                    width: !(svgWidth === 0) ? svgWidth : 100,
+                    height: size.height,
+                    width: !(size.width === 0) ? size.width : minWidth,
                 }}
             >
                 {connecting &&
                     <motion.rect
+                        id={`connect-entity-${id}`}
                         x="4"
                         y="4"
                         rx="5"
@@ -217,19 +274,21 @@ export const Entity = memo(function Entity({ id, options, selected, links, funct
                             zIndex: 1,
                         }}
                         initial={{
-                            height: svgHeight - 14,
-                            width: svgWidth - 14,
+                            height: size.height - 14,
+                            width: size.width - 14,
                         }}
                         animate={{
-                            height: svgHeight - 8,
-                            width: svgWidth - 8,
+                            height: size.height - 8,
+                            width: size.width - 8,
                         }}
                         transition={{ duration: 0.1 }}
                     />
                 }
+                {/* Rettangolo che costituisce l'area dell'entità*/}
                 <motion.rect
-                    height={svgHeight - 14}
-                    width={svgWidth - 14}
+                    id={`body-entity-${id}`}
+                    height={size.height - 14.5}
+                    width={size.width - 14.5}
                     x="7"
                     y="7"
                     rx="5"
@@ -237,11 +296,30 @@ export const Entity = memo(function Entity({ id, options, selected, links, funct
                     fill="white"
                     stroke="black"
                     animate={{
+                        zIndex: 3,
+                        cursor: curs,
                         strokeWidth: selected ? "2.5px" : "0.5px",
-                        zIndex: 2
                     }}
                     transition={{ duration: 0.1 }}
                 />
+                { /*
+                <motion.rect
+                    id={`border-entity-${id}`}
+                    height={size.height - 14}
+                    width={size.width - 14}
+                    x="7"
+                    y="7"
+                    rx="5"
+                    ry="5"
+                    fill="transparent"
+                    stroke="black"
+                    animate={{
+                        strokeWidth: selected ? "2.5px" : "0.5px",
+                        zIndex: 1,
+                        cursor: selected ? "" : "pointer"
+                    }}
+                    transition={{ duration: 0.1 }}
+                />*/}
             </svg>
         </motion.div>
     );

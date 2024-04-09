@@ -15,7 +15,7 @@ export default function Generator({ generate, functs }) {
     let linksMatrix = [];
     generate.forEach((element, index) => {
         linksMatrix.push([]);
-        if (element.type === "Link") {
+        if (element.type === "link") {
             element.options.linked.forEach((id, index) => {
                 linksMatrix[id - 1].push(element);
             });
@@ -26,10 +26,10 @@ export default function Generator({ generate, functs }) {
     generiamo un elemente diverso, tra quelli del modulo */
     let generated = generate.map((element) => {
         switch (element.type) {
-            case "Entity":
+            case "entity":
                 return (
                     <Entity
-                        key={element.type + element.id}
+                        key={`${element.type}-${element.id}`}
                         id={element.id}
                         options={element.options}
                         selected={element.selected}
@@ -38,10 +38,10 @@ export default function Generator({ generate, functs }) {
                     />
                 );
             // end case
-            case "Relationship":
+            case "relationship":
                 return (
                     <Relationship
-                        key={element.type + element.id}
+                        key={`${element.type}-${element.id}`}
                         id={element.id}
                         options={element.options}
                         selected={element.selected}
@@ -54,7 +54,7 @@ export default function Generator({ generate, functs }) {
             case "Link":
                 return (
                     <Linker 
-                        key={element.type + element.id} 
+                        key={`${element.type}-${element.id}`} 
                         id={element.id} 
                         options={element.options} 
                         selected={element.selected}
