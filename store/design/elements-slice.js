@@ -14,6 +14,10 @@ const init = [
                 x: 150, 
                 y: 200,
             },
+            size: {
+                width: 119,
+                height: 70,
+            },
             connecting: false,
         }
     },
@@ -26,6 +30,10 @@ const init = [
             position: {
                 x: 400, 
                 y: 300,
+            },
+            size: {
+                width: 119,
+                height: 70,
             },
             connecting: false,
         },

@@ -25,7 +25,7 @@ export const Entity = memo(function Entity({ id, options, selected, links, funct
     let [grabbing, setGrabbing] = useState(false); // Gestione del grabbing.
     let [offset, setOffset] = useState({ x: 0, y: 0 }); // Oggetto di offset.
     let curs = "pointer"; // Selettore del pointer.
-    let tLength = text.length * 1.5; // Oggetto che calcola un limite superiore alla grandezza della casella di testo.
+    let tLength = text.length * 1.3; // Oggetto che calcola un limite superiore alla grandezza della casella di testo.
     const dispatch = useDispatch(); // Prelevamento del riferimento di useDispatch per poterlo usare liberamente.
 
     /* Refs */
