@@ -193,16 +193,17 @@ export const Entity = memo(function Entity({ id, options, selected, links, funct
     });
 
     /**
-     * handleKeyPress
-     * Funzione che si occupa di rilevare se qualche tasto è stato premuto e agire di conseguenza.
-     * Per ora gestiamo solo l'invio, come mantenimento dello stato attuale e deselezione. Potremmo pensare di inviare
-     * le modifiche con una actionCreator. Quindi inviamo le modifiche (o le salviamo anche nello storico) solo se l'elemento è 
-     * stato deselezionato e lo stato è cambiato nello storico.
-     * Come esc si potrebbe implementare un indietro nello storico e inviare la modifica.
-     */
+    * handleKeyPress
+    * Funzione che si occupa di rilevare se qualche tasto è stato premuto e agire di conseguenza.
+    * Per ora gestiamo solo l'invio, come mantenimento dello stato attuale e deselezione. Potremmo pensare di inviare
+    * le modifiche con una actionCreator. Quindi inviamo le modifiche (o le salviamo anche nello storico) solo se l'elemento è 
+    * stato deselezionato e lo stato è cambiato nello storico.
+    * Come esc si potrebbe implementare un indietro nello storico e inviare la modifica.
+    */
     const handleKeyDown = useCallback((event) => {
-        if (event.key === "Enter" && selected) {
-            event.stopPropagation();
+        console.log(event.key);
+        event.preventDefault();
+        if (event.key === "Enter") {
             dispatch(elementsSlice.actions.setSelectedElement(0));
             dispatch(elementsSlice.actions.setConnectingElement(0));
             // Salva lo stato nello storico.
