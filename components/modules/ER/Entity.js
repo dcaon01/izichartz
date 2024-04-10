@@ -35,7 +35,7 @@ export const Entity = memo(function Entity({ id, options, selected, links, funct
     let inputRef = useRef();
     let entityRef = useRef();
 
-    /**
+    /**  //Spostare sta roba in ER, non usa gli stati quindi top
      * isOnBorder
      * Funzione che mi indica se un offset è vicino al bordo oppure no.
      * @param offset offset da verificare, che è una coppia di punti.
