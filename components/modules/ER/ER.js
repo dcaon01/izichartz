@@ -1,9 +1,10 @@
 'use client';
 
 import { useSelector } from 'react-redux';
-import Workpane from '../general/Workpane.js';
+import { Workpane } from '../general/Workpane.js';
 import Generator from './Generator.js';
-import { useCallback, useEffect, useState } from 'react';
+import { useCallback, useEffect } from 'react';
+import { useDispatch } from "react-redux";
 import { elementsSlice } from '@/store/design/elements-slice.js';
 
 /**
@@ -14,43 +15,39 @@ import { elementsSlice } from '@/store/design/elements-slice.js';
  */
 export default function ER() {
     /* Campi di Esemplare */
-    let elements = useSelector(state => state.designElements);
-    let wpHeight = 720;
-    let wpWidth = 1920;
-    let functs = {}; // Inseriamo le funzionalità, quindi funzioni, da passare agli elementi, ma vediamo se è utile
+    const elements = useSelector(state => state.designElements);
+    const wpHeight = 720;
+    const wpWidth = 1920;
+
+    /* Elementi di Utility */
+    const dispatch = useDispatch(); // Prelevamento del riferimento di useDispatch per poterlo usare liberamente.
 
     /**
-     * whoIsConnecting
-     * @param state stato corrente.
-     * @returns 0 se nessun elemento è in connessione, oppure l'id dell'elemento che
-     * è in connessione.
-     */
-    const whoIsConnecting = useCallback(() => {
-        let id = 0;
-        elements.forEach((element) => {
-            if (element.options && element.options.connecting === true) {
-                id = element.id;
-            }
-        });
-        return id;
+    * handleKeyPress
+    * Funzione che si occupa di rilevare se qualche tasto è stato premuto e agire di conseguenza.
+    * Per ora gestiamo solo l'invio, come mantenimento dello stato attuale e deselezione. Potremmo pensare di inviare
+    * le modifiche con una actionCreator. Quindi inviamo le modifiche (o le salviamo anche nello storico) solo se l'elemento è 
+    * stato deselezionato e lo stato è cambiato nello storico.
+    * Come esc si potrebbe implementare un indietro nello storico e inviare la modifica.
+    */
+    const handleKeyDown = useCallback((event) => {
+        if (event.key === "Enter") {
+            dispatch(elementsSlice.actions.setSelectedElement(0));
+            dispatch(elementsSlice.actions.setConnectingElement(0));
+            // Salva lo stato nello storico.
+            // Invia i dati al DB.
+        }
     });
-    functs["whoIsConnecting"] = whoIsConnecting;
-
-    /**
-     * createLinker 
-     * Funzione che si occupa della creazione di un linker.
-     * @param finishEl elemento finale della connessione.
-     */
-    const createLinker = useCallback(() => {
-        console.log("Crea");
-    });
-    functs["createLinker"] = createLinker;
+    useEffect(() => {
+        document.addEventListener('keydown', handleKeyDown);
+        console.log("culo");
+    }, []);
 
     /* Rendering */
     return (
         <>
             <Workpane h={wpHeight} w={wpWidth}>
-                <Generator generate={elements} functs={functs} />
+                <Generator generate={elements} />
             </Workpane>
         </>
     );

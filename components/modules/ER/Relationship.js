@@ -135,6 +135,8 @@ export const Relationship = memo(function Relationship({ id, options, selected }
         }
     }
 
+    console.log("rendering "+id);
+
     /* Rendering */
     return (
         <div

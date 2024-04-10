@@ -13,7 +13,7 @@ import { motion } from 'framer-motion';
  * @param options opzioni utili al rendering dell'elemento.
  * @param selected flag di selezione dell'elemento.
  */
-export const Entity = memo(function Entity({ id, options, selected, links, functs }) {
+export const Entity = memo(function Entity({ id, options, selected }) {
     /* Prelevamento delle opzioni utili */
     let text = options.text; // Testo interno al rettangolo.
     let position = options.position; // Oggetto posizione.
@@ -78,14 +78,16 @@ export const Entity = memo(function Entity({ id, options, selected, links, funct
      */
     const handleSelection = useCallback((event) => {
         event.stopPropagation();
+        let idConnect = 0;
         // Fare una funzione che verifichi se qualcuno è in connessione, ritorni l'id di quel qualcuno.
         // Se qualcuno è in connessione richiamare una funzione in ER, passando ad essa i due id, e le due refs.
-        let idConnect = functs.whoIsConnecting();
+        //dispatch(idConnect = elementsSlice.actions.whoIsConnecting());
+        console.log(idConnect);
         if (idConnect !== 0) {
-            functs.createLinker();
+            //elementsSlice.actions.createLinker();
         } else {
             dispatch(elementsSlice.actions.setSelectedElement(id));
-            dispatch(elementsSlice.actions.setConnectingElement(0));
+            // dispatch(elementsSlice.actions.setConnectingElement(0));
         }
     });
 
@@ -141,12 +143,14 @@ export const Entity = memo(function Entity({ id, options, selected, links, funct
      */
     const handleDragging = useCallback((event) => {
         event.preventDefault();  // Sistema il dragging merdoso
+        let x = event.clientX - position.x;
+        let y = event.clientY - position.y;
+        setBorders(isOnBorder({ x, y }));
         if (moving) {
             let x = event.clientX - offset.x;
             let y = event.clientY - offset.y;
             dispatch(elementsSlice.actions.modifyElementOptions({ id: id, option: "position", value: { x, y } }))
-        }
-        if (resizing) {
+        } else if (resizing) {
             let x = event.clientX - offset.x;
             let y = event.clientY - offset.y;
             console.log("facciamo resizing");
@@ -192,36 +196,20 @@ export const Entity = memo(function Entity({ id, options, selected, links, funct
         event.stopPropagation();
     });
 
-    /**
-    * handleKeyPress
-    * Funzione che si occupa di rilevare se qualche tasto è stato premuto e agire di conseguenza.
-    * Per ora gestiamo solo l'invio, come mantenimento dello stato attuale e deselezione. Potremmo pensare di inviare
-    * le modifiche con una actionCreator. Quindi inviamo le modifiche (o le salviamo anche nello storico) solo se l'elemento è 
-    * stato deselezionato e lo stato è cambiato nello storico.
-    * Come esc si potrebbe implementare un indietro nello storico e inviare la modifica.
-    */
-    const handleKeyDown = useCallback((event) => {
-        console.log(event.key);
-        event.preventDefault();
-        if (event.key === "Enter") {
-            dispatch(elementsSlice.actions.setSelectedElement(0));
-            dispatch(elementsSlice.actions.setConnectingElement(0));
-            // Salva lo stato nello storico.
-            // Invia i dati al DB.
-        }
-    });
-    useEffect(() => {
-        document.addEventListener('keydown', handleKeyDown);
-    }, []);
-
     /* Gestione dinamica del cursore */
     if (selected) {
         if (moving) {
             curs = "grabbing";
         } else {
-            curs = "move";
+            if (borders[0]) {
+                curs = "e-resize";
+            } else {
+                curs = "move";
+            }
         }
     }
+
+    console.log("rendering " + id);
 
     /* Rendering */
     return (

@@ -3,13 +3,14 @@
 import { Entity } from "./Entity.js";
 import { Relationship } from "./Relationship.js";
 import { Linker } from "./Linker.js";
+import { memo } from "react";
 
 /**
  * Generator
  * elemente che genera i elementi all'interno di un workpane.
  * @param generate array di JSON da renderizzare.
  */
-export default function Generator({ generate, functs }) {
+export default function Generator({ generate }) {
     /* Creiamo la matrice di collegamenti, in modo da riuscire a passarli agli elementi che non sono
     link e gestirli all'interno di essi - Ma ha senso? */
     let linksMatrix = [];
@@ -33,7 +34,7 @@ export default function Generator({ generate, functs }) {
                         id={element.id}
                         options={element.options}
                         selected={element.selected}
-                        links={linksMatrix[element.id - 1]}
+                        // links={linksMatrix[element.id - 1]}
                         functs={functs}
                     />
                 );
@@ -45,7 +46,7 @@ export default function Generator({ generate, functs }) {
                         id={element.id}
                         options={element.options}
                         selected={element.selected}
-                        links={linksMatrix[element.id - 1]}
+                        // links={linksMatrix[element.id - 1]}
                         functs={functs}
                     />
                 );

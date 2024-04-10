@@ -11,7 +11,7 @@ const init = [
         options: {
             text: "ENTITY1",
             position: {
-                x: 150, 
+                x: 150,
                 y: 200,
             },
             size: {
@@ -28,7 +28,7 @@ const init = [
         options: {
             text: "ENTITY2",
             position: {
-                x: 400, 
+                x: 400,
                 y: 300,
             },
             size: {
@@ -38,6 +38,7 @@ const init = [
             connecting: false,
         },
     },
+    /*
     {   
         type: "relationship",
         id: 3,
@@ -51,7 +52,6 @@ const init = [
             connecting: false
         },
     },
-    /*
     {
         type: "link",
         id: 4,
@@ -116,7 +116,7 @@ export const elementsSlice = createSlice({
             if (id === 0) {
                 state.forEach((element) => {
                     element.selected = false;
-                });  
+                });
             } else {
                 state.forEach((element) => {
                     if (element.id === id) {
@@ -136,12 +136,12 @@ export const elementsSlice = createSlice({
          * seguenti parametri:
          * - id: id dell'elemento da settare come "in connessione". Se 0, imposta tutti gli elementi come non "in connessione".
          */
-        setConnectingElement(state, action){
+        setConnectingElement(state, action) {
             const id = action.payload;
             if (id === 0) {
                 state.forEach((element) => {
                     // element.selected = false;
-                    if(element.options.connecting){
+                    if (element.options.connecting) {
                         element.options.connecting = false;
                     }
                 });
@@ -155,5 +155,30 @@ export const elementsSlice = createSlice({
                 });
             }
         },
+
+        /**
+         * createLinker 
+         * Funzione che si occupa della creazione di un linker.
+         * @param finishEl elemento finale della connessione.
+         */
+        createLinker() {
+            console.log("Crea");
+        },
+
+        /**
+         * whoIsConnecting
+         * @param state stato corrente.
+         * @returns 0 se nessun elemento è in connessione, oppure l'id dell'elemento che
+         * è in connessione.
+         */
+        whoIsConnecting(state) {
+            let id = 0;
+            state.forEach((element) => {
+                if (element.options && element.options.connecting === true) {
+                    id = element.id;
+                }
+            });
+            return id;
+        }
     }
 });
