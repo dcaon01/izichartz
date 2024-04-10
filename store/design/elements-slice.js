@@ -157,28 +157,21 @@ export const elementsSlice = createSlice({
         },
 
         /**
-         * createLinker 
-         * Funzione che si occupa della creazione di un linker.
-         * @param finishEl elemento finale della connessione.
-         */
-        createLinker() {
-            console.log("Crea");
-        },
-
-        /**
          * whoIsConnecting
          * @param state stato corrente.
          * @returns 0 se nessun elemento è in connessione, oppure l'id dell'elemento che
          * è in connessione.
          */
-        whoIsConnecting(state) {
+        connecting(state, payload) {
             let id = 0;
             state.forEach((element) => {
                 if (element.options && element.options.connecting === true) {
                     id = element.id;
                 }
             });
-            return id;
+            if(id !== 0){
+                console.log("connecting");
+            }
         }
     }
 });

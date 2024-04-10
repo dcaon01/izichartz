@@ -35,7 +35,6 @@ export default function Generator({ generate }) {
                         options={element.options}
                         selected={element.selected}
                         // links={linksMatrix[element.id - 1]}
-                        functs={functs}
                     />
                 );
             // end case
@@ -47,7 +46,6 @@ export default function Generator({ generate }) {
                         options={element.options}
                         selected={element.selected}
                         // links={linksMatrix[element.id - 1]}
-                        functs={functs}
                     />
                 );
             // end case

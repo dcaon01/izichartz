@@ -78,18 +78,9 @@ export const Entity = memo(function Entity({ id, options, selected }) {
      */
     const handleSelection = useCallback((event) => {
         event.stopPropagation();
-        let idConnect = 0;
-        // Fare una funzione che verifichi se qualcuno è in connessione, ritorni l'id di quel qualcuno.
-        // Se qualcuno è in connessione richiamare una funzione in ER, passando ad essa i due id, e le due refs.
-        //dispatch(idConnect = elementsSlice.actions.whoIsConnecting());
-        console.log(idConnect);
-        if (idConnect !== 0) {
-            //elementsSlice.actions.createLinker();
-        } else {
-            dispatch(elementsSlice.actions.setSelectedElement(id));
-            // dispatch(elementsSlice.actions.setConnectingElement(0));
-        }
-    });
+        dispatch(elementsSlice.actions.connecting(id));
+        dispatch(elementsSlice.actions.setSelectedElement(id));
+    }, []);
 
     /**
      * handleConnection
@@ -100,7 +91,7 @@ export const Entity = memo(function Entity({ id, options, selected }) {
     const handleConnection = useCallback((event) => {
         event.stopPropagation();
         dispatch(elementsSlice.actions.setConnectingElement(id));
-    });
+    }, []);
 
     /**
      * handleGrabbing
@@ -125,7 +116,7 @@ export const Entity = memo(function Entity({ id, options, selected }) {
             setMoving(true);
         }
         setOffset({ x, y });
-    });
+    }, []);
 
     /**
      * handleNotGrabbingAnymore
@@ -134,7 +125,7 @@ export const Entity = memo(function Entity({ id, options, selected }) {
     const handleNotGrabbingAnymore = useCallback(() => {
         setMoving(false);
         setResizing(false);
-    });
+    }, []);
 
     /**
      * handleDragging
@@ -155,7 +146,7 @@ export const Entity = memo(function Entity({ id, options, selected }) {
             let y = event.clientY - offset.y;
             console.log("facciamo resizing");
         }
-    });
+    }, []);
 
     /**
      * handleLeaving
@@ -166,7 +157,7 @@ export const Entity = memo(function Entity({ id, options, selected }) {
     const handleLeaving = useCallback(() => {
         setMoving(false);
         setResizing(false);
-    });
+    }, []);
 
     /**
      * handleInput
@@ -183,7 +174,7 @@ export const Entity = memo(function Entity({ id, options, selected }) {
                 height: minHeight,
             }
         }));
-    });
+    }, []);
 
     /**
      * handleInputInsert
@@ -194,7 +185,7 @@ export const Entity = memo(function Entity({ id, options, selected }) {
      */
     const handleInputInsert = useCallback((event) => {
         event.stopPropagation();
-    });
+    }, []);
 
     /* Gestione dinamica del cursore */
     if (selected) {
