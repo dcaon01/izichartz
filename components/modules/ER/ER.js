@@ -23,7 +23,7 @@ export default function ER() {
      * whoIsConnecting
      * @param state stato corrente.
      * @returns 0 se nessun elemento è in connessione, oppure l'id dell'elemento che
-     * è in connessione.
+     * è in connessione. // non funziona perché elements cambia.
      */
     const whoIsConnecting = useCallback(() => {
         let id = 0;
