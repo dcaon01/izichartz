@@ -2,7 +2,7 @@
 
 import { useDispatch } from "react-redux";
 import classes from "./Entity.module.css";
-import { useState, useRef, useEffect, memo, useCallback } from "react";
+import { useState, useRef , memo, useCallback } from "react";
 import { elementsSlice } from "@/store/design/elements-slice";
 import { motion } from 'framer-motion';
 
@@ -63,9 +63,8 @@ export const Entity = memo(function Entity({ id, options, selected }) {
                 bords[0] = true;
             }
         }
-        console.log(bords);
         return bords;
-    });
+    }, []);
 
     /**
      * handleSelection
@@ -73,11 +72,11 @@ export const Entity = memo(function Entity({ id, options, selected }) {
      * globale.
      * @param event oggetto evento triggerato onClick.
      */
-    const handleSelection = useCallback((event) => {
+    function handleSelection(event) {
         event.stopPropagation();
         dispatch(elementsSlice.actions.connecting(id));
         dispatch(elementsSlice.actions.setSelectedElement(id));
-    });
+    }
 
     /**
      * handleConnection
@@ -85,10 +84,10 @@ export const Entity = memo(function Entity({ id, options, selected }) {
      * lo slice globale.
      * @param event oggetto evento triggerato onDoubleClick.
      */
-    const handleConnection = useCallback((event) => {
+    function handleConnection(event){
         event.stopPropagation();
         dispatch(elementsSlice.actions.setConnectingElement(id));
-    });
+    }
 
     /**
      * handleGrabbing
@@ -97,7 +96,7 @@ export const Entity = memo(function Entity({ id, options, selected }) {
      * meglio il trascinament. 
      * @param event oggetto evento triggerato onMouseDown.
      */
-    const handleGrabbing = useCallback((event) => {
+    function handleGrabbing(event) {
         event.preventDefault();
         dispatch(elementsSlice.actions.setConnectingElement(0));
         inputRef.current.blur();
@@ -113,23 +112,23 @@ export const Entity = memo(function Entity({ id, options, selected }) {
             setMoving(true);
         }
         setOffset({ x, y });
-    });
+    }
 
     /**
      * handleNotGrabbingAnymore
      * Funzione che gestisce il fatto che l'utente non prema più sull'elemento.
      */
-    const handleNotGrabbingAnymore = useCallback(() => {
+    function handleNotGrabbingAnymore() {
         setMoving(false);
         setResizing(false);
-    });
+    }
 
     /**
      * handleDragging
      * Funzione che gestisce il trascinamento dell'elemento.
      * @param event oggetto evento triggerato onMouseMove.
      */
-    const handleDragging = useCallback((event) => {
+    function handleDragging (event) {
         event.preventDefault();  // Sistema il dragging merdoso
         let x = event.clientX - position.x;
         let y = event.clientY - position.y;
@@ -143,7 +142,7 @@ export const Entity = memo(function Entity({ id, options, selected }) {
             let y = event.clientY - offset.y;
             console.log("facciamo resizing");
         }
-    });
+    }
 
     /**
      * handleLeaving
@@ -161,7 +160,7 @@ export const Entity = memo(function Entity({ id, options, selected }) {
      * Funzione che gestisce l'input da textbox dell'utente.
      * @param event oggetto evento triggerato onChange.
      */
-    const handleInput = useCallback((event) => {
+    function handleInput(event) {
         dispatch(elementsSlice.actions.modifyElementOptions({ id: id, option: "text", value: event.target.value }));
         dispatch(elementsSlice.actions.modifyElementOptions({
             id: id,
@@ -171,7 +170,7 @@ export const Entity = memo(function Entity({ id, options, selected }) {
                 height: minHeight,
             }
         }));
-    });
+    }
 
     /**
      * handleInputInsert
@@ -180,9 +179,9 @@ export const Entity = memo(function Entity({ id, options, selected }) {
      * triggerata quella, non facendo più modificare la textbox.
      * @param event oggetto evento triggerato onClick.
      */
-    const handleInputInsert = useCallback((event) => {
+    function handleInputInsert(event) {
         event.stopPropagation();
-    });
+    }
 
     /* Gestione dinamica del cursore */
     if (selected) {
