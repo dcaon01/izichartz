@@ -35,14 +35,14 @@ export const Entity = memo(function Entity({ id, options, selected }) {
     let inputRef = useRef();
     let entityRef = useRef();
 
-    /**  //Spostare sta roba in ER, non usa gli stati quindi top
+    /**
      * isOnBorder
      * Funzione che mi indica se un offset è vicino al bordo oppure no.
      * @param offset offset da verificare, che è una coppia di punti.
      * @return borders, array di 5 booleani: il primo indica se qualche bordo è triggerato 
      * mentre gli altri indicano quale o quali bordi sono triggerati.
      */
-    const isOnBorder = useCallback((offset) => {
+    function isOnBorder(offset){
         // flag, dx, top, sn, bot
         let bords = [false, false, false, false, false];
         if (offset.x < 10) {
@@ -64,7 +64,7 @@ export const Entity = memo(function Entity({ id, options, selected }) {
             }
         }
         return bords;
-    }, []);
+    };
 
     /**
      * handleSelection
@@ -150,10 +150,10 @@ export const Entity = memo(function Entity({ id, options, selected }) {
      * Deve essere messa per forza sennò movine e resizing rimarrebbero settati, fornendo
      * una brutta UE. 
      */
-    const handleLeaving = useCallback(() => {
+    function handleLeaving() {
         setMoving(false);
         setResizing(false);
-    });
+    }
 
     /**
      * handleInput
@@ -170,6 +170,12 @@ export const Entity = memo(function Entity({ id, options, selected }) {
                 height: minHeight,
             }
         }));
+    }
+
+    function handleBlur(event) {
+        if (event.key === "Enter") {
+            inputRef.current.blur();
+        }
     }
 
     /**
@@ -207,6 +213,8 @@ export const Entity = memo(function Entity({ id, options, selected }) {
         }
     }
 
+    console.log(id);
+
     /* Rendering */
     return (
         <motion.div
@@ -233,6 +241,7 @@ export const Entity = memo(function Entity({ id, options, selected }) {
                 onChange={handleInput}
                 onMouseDown={handleInputInsert} // Abbiamo dovuto sovrascrivere l'evento del padre
                 className={classes.entityInput}
+                onKeyDown={handleBlur}
                 style={{
                     width: tLength === 0 ? 20 : tLength + "ch",
                     cursor: selected ? "text" : "pointer"
