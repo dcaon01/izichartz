@@ -2,7 +2,7 @@
 
 import { useDispatch } from "react-redux";
 import classes from "./Entity.module.css";
-import { useState, useRef, useEffect, memo, useCallback } from "react";
+import { useState, useRef , memo } from "react";
 import { elementsSlice } from "@/store/design/elements-slice";
 import { motion } from 'framer-motion';
 
@@ -35,28 +35,27 @@ export const Entity = memo(function Entity({ id, options, selected }) {
     let inputRef = useRef();
     let entityRef = useRef();
 
-    /**  //Spostare sta roba in ER, non usa gli stati quindi top
+    /**
      * isOnBorder
      * Funzione che mi indica se un offset è vicino al bordo oppure no.
      * @param offset offset da verificare, che è una coppia di punti.
      * @return borders, array di 5 booleani: il primo indica se qualche bordo è triggerato 
      * mentre gli altri indicano quale o quali bordi sono triggerati.
      */
-    const isOnBorder = useCallback((offset) => {
+    function isOnBorder(offset){
         // flag, dx, top, sn, bot
         let bords = [false, false, false, false, false];
-        if (offset.x < 5) {
+        if (offset.x < 10) {
             bords[3] = true; // lato sinistro
-            console.log(bords);
         }
         if (offset.x > size.width - 5) {
             bords[1] = true; // lato destro
         }
         if (offset.y < 10) {
-            bords[4] = true; // top
+            bords[2] = true; // top
         }
-        if (offset.y > size.height - 5) {
-            bords[2] = true; // bottom
+        if (offset.y > size.height - 10) {
+            bords[4] = true; // bottom
         }
         for (let i = 1; i < bords.length; i++) {
             if (bords[i]) {
@@ -65,7 +64,20 @@ export const Entity = memo(function Entity({ id, options, selected }) {
         }
         console.log(bords);
         return bords;
-    });
+    };
+
+    /**
+     * resising
+     * Funzione che gestisce tutti i casi di resizing.
+     * @param bordersArray array con le indicazioni sui borders che sono stati triggerati.
+     * @param quantity json con la quantità da dimensionare.
+     */
+    function resize(bordersArray, quantity){
+        // dx
+        if (bordersArray[1]) {
+            dispatch(elementsSlice.actions.modifyElementOptions({ id: id, option: "size", value: { width: size.width + quantity.x, height: size.height }}));
+        }
+    }
 
     /**
      * handleSelection
@@ -73,11 +85,11 @@ export const Entity = memo(function Entity({ id, options, selected }) {
      * globale.
      * @param event oggetto evento triggerato onClick.
      */
-    const handleSelection = useCallback((event) => {
+    function handleSelection(event) {
         event.stopPropagation();
         dispatch(elementsSlice.actions.connecting(id));
         dispatch(elementsSlice.actions.setSelectedElement(id));
-    });
+    }
 
     /**
      * handleConnection
@@ -85,10 +97,10 @@ export const Entity = memo(function Entity({ id, options, selected }) {
      * lo slice globale.
      * @param event oggetto evento triggerato onDoubleClick.
      */
-    const handleConnection = useCallback((event) => {
+    function handleConnection(event){
         event.stopPropagation();
         dispatch(elementsSlice.actions.setConnectingElement(id));
-    });
+    }
 
     /**
      * handleGrabbing
@@ -97,7 +109,7 @@ export const Entity = memo(function Entity({ id, options, selected }) {
      * meglio il trascinament. 
      * @param event oggetto evento triggerato onMouseDown.
      */
-    const handleGrabbing = useCallback((event) => {
+    function handleGrabbing(event) {
         event.preventDefault();
         dispatch(elementsSlice.actions.setConnectingElement(0));
         inputRef.current.blur();
@@ -105,35 +117,44 @@ export const Entity = memo(function Entity({ id, options, selected }) {
         // Calcoliamo l'offset, quanto è distante il puntatore dall'origine del componente
         let x = event.clientX - position.x;
         let y = event.clientY - position.y;
+        // Controlliamo se è sui bordi
+        setBorders(isOnBorder({ x, y }));
+        if (borders[0]) {
+            setResizing(true);
+        } else {
+            setMoving(true);
+        }
         setOffset({ x, y });
-        console.log("culo");
-    });
+    }
 
     /**
      * handleNotGrabbingAnymore
      * Funzione che gestisce il fatto che l'utente non prema più sull'elemento.
      */
-    const handleNotGrabbingAnymore = useCallback(() => {
+    function handleNotGrabbingAnymore() {
         setMoving(false);
         setResizing(false);
-        console.log("non più grabbing");
-    });
+    }
 
     /**
      * handleDragging
      * Funzione che gestisce il trascinamento dell'elemento.
      * @param event oggetto evento triggerato onMouseMove.
      */
-    const handleDragging = useCallback((event) => {
+    function handleDragging (event) {
         event.preventDefault();  // Sistema il dragging merdoso
         console.log(moving);
         if (moving) {
             console.log("culomov");
             let x = event.clientX - offset.x;
             let y = event.clientY - offset.y;
-            dispatch(elementsSlice.actions.modifyElementOptions({ id: id, option: "position", value: { x, y } }));
+            dispatch(elementsSlice.actions.modifyElementOptions({ id: id, option: "position", value: { x, y } }))
+        } else if (resizing) {
+            let x = event.clientX - position.x - offset.x;
+            let y = event.clientY - position.y - offset.y;
+            resize(borders, {x, y});
         }
-    });
+    }
 
     /**
      * handleLeaving
@@ -141,17 +162,17 @@ export const Entity = memo(function Entity({ id, options, selected }) {
      * Deve essere messa per forza sennò movine e resizing rimarrebbero settati, fornendo
      * una brutta UE. 
      */
-    const handleLeaving = useCallback(() => {
+    function handleLeaving() {
         setMoving(false);
         setResizing(false);
-    });
+    }
 
     /**
      * handleInput
      * Funzione che gestisce l'input da textbox dell'utente.
      * @param event oggetto evento triggerato onChange.
      */
-    const handleInput = useCallback((event) => {
+    function handleInput(event) {
         dispatch(elementsSlice.actions.modifyElementOptions({ id: id, option: "text", value: event.target.value }));
         dispatch(elementsSlice.actions.modifyElementOptions({
             id: id,
@@ -161,7 +182,13 @@ export const Entity = memo(function Entity({ id, options, selected }) {
                 height: minHeight,
             }
         }));
-    });
+    }
+
+    function handleBlur(event) {
+        if (event.key === "Enter") {
+            inputRef.current.blur();
+        }
+    }
 
     /**
      * handleInputInsert
@@ -170,9 +197,9 @@ export const Entity = memo(function Entity({ id, options, selected }) {
      * triggerata quella, non facendo più modificare la textbox.
      * @param event oggetto evento triggerato onClick.
      */
-    const handleInputInsert = useCallback((event) => {
+    function handleInputInsert(event) {
         event.stopPropagation();
-    });
+    }
 
     /* Gestione dinamica del cursore */
     if (selected) {
@@ -182,16 +209,23 @@ export const Entity = memo(function Entity({ id, options, selected }) {
             if (borders[0]) {
                 if (borders[1] || borders[3]) {
                     curs = "e-resize";
-                } else if (borders[2] || borders[4]) {
+                } 
+                if (borders[2] || borders[4]) {
                     curs = "n-resize";
+                } 
+                if ((borders[1] && borders[2]) || borders[3] && borders[4]) {
+                    curs = "ne-resize";
+                } 
+                if ((borders[2] && borders[3]) || (borders[4] && borders[1])) {
+                    curs = "nw-resize";
                 }
             } else {
-                curs = "move";
+                curs = "grab";
             }
         }
     }
 
-    //console.log("rendering " + id);
+    //console.log(id);
 
     /* Rendering */
     return (
@@ -219,6 +253,7 @@ export const Entity = memo(function Entity({ id, options, selected }) {
                 onChange={handleInput}
                 onMouseDown={handleInputInsert} // Abbiamo dovuto sovrascrivere l'evento del padre
                 className={classes.entityInput}
+                onKeyDown={handleBlur}
                 style={{
                     width: tLength === 0 ? 20 : tLength + "ch",
                     cursor: selected ? "text" : "pointer"
