@@ -2,7 +2,7 @@
 
 import { useDispatch } from "react-redux";
 import classes from "./Entity.module.css";
-import { useState, useRef , memo, useCallback } from "react";
+import { useState, useRef , memo } from "react";
 import { elementsSlice } from "@/store/design/elements-slice";
 import { motion } from 'framer-motion';
 
@@ -47,7 +47,6 @@ export const Entity = memo(function Entity({ id, options, selected }) {
         let bords = [false, false, false, false, false];
         if (offset.x < 10) {
             bords[3] = true; // lato sinistro
-            console.log(bords);
         }
         if (offset.x > size.width - 10) {
             bords[1] = true; // lato destro
@@ -65,6 +64,19 @@ export const Entity = memo(function Entity({ id, options, selected }) {
         }
         return bords;
     };
+
+    /**
+     * resising
+     * Funzione che gestisce tutti i casi di resizing.
+     * @param bordersArray array con le indicazioni sui borders che sono stati triggerati.
+     * @param quantity json con la quantità da dimensionare.
+     */
+    function resize(bordersArray, quantity){
+        // dx
+        if (bordersArray[1]) {
+            dispatch(elementsSlice.actions.modifyElementOptions({ id: id, option: "size", value: { width: size.width + quantity.x, height: size.height }}));
+        }
+    }
 
     /**
      * handleSelection
@@ -105,7 +117,6 @@ export const Entity = memo(function Entity({ id, options, selected }) {
         let y = event.clientY - position.y;
         // Controlliamo se è sui bordi
         setBorders(isOnBorder({ x, y }));
-        console.log(borders);
         if (borders[0]) {
             setResizing(true);
         } else {
@@ -138,9 +149,9 @@ export const Entity = memo(function Entity({ id, options, selected }) {
             let y = event.clientY - offset.y;
             dispatch(elementsSlice.actions.modifyElementOptions({ id: id, option: "position", value: { x, y } }))
         } else if (resizing) {
-            let x = event.clientX - offset.x;
-            let y = event.clientY - offset.y;
-            console.log("facciamo resizing");
+            let x = event.clientX - position.x - offset.x;
+            let y = event.clientY - position.y - offset.y;
+            resize(borders, {x, y});
         }
     }
 
@@ -213,7 +224,7 @@ export const Entity = memo(function Entity({ id, options, selected }) {
         }
     }
 
-    console.log(id);
+    //console.log(id);
 
     /* Rendering */
     return (
