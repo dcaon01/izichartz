@@ -80,7 +80,7 @@ export const Entity = memo(function Entity({ id, options, selected }) {
         event.stopPropagation();
         dispatch(elementsSlice.actions.connecting(id));
         dispatch(elementsSlice.actions.setSelectedElement(id));
-    }, []);
+    });
 
     /**
      * handleConnection
@@ -91,7 +91,7 @@ export const Entity = memo(function Entity({ id, options, selected }) {
     const handleConnection = useCallback((event) => {
         event.stopPropagation();
         dispatch(elementsSlice.actions.setConnectingElement(id));
-    }, []);
+    });
 
     /**
      * handleGrabbing
@@ -116,7 +116,7 @@ export const Entity = memo(function Entity({ id, options, selected }) {
             setMoving(true);
         }
         setOffset({ x, y });
-    }, []);
+    });
 
     /**
      * handleNotGrabbingAnymore
@@ -125,7 +125,7 @@ export const Entity = memo(function Entity({ id, options, selected }) {
     const handleNotGrabbingAnymore = useCallback(() => {
         setMoving(false);
         setResizing(false);
-    }, []);
+    });
 
     /**
      * handleDragging
@@ -146,7 +146,7 @@ export const Entity = memo(function Entity({ id, options, selected }) {
             let y = event.clientY - offset.y;
             console.log("facciamo resizing");
         }
-    }, []);
+    });
 
     /**
      * handleLeaving
@@ -157,7 +157,7 @@ export const Entity = memo(function Entity({ id, options, selected }) {
     const handleLeaving = useCallback(() => {
         setMoving(false);
         setResizing(false);
-    }, []);
+    });
 
     /**
      * handleInput
@@ -174,7 +174,7 @@ export const Entity = memo(function Entity({ id, options, selected }) {
                 height: minHeight,
             }
         }));
-    }, []);
+    });
 
     /**
      * handleInputInsert
@@ -185,7 +185,7 @@ export const Entity = memo(function Entity({ id, options, selected }) {
      */
     const handleInputInsert = useCallback((event) => {
         event.stopPropagation();
-    }, []);
+    });
 
     /* Gestione dinamica del cursore */
     if (selected) {
