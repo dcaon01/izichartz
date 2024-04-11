@@ -40,7 +40,6 @@ export default function ER() {
     });
     useEffect(() => {
         document.addEventListener('keydown', handleKeyDown);
-        console.log("culo");
     }, []);
 
     /* Rendering */

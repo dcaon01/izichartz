@@ -45,9 +45,6 @@ export const Entity = memo(function Entity({ id, options, selected }) {
     const isOnBorder = useCallback((offset) => {
         // flag, dx, top, sn, bot
         let bords = [false, false, false, false, false];
-        console.log(offset);
-        console.log(size.width);
-        console.log("richiamato");
         if (offset.x < 10) {
             bords[3] = true; // lato sinistro
             console.log(bords);
@@ -56,17 +53,17 @@ export const Entity = memo(function Entity({ id, options, selected }) {
             bords[1] = true; // lato destro
         }
         if (offset.y < 10) {
-            bords[4] = true; // top
+            bords[2] = true; // top
         }
         if (offset.y > size.height - 10) {
-            bords[2] = true; // bottom
+            bords[4] = true; // bottom
         }
         for (let i = 1; i < bords.length; i++) {
             if (bords[i]) {
                 bords[0] = true;
             }
-            break;
         }
+        console.log(bords);
         return bords;
     });
 
@@ -193,14 +190,23 @@ export const Entity = memo(function Entity({ id, options, selected }) {
             curs = "grabbing";
         } else {
             if (borders[0]) {
-                curs = "e-resize";
+                if (borders[1] || borders[3]) {
+                    curs = "e-resize";
+                } 
+                if (borders[2] || borders[4]) {
+                    curs = "n-resize";
+                } 
+                if ((borders[1] && borders[2]) || borders[3] && borders[4]) {
+                    curs = "ne-resize";
+                } 
+                if ((borders[2] && borders[3]) || (borders[4] && borders[1])) {
+                    curs = "nw-resize";
+                }
             } else {
-                curs = "move";
+                curs = "grab";
             }
         }
     }
-
-    console.log("rendering " + id);
 
     /* Rendering */
     return (
@@ -282,24 +288,6 @@ export const Entity = memo(function Entity({ id, options, selected }) {
                     }}
                     transition={{ duration: 0.1 }}
                 />
-                { /*
-                <motion.rect
-                    id={`border-entity-${id}`}
-                    height={size.height - 14}
-                    width={size.width - 14}
-                    x="7"
-                    y="7"
-                    rx="5"
-                    ry="5"
-                    fill="transparent"
-                    stroke="black"
-                    animate={{
-                        strokeWidth: selected ? "2.5px" : "0.5px",
-                        zIndex: 1,
-                        cursor: selected ? "" : "pointer"
-                    }}
-                    transition={{ duration: 0.1 }}
-                />*/}
             </svg>
         </motion.div>
     );
