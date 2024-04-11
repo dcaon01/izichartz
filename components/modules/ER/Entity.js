@@ -45,28 +45,25 @@ export const Entity = memo(function Entity({ id, options, selected }) {
     const isOnBorder = useCallback((offset) => {
         // flag, dx, top, sn, bot
         let bords = [false, false, false, false, false];
-        console.log(offset);
-        console.log(size.width);
-        console.log("richiamato");
-        if (offset.x < 10) {
+        if (offset.x < 5) {
             bords[3] = true; // lato sinistro
             console.log(bords);
         }
-        if (offset.x > size.width - 10) {
+        if (offset.x > size.width - 5) {
             bords[1] = true; // lato destro
         }
         if (offset.y < 10) {
             bords[4] = true; // top
         }
-        if (offset.y > size.height - 10) {
+        if (offset.y > size.height - 5) {
             bords[2] = true; // bottom
         }
         for (let i = 1; i < bords.length; i++) {
             if (bords[i]) {
                 bords[0] = true;
             }
-            break;
         }
+        console.log(bords);
         return bords;
     });
 
@@ -80,7 +77,7 @@ export const Entity = memo(function Entity({ id, options, selected }) {
         event.stopPropagation();
         dispatch(elementsSlice.actions.connecting(id));
         dispatch(elementsSlice.actions.setSelectedElement(id));
-    }, []);
+    });
 
     /**
      * handleConnection
@@ -91,7 +88,7 @@ export const Entity = memo(function Entity({ id, options, selected }) {
     const handleConnection = useCallback((event) => {
         event.stopPropagation();
         dispatch(elementsSlice.actions.setConnectingElement(id));
-    }, []);
+    });
 
     /**
      * handleGrabbing
@@ -104,19 +101,13 @@ export const Entity = memo(function Entity({ id, options, selected }) {
         event.preventDefault();
         dispatch(elementsSlice.actions.setConnectingElement(0));
         inputRef.current.blur();
+        setMoving(true);
         // Calcoliamo l'offset, quanto è distante il puntatore dall'origine del componente
         let x = event.clientX - position.x;
         let y = event.clientY - position.y;
-        // Controlliamo se è sui bordi
-        setBorders(isOnBorder({ x, y }));
-        console.log(borders);
-        if (borders[0]) {
-            setResizing(true);
-        } else {
-            setMoving(true);
-        }
         setOffset({ x, y });
-    }, []);
+        console.log("culo");
+    });
 
     /**
      * handleNotGrabbingAnymore
@@ -125,7 +116,8 @@ export const Entity = memo(function Entity({ id, options, selected }) {
     const handleNotGrabbingAnymore = useCallback(() => {
         setMoving(false);
         setResizing(false);
-    }, []);
+        console.log("non più grabbing");
+    });
 
     /**
      * handleDragging
@@ -134,19 +126,14 @@ export const Entity = memo(function Entity({ id, options, selected }) {
      */
     const handleDragging = useCallback((event) => {
         event.preventDefault();  // Sistema il dragging merdoso
-        let x = event.clientX - position.x;
-        let y = event.clientY - position.y;
-        setBorders(isOnBorder({ x, y }));
+        console.log(moving);
         if (moving) {
+            console.log("culomov");
             let x = event.clientX - offset.x;
             let y = event.clientY - offset.y;
-            dispatch(elementsSlice.actions.modifyElementOptions({ id: id, option: "position", value: { x, y } }))
-        } else if (resizing) {
-            let x = event.clientX - offset.x;
-            let y = event.clientY - offset.y;
-            console.log("facciamo resizing");
+            dispatch(elementsSlice.actions.modifyElementOptions({ id: id, option: "position", value: { x, y } }));
         }
-    }, []);
+    });
 
     /**
      * handleLeaving
@@ -157,7 +144,7 @@ export const Entity = memo(function Entity({ id, options, selected }) {
     const handleLeaving = useCallback(() => {
         setMoving(false);
         setResizing(false);
-    }, []);
+    });
 
     /**
      * handleInput
@@ -174,7 +161,7 @@ export const Entity = memo(function Entity({ id, options, selected }) {
                 height: minHeight,
             }
         }));
-    }, []);
+    });
 
     /**
      * handleInputInsert
@@ -185,7 +172,7 @@ export const Entity = memo(function Entity({ id, options, selected }) {
      */
     const handleInputInsert = useCallback((event) => {
         event.stopPropagation();
-    }, []);
+    });
 
     /* Gestione dinamica del cursore */
     if (selected) {
@@ -193,14 +180,18 @@ export const Entity = memo(function Entity({ id, options, selected }) {
             curs = "grabbing";
         } else {
             if (borders[0]) {
-                curs = "e-resize";
+                if (borders[1] || borders[3]) {
+                    curs = "e-resize";
+                } else if (borders[2] || borders[4]) {
+                    curs = "n-resize";
+                }
             } else {
                 curs = "move";
             }
         }
     }
 
-    console.log("rendering " + id);
+    //console.log("rendering " + id);
 
     /* Rendering */
     return (
@@ -282,24 +273,6 @@ export const Entity = memo(function Entity({ id, options, selected }) {
                     }}
                     transition={{ duration: 0.1 }}
                 />
-                { /*
-                <motion.rect
-                    id={`border-entity-${id}`}
-                    height={size.height - 14}
-                    width={size.width - 14}
-                    x="7"
-                    y="7"
-                    rx="5"
-                    ry="5"
-                    fill="transparent"
-                    stroke="black"
-                    animate={{
-                        strokeWidth: selected ? "2.5px" : "0.5px",
-                        zIndex: 1,
-                        cursor: selected ? "" : "pointer"
-                    }}
-                    transition={{ duration: 0.1 }}
-                />*/}
             </svg>
         </motion.div>
     );
