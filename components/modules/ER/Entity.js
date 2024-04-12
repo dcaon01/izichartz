@@ -72,7 +72,7 @@ export const Entity = memo(function Entity({ id, options, selected }) {
         // right
         if (bordersArray[1]) {
             let newWidth = event.pageX - position.x + 14;
-            if (verifyDimensions(newWidth, size.height)) {
+            if (verifyDimensions(newWidth, size.height)[0]) {
                 dispatch(elementsSlice.actions.modifyElementOptions({ id: id, option: "size", value: { width: newWidth, height: size.height } }));
             } else {
                 dispatch(elementsSlice.actions.modifyElementOptions({ id: id, option: "size", value: { width: text.width + 70, height: size.height } }));
@@ -81,7 +81,7 @@ export const Entity = memo(function Entity({ id, options, selected }) {
         // bottom
         if (borders[4]) {
             let newHeight = event.pageY - position.y + 14;
-            if (verifyDimensions(size.width, newHeight)) {
+            if (verifyDimensions(size.width, newHeight)[1]) {
                 dispatch(elementsSlice.actions.modifyElementOptions({ id: id, option: "size", value: { width: size.width, height: newHeight } }));
             } else {
                 dispatch(elementsSlice.actions.modifyElementOptions({ id: id, option: "size", value: { width: size.width, height: 70 } }));
@@ -91,7 +91,7 @@ export const Entity = memo(function Entity({ id, options, selected }) {
         if (borders[2]) {
             let pastY = position.y;
             let newHeight = size.height + (pastY - event.pageY + 14);
-            if (verifyDimensions(size.width, newHeight)) {
+            if (verifyDimensions(size.width, newHeight)[1]) {
                 dispatch(elementsSlice.actions.modifyElementOptions({ id: id, option: "position", value: { x: position.x, y: event.pageY - 14 } }));
                 dispatch(elementsSlice.actions.modifyElementOptions({ id: id, option: "size", value: { width: size.width, height: newHeight } }));
             } else {
@@ -102,7 +102,7 @@ export const Entity = memo(function Entity({ id, options, selected }) {
         if (borders[3]) {
             let pastX = position.x;
             let newWidth = size.width + (pastX - event.pageX + 14);
-            if (verifyDimensions(newWidth, size.height)) {
+            if (verifyDimensions(newWidth, size.height)[0]) {
                 dispatch(elementsSlice.actions.modifyElementOptions({ id: id, option: "position", value: { x: event.pageX - 14, y: position.y } }));
                 dispatch(elementsSlice.actions.modifyElementOptions({ id: id, option: "size", value: { width: newWidth, height: size.height } }));
             } else {
@@ -114,11 +114,21 @@ export const Entity = memo(function Entity({ id, options, selected }) {
             let pastY = position.y;
             let newWidth = event.pageX - position.x + 14;
             let newHeight = size.height + (pastY - event.pageY + 14);
-            if (verifyDimensions(newWidth, newHeight)) {
+            let dimensions = verifyDimensions(newWidth, newHeight);
+            if (dimensions[0] && dimensions[1]) {
                 dispatch(elementsSlice.actions.modifyElementOptions({ id: id, option: "position", value: { x: position.x, y: event.pageY - 14 } }));
                 dispatch(elementsSlice.actions.modifyElementOptions({ id: id, option: "size", value: { width: newWidth, height: newHeight } }));
+                console.log("culo");
             } else {
-                dispatch(elementsSlice.actions.modifyElementOptions({ id: id, option: "size", value: { width: text.width + 70, height: 70 } }));
+                if (!dimensions[1]) {
+                    dispatch(elementsSlice.actions.modifyElementOptions({ id: id, option: "size", value: { width: newWidth, height: 70 } }))
+                }
+                if (!dimensions[0]) {
+                    dispatch(elementsSlice.actions.modifyElementOptions({ id: id, option: "size", value: { width: text.width + 70, height: newHeight } }));
+                }
+                if (!dimensions[0] && !dimensions[1]) {
+                    dispatch(elementsSlice.actions.modifyElementOptions({ id: id, option: "size", value: { width: text.width + 70, height: 70 } }));
+                }
             }
         }
         // bottom-left
@@ -126,11 +136,20 @@ export const Entity = memo(function Entity({ id, options, selected }) {
             let pastX = position.x;
             let newWidth = size.width + (pastX - event.pageX + 14);
             let newHeight = event.pageY - position.y + 14;
-            if (verifyDimensions(newWidth, newHeight)) {
+            let dimensions = verifyDimensions(newWidth, newHeight);
+            if (dimensions[0] && dimensions[1]) {
                 dispatch(elementsSlice.actions.modifyElementOptions({ id: id, option: "position", value: { x: event.pageX - 14, y: position.y } }));
                 dispatch(elementsSlice.actions.modifyElementOptions({ id: id, option: "size", value: { width: newWidth, height: newHeight } }));
             } else {
-                dispatch(elementsSlice.actions.modifyElementOptions({ id: id, option: "size", value: { width: text.width + 70, height: 70 } }));
+                if (!dimensions[1]) {
+                    dispatch(elementsSlice.actions.modifyElementOptions({ id: id, option: "size", value: { width: newWidth, height: 70 } }))
+                }
+                if (!dimensions[0]) {
+                    dispatch(elementsSlice.actions.modifyElementOptions({ id: id, option: "size", value: { width: text.width + 70, height: newHeight } }));
+                }
+                if (!dimensions[0] && !dimensions[1]) {
+                    dispatch(elementsSlice.actions.modifyElementOptions({ id: id, option: "size", value: { width: text.width + 70, height: 70 } }));
+                }
             }
         }
         // top-left
@@ -139,21 +158,39 @@ export const Entity = memo(function Entity({ id, options, selected }) {
             let pastX = position.x;
             let newHeight = size.height + (pastY - event.pageY + 14);
             let newWidth = size.width + (pastX - event.pageX + 14);
-            if (verifyDimensions(newWidth, newHeight)) {
+            let dimensions = verifyDimensions(newWidth, newHeight);
+            if (dimensions[0] && dimensions[1]) {
                 dispatch(elementsSlice.actions.modifyElementOptions({ id: id, option: "position", value: { x: event.pageX - 14, y: event.pageY - 14 } }));
                 dispatch(elementsSlice.actions.modifyElementOptions({ id: id, option: "size", value: { width: newWidth, height: newHeight } }));
             } else {
-                dispatch(elementsSlice.actions.modifyElementOptions({ id: id, option: "size", value: { width: text.width + 70, height: 70 } }));
+                if (!dimensions[1]) {
+                    dispatch(elementsSlice.actions.modifyElementOptions({ id: id, option: "size", value: { width: newWidth, height: 70 } }))
+                }
+                if (!dimensions[0]) {
+                    dispatch(elementsSlice.actions.modifyElementOptions({ id: id, option: "size", value: { width: text.width + 70, height: newHeight } }));
+                }
+                if (!dimensions[0] && !dimensions[1]) {
+                    dispatch(elementsSlice.actions.modifyElementOptions({ id: id, option: "size", value: { width: text.width + 70, height: 70 } }));
+                }
             }
         }
         // bottom-right
         if ((borders[1] && borders[4])) {
             let newWidth = event.pageX - position.x + 14;
             let newHeight = event.pageY - position.y + 14;
-            if (verifyDimensions(newWidth, newHeight)) {
+            let dimensions = verifyDimensions(newWidth, newHeight);
+            if (dimensions[0] && dimensions[1]) {
                 dispatch(elementsSlice.actions.modifyElementOptions({ id: id, option: "size", value: { width: newWidth, height: newHeight } }));
             } else {
-                dispatch(elementsSlice.actions.modifyElementOptions({ id: id, option: "size", value: { width: text.width + 70, height: 70 } }));
+                if (!dimensions[1]) {
+                    dispatch(elementsSlice.actions.modifyElementOptions({ id: id, option: "size", value: { width: newWidth, height: 70 } }))
+                }
+                if (!dimensions[0]) {
+                    dispatch(elementsSlice.actions.modifyElementOptions({ id: id, option: "size", value: { width: text.width + 70, height: newHeight } }));
+                }
+                if (!dimensions[0] && !dimensions[1]) {
+                    dispatch(elementsSlice.actions.modifyElementOptions({ id: id, option: "size", value: { width: text.width + 70, height: 70 } }));
+                }
             }
         }
     }
@@ -166,15 +203,16 @@ export const Entity = memo(function Entity({ id, options, selected }) {
      * @returns true se le dimensioni vanno bene, false altrimenti.
      */
     function verifyDimensions(w, h) {
+        let verify = [true, true];
         if (w < text.width + 70) {
             console.log("larghezza rifiutata");
-            return false;
+            verify[0] = false;
         }
         if (h < 70) {
             console.log("altezza rifiutata");
-            return false;
+            verify[1] = false;
         }
-        return true;
+        return verify;
     }
 
     /**
