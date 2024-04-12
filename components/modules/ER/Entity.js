@@ -2,9 +2,10 @@
 
 import { useDispatch } from "react-redux";
 import classes from "./Entity.module.css";
-import { useState, useRef , memo } from "react";
+import { useState, useRef, memo } from "react";
 import { elementsSlice } from "@/store/design/elements-slice";
 import { motion } from 'framer-motion';
+import { off } from "process";
 
 /**
  * Entity
@@ -42,7 +43,7 @@ export const Entity = memo(function Entity({ id, options, selected }) {
      * @return borders, array di 5 booleani: il primo indica se qualche bordo è triggerato 
      * mentre gli altri indicano quale o quali bordi sono triggerati.
      */
-    function isOnBorder(offset){
+    function isOnBorder(offset) {
         // flag, dx, top, sn, bot
         let bords = [false, false, false, false, false];
         if (offset.x < 10) {
@@ -71,10 +72,10 @@ export const Entity = memo(function Entity({ id, options, selected }) {
      * @param bordersArray array con le indicazioni sui borders che sono stati triggerati.
      * @param quantity json con la quantità da dimensionare.
      */
-    function resize(bordersArray, quantity){
+    function resize(bordersArray, quantity) {
         // dx
         if (bordersArray[1]) {
-            dispatch(elementsSlice.actions.modifyElementOptions({ id: id, option: "size", value: { width: size.width + quantity.x, height: size.height }}));
+            dispatch(elementsSlice.actions.modifyElementOptions({ id: id, option: "size", value: { width: size.width + quantity.x, height: size.height } }));
         }
     }
 
@@ -96,7 +97,7 @@ export const Entity = memo(function Entity({ id, options, selected }) {
      * lo slice globale.
      * @param event oggetto evento triggerato onDoubleClick.
      */
-    function handleConnection(event){
+    function handleConnection(event) {
         event.stopPropagation();
         dispatch(elementsSlice.actions.setConnectingElement(id));
     }
@@ -109,20 +110,10 @@ export const Entity = memo(function Entity({ id, options, selected }) {
      * @param event oggetto evento triggerato onMouseDown.
      */
     function handleGrabbing(event) {
-        event.preventDefault();
-        dispatch(elementsSlice.actions.setConnectingElement(0));
-        inputRef.current.blur();
-        // Calcoliamo l'offset, quanto è distante il puntatore dall'origine del componente
-        let x = event.clientX - position.x;
-        let y = event.clientY - position.y;
-        // Controlliamo se è sui bordi
-        setBorders(isOnBorder({ x, y }));
-        if (borders[0]) {
-            setResizing(true);
-        } else {
-            setMoving(true);
-        }
-        setOffset({ x, y });
+        let offX = event.pageX - position.x;
+        let offY = event.pageY - position.y;
+        setOffset({x: offX, y: offY});
+        setMoving(true);
     }
 
     /**
@@ -139,19 +130,12 @@ export const Entity = memo(function Entity({ id, options, selected }) {
      * Funzione che gestisce il trascinamento dell'elemento.
      * @param event oggetto evento triggerato onMouseMove.
      */
-    function handleDragging (event) {
+    function handleDragging(event) {
         event.preventDefault();  // Sistema il dragging merdoso
-        let x = event.clientX - position.x;
-        let y = event.clientY - position.y;
-        setBorders(isOnBorder({ x, y }));
         if (moving) {
-            let x = event.clientX - offset.x;
-            let y = event.clientY - offset.y;
-            dispatch(elementsSlice.actions.modifyElementOptions({ id: id, option: "position", value: { x, y } }))
-        } else if (resizing) {
-            let x = event.clientX - position.x - offset.x;
-            let y = event.clientY - position.y - offset.y;
-            resize(borders, {x, y});
+            let x = event.pageX - offset.x;
+            let y = event.pageY - offset.y;
+            dispatch(elementsSlice.actions.modifyElementOptions({ id: id, option: "position", value: { x, y } }));
         }
     }
 
@@ -208,13 +192,13 @@ export const Entity = memo(function Entity({ id, options, selected }) {
             if (borders[0]) {
                 if (borders[1] || borders[3]) {
                     curs = "e-resize";
-                } 
+                }
                 if (borders[2] || borders[4]) {
                     curs = "n-resize";
-                } 
+                }
                 if ((borders[1] && borders[2]) || borders[3] && borders[4]) {
                     curs = "ne-resize";
-                } 
+                }
                 if ((borders[2] && borders[3]) || (borders[4] && borders[1])) {
                     curs = "nw-resize";
                 }
