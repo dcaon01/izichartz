@@ -72,14 +72,23 @@ export const Entity = memo(function Entity({ id, options, selected }) {
      * @param bordersArray array con le indicazioni sui borders che sono stati triggerati.
      * @param quantity json con la quantità da dimensionare.
      */
-    function resize(bordersArray, quantity) {
+    function resize(bordersArray, event) {
         // dx
         if (bordersArray[1]) {
-            dispatch(elementsSlice.actions.modifyElementOptions({ id: id, option: "size", value: { width: size.width + quantity.x, height: size.height } }));
+            dispatch(elementsSlice.actions.modifyElementOptions({ id: id, option: "size", value: { width: event.pageX - position.x + 14, height: size.height } }));
+        }
+        if (borders[4]) {
+            dispatch(elementsSlice.actions.modifyElementOptions({ id: id, option: "size", value: { width: size.width, height: event.pageY - position.y + 14 } }));
         }
         if (borders[2]) {
-            dispatch(elementsSlice.actions.modifyElementOptions({ id: id, option: "size", value: { width: size.width, height: size.height - quantity.y } }));
-            dispatch(elementsSlice.actions.modifyElementOptions({ id: id, option: "position", value: { x: position.x, y: position.y + quantity.y} }));
+            let pastY = position.y;
+            dispatch(elementsSlice.actions.modifyElementOptions({ id: id, option: "position", value: { x: position.x, y: event.pageY - 14 } }));
+            dispatch(elementsSlice.actions.modifyElementOptions({ id: id, option: "size", value: { width: size.width, height: size.height + (pastY - event.pageY + 14) } }));
+        }
+        if (borders[3]) {
+            let pastX = position.x;
+            dispatch(elementsSlice.actions.modifyElementOptions({ id: id, option: "position", value: { x: event.pageX - 14 , y: position.y } }));
+            dispatch(elementsSlice.actions.modifyElementOptions({ id: id, option: "size", value: { width: size.width + (pastX - event.pageX + 14), height: size.height } }));
         }
     }
 
@@ -149,10 +158,7 @@ export const Entity = memo(function Entity({ id, options, selected }) {
             dispatch(elementsSlice.actions.modifyElementOptions({ id: id, option: "position", value: { x, y } }));
         } else {
             if (resizing) {
-                let x = event.pageX - position.x - size.width + 14;
-                let y = event.pageY - position.y - 14;
-                console.log(x + " " + y);
-                resize(borders, { x, y });
+                resize(borders, event);
             } else {
                 let offX = event.pageX - position.x;
                 let offY = event.pageY - position.y;
