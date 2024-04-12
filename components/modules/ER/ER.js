@@ -21,6 +21,7 @@ export default function ER() {
 
     /* Elementi di Utility */
     const dispatch = useDispatch(); // Prelevamento del riferimento di useDispatch per poterlo usare liberamente.
+    console.log(elements[1]);
 
     /**
     * handleKeyPress

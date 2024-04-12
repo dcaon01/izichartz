@@ -27,12 +27,6 @@ export const Entity = memo(function Entity({ id, options, selected }) {
     let [borders, setBorders] = useState([false, false, false, false, false]);
     let curs = "pointer"; // Selettore del pointer.
     const dispatch = useDispatch(); // Prelevamento del riferimento di useDispatch per poterlo usare liberamente.
-    /*if (size.width < text.width + 70) {
-        dispatch(elementsSlice.actions.modifyElementOptions({ id: id, option: "size", value: { width: text.width + 70, height: size.height } }));
-    }
-    if(size.height < 70){
-        dispatch(elementsSlice.actions.modifyElementOptions({ id: id, option: "size", value: { width: size.width, height: 70 } }));
-    }*/
 
     /* Refs */
     let inputRef = useRef();
@@ -115,13 +109,53 @@ export const Entity = memo(function Entity({ id, options, selected }) {
                 dispatch(elementsSlice.actions.modifyElementOptions({ id: id, option: "size", value: { width: text.width + 70, height: size.height } }));
             }
         }
-        /*
-        if ((borders[1] && borders[2]) || (borders[3] && borders[4])) {
+        // top-right
+        if ((borders[1] && borders[2])) {
             let pastY = position.y;
-            dispatch(elementsSlice.actions.modifyElementOptions({ id: id, option: "position", value: { x: position.x, y: event.pageY - 14 } }));
-            dispatch(elementsSlice.actions.modifyElementOptions({ id: id, option: "size", value: { width: size.width, height: size.height + (pastY - event.pageY + 14) } }));
+            let newWidth = event.pageX - position.x + 14;
+            let newHeight = size.height + (pastY - event.pageY + 14);
+            if (verifyDimensions(newWidth, newHeight)) {
+                dispatch(elementsSlice.actions.modifyElementOptions({ id: id, option: "position", value: { x: position.x, y: event.pageY - 14 } }));
+                dispatch(elementsSlice.actions.modifyElementOptions({ id: id, option: "size", value: { width: newWidth, height: newHeight } }));
+            } else {
+                dispatch(elementsSlice.actions.modifyElementOptions({ id: id, option: "size", value: { width: text.width + 70, height: 70 } }));
+            }
         }
-        */
+        // bottom-left
+        if ((borders[3] && borders[4])) {
+            let pastX = position.x;
+            let newWidth = size.width + (pastX - event.pageX + 14);
+            let newHeight = event.pageY - position.y + 14;
+            if (verifyDimensions(newWidth, newHeight)) {
+                dispatch(elementsSlice.actions.modifyElementOptions({ id: id, option: "position", value: { x: event.pageX - 14, y: position.y } }));
+                dispatch(elementsSlice.actions.modifyElementOptions({ id: id, option: "size", value: { width: newWidth, height: newHeight } }));
+            } else {
+                dispatch(elementsSlice.actions.modifyElementOptions({ id: id, option: "size", value: { width: text.width + 70, height: 70 } }));
+            }
+        }
+        // top-left
+        if ((borders[2] && borders[3])) {
+            let pastY = position.y;
+            let pastX = position.x;
+            let newHeight = size.height + (pastY - event.pageY + 14);
+            let newWidth = size.width + (pastX - event.pageX + 14);
+            if (verifyDimensions(newWidth, newHeight)) {
+                dispatch(elementsSlice.actions.modifyElementOptions({ id: id, option: "position", value: { x: event.pageX - 14, y: event.pageY - 14 } }));
+                dispatch(elementsSlice.actions.modifyElementOptions({ id: id, option: "size", value: { width: newWidth, height: newHeight } }));
+            } else {
+                dispatch(elementsSlice.actions.modifyElementOptions({ id: id, option: "size", value: { width: text.width + 70, height: 70 } }));
+            }
+        }
+        // bottom-right
+        if ((borders[1] && borders[4])) {
+            let newWidth = event.pageX - position.x + 14;
+            let newHeight = event.pageY - position.y + 14;
+            if (verifyDimensions(newWidth, newHeight)) {
+                dispatch(elementsSlice.actions.modifyElementOptions({ id: id, option: "size", value: { width: newWidth, height: newHeight } }));
+            } else {
+                dispatch(elementsSlice.actions.modifyElementOptions({ id: id, option: "size", value: { width: text.width + 70, height: 70 } }));
+            }
+        }
     }
 
     /**
