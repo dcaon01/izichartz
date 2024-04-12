@@ -26,8 +26,9 @@ export const Workpane = memo(function Workpane(props) {
      * Si vuole che tutti gli elementi selezionati vengano deselezionati di default.
      * Si vuole che tutti gli elementi in connessione vengano resettati.
      */
-    function handleClicked() {
+    function handleClicked(event) {
         // Creare un'azione solo per il resetting?
+        console.log(event.pageX + " " + event.pageY);
         dispatch(elementsSlice.actions.setSelectedElement(0));
         dispatch(elementsSlice.actions.setConnectingElement(0));
     }

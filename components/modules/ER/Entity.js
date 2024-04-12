@@ -112,8 +112,15 @@ export const Entity = memo(function Entity({ id, options, selected }) {
     function handleGrabbing(event) {
         let offX = event.pageX - position.x;
         let offY = event.pageY - position.y;
-        setOffset({x: offX, y: offY});
-        setMoving(true);
+        console.log(event.pageX + " " + event.pageY);
+        setOffset({ x: offX, y: offY });
+        console.log(offX + " " + offY);
+        //setBorders(isOnBorder(offset));
+        if (borders[0]) {
+            setResizing(true);
+        } else {
+            setMoving(true);
+        }
     }
 
     /**
@@ -136,6 +143,15 @@ export const Entity = memo(function Entity({ id, options, selected }) {
             let x = event.pageX - offset.x;
             let y = event.pageY - offset.y;
             dispatch(elementsSlice.actions.modifyElementOptions({ id: id, option: "position", value: { x, y } }));
+        } else {
+            /*
+            let offX = event.pageX - position.x;
+            let offY = event.pageY - position.y;
+            console.log(event.pageX + " " + event.pageY);
+            console.log(offX + " " + offY);
+            setOffset({ x: offX, y: offY });
+            setBorders(isOnBorder(offset));
+            */
         }
     }
 
@@ -224,7 +240,7 @@ export const Entity = memo(function Entity({ id, options, selected }) {
             style={{
                 top: position.y,
                 left: position.x,
-                cursor: curs
+                cursor: curs,
             }}
             ref={entityRef}
         >
