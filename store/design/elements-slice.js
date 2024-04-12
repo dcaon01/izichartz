@@ -9,13 +9,13 @@ const init = [
         id: 1,
         selected: false,
         options: {
-            text: "ENTITY1",
+            text: {value: "ENTITY1", width: 57.75},
             position: {
                 x: 150,
                 y: 200,
             },
             size: {
-                width: 120,
+                width: 127.75,
                 height: 70,
             },
             connecting: false,
@@ -26,13 +26,13 @@ const init = [
         id: 2,
         selected: false,
         options: {
-            text: "ENTITY2",
+            text: {value: "ENTITY2", width: 57.75},
             position: {
                 x: 400,
                 y: 300,
             },
             size: {
-                width: 120,
+                width: 127.75,
                 height: 70,
             },
             connecting: false,
@@ -172,6 +172,7 @@ export const elementsSlice = createSlice({
             if(id !== 0){
                 console.log("connecting");
             }
+            // Attento che non può collegarsi da solo un elemento.
         }
     }
 });

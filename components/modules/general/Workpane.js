@@ -28,7 +28,6 @@ export const Workpane = memo(function Workpane(props) {
      */
     function handleClicked(event) {
         // Creare un'azione solo per il resetting?
-        console.log(event.pageX + " " + event.pageY);
         dispatch(elementsSlice.actions.setSelectedElement(0));
         dispatch(elementsSlice.actions.setConnectingElement(0));
     }

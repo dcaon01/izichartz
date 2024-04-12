@@ -5,7 +5,6 @@ import classes from "./Entity.module.css";
 import { useState, useRef, memo } from "react";
 import { elementsSlice } from "@/store/design/elements-slice";
 import { motion } from 'framer-motion';
-import { off } from "process";
 
 /**
  * Entity
@@ -22,15 +21,18 @@ export const Entity = memo(function Entity({ id, options, selected }) {
     let size = options.size // Dimensioni del componente, svg
 
     /* Elementi d'utility */
-    const minWidth = 70;
-    const minHeight = 70;
     let [moving, setMoving] = useState(false); // Gestione del moving.
     let [resizing, setResizing] = useState(false); // Gestione del resising.
     let [offset, setOffset] = useState({ x: 0, y: 0 }); // Oggetto di offset.
     let [borders, setBorders] = useState([false, false, false, false, false]);
     let curs = "pointer"; // Selettore del pointer.
-    let tLength = text.length * 1.1; // Oggetto che calcola un limite superiore alla grandezza della casella di testo.
     const dispatch = useDispatch(); // Prelevamento del riferimento di useDispatch per poterlo usare liberamente.
+    /*if (size.width < text.width + 70) {
+        dispatch(elementsSlice.actions.modifyElementOptions({ id: id, option: "size", value: { width: text.width + 70, height: size.height } }));
+    }
+    if(size.height < 70){
+        dispatch(elementsSlice.actions.modifyElementOptions({ id: id, option: "size", value: { width: size.width, height: 70 } }));
+    }*/
 
     /* Refs */
     let inputRef = useRef();
@@ -73,23 +75,72 @@ export const Entity = memo(function Entity({ id, options, selected }) {
      * @param quantity json con la quantità da dimensionare.
      */
     function resize(bordersArray, event) {
-        // dx
+        // right
         if (bordersArray[1]) {
-            dispatch(elementsSlice.actions.modifyElementOptions({ id: id, option: "size", value: { width: event.pageX - position.x + 14, height: size.height } }));
+            let newWidth = event.pageX - position.x + 14;
+            if (verifyDimensions(newWidth, size.height)) {
+                dispatch(elementsSlice.actions.modifyElementOptions({ id: id, option: "size", value: { width: newWidth, height: size.height } }));
+            } else {
+                dispatch(elementsSlice.actions.modifyElementOptions({ id: id, option: "size", value: { width: text.width + 70, height: size.height } }));
+            }
         }
+        // bottom
         if (borders[4]) {
-            dispatch(elementsSlice.actions.modifyElementOptions({ id: id, option: "size", value: { width: size.width, height: event.pageY - position.y + 14 } }));
+            let newHeight = event.pageY - position.y + 14;
+            if (verifyDimensions(size.width, newHeight)) {
+                dispatch(elementsSlice.actions.modifyElementOptions({ id: id, option: "size", value: { width: size.width, height: newHeight } }));
+            } else {
+                dispatch(elementsSlice.actions.modifyElementOptions({ id: id, option: "size", value: { width: size.width, height: 70 } }));
+            }
         }
+        // top
         if (borders[2]) {
+            let pastY = position.y;
+            let newHeight = size.height + (pastY - event.pageY + 14);
+            if (verifyDimensions(size.width, newHeight)) {
+                dispatch(elementsSlice.actions.modifyElementOptions({ id: id, option: "position", value: { x: position.x, y: event.pageY - 14 } }));
+                dispatch(elementsSlice.actions.modifyElementOptions({ id: id, option: "size", value: { width: size.width, height: newHeight } }));
+            } else {
+                dispatch(elementsSlice.actions.modifyElementOptions({ id: id, option: "size", value: { width: size.width, height: 70 } }));
+            }
+        }
+        // left
+        if (borders[3]) {
+            let pastX = position.x;
+            let newWidth = size.width + (pastX - event.pageX + 14);
+            if (verifyDimensions(newWidth, size.height)) {
+                dispatch(elementsSlice.actions.modifyElementOptions({ id: id, option: "position", value: { x: event.pageX - 14, y: position.y } }));
+                dispatch(elementsSlice.actions.modifyElementOptions({ id: id, option: "size", value: { width: newWidth, height: size.height } }));
+            } else {
+                dispatch(elementsSlice.actions.modifyElementOptions({ id: id, option: "size", value: { width: text.width + 70, height: size.height } }));
+            }
+        }
+        /*
+        if ((borders[1] && borders[2]) || (borders[3] && borders[4])) {
             let pastY = position.y;
             dispatch(elementsSlice.actions.modifyElementOptions({ id: id, option: "position", value: { x: position.x, y: event.pageY - 14 } }));
             dispatch(elementsSlice.actions.modifyElementOptions({ id: id, option: "size", value: { width: size.width, height: size.height + (pastY - event.pageY + 14) } }));
         }
-        if (borders[3]) {
-            let pastX = position.x;
-            dispatch(elementsSlice.actions.modifyElementOptions({ id: id, option: "position", value: { x: event.pageX - 14 , y: position.y } }));
-            dispatch(elementsSlice.actions.modifyElementOptions({ id: id, option: "size", value: { width: size.width + (pastX - event.pageX + 14), height: size.height } }));
+        */
+    }
+
+    /**
+     * verifyDimensions
+     * Funzione che si occupa della verifica delle dimensioni per gli elementi.
+     * @param w larghezza da verificare.
+     * @param h altezza da verificare.
+     * @returns true se le dimensioni vanno bene, false altrimenti.
+     */
+    function verifyDimensions(w, h) {
+        if (w < text.width + 70) {
+            console.log("larghezza rifiutata");
+            return false;
         }
+        if (h < 70) {
+            console.log("altezza rifiutata");
+            return false;
+        }
+        return true;
     }
 
     /**
@@ -125,9 +176,7 @@ export const Entity = memo(function Entity({ id, options, selected }) {
     function handleGrabbing(event) {
         let offX = event.pageX - position.x;
         let offY = event.pageY - position.y;
-        console.log(event.pageX + " " + event.pageY);
         setOffset({ x: offX, y: offY });
-        console.log(offX + " " + offY);
         setBorders(isOnBorder(offset));
         if (borders[0]) {
             setResizing(true);
@@ -162,8 +211,6 @@ export const Entity = memo(function Entity({ id, options, selected }) {
             } else {
                 let offX = event.pageX - position.x;
                 let offY = event.pageY - position.y;
-                console.log(event.pageX + " " + event.pageY);
-                console.log(offX + " " + offY);
                 setOffset({ x: offX, y: offY });
                 setBorders(isOnBorder(offset));
             }
@@ -187,13 +234,14 @@ export const Entity = memo(function Entity({ id, options, selected }) {
      * @param event oggetto evento triggerato onChange.
      */
     function handleInput(event) {
-        dispatch(elementsSlice.actions.modifyElementOptions({ id: id, option: "text", value: event.target.value }));
+        let oldEffectiveWidth = size.width - text.width;
+        dispatch(elementsSlice.actions.modifyElementOptions({ id: id, option: "text", value: { value: event.target.value, width: inputRef.current.getBoundingClientRect().width } }));
         dispatch(elementsSlice.actions.modifyElementOptions({
             id: id,
             option: "size",
             value: {
-                width: inputRef.current.offsetWidth + minWidth,
-                height: minHeight,
+                width: oldEffectiveWidth + inputRef.current.getBoundingClientRect().width,
+                height: size.height,
             }
         }));
     }
@@ -239,8 +287,6 @@ export const Entity = memo(function Entity({ id, options, selected }) {
         }
     }
 
-    //console.log(id);
-
     /* Rendering */
     return (
         <motion.div
@@ -262,14 +308,14 @@ export const Entity = memo(function Entity({ id, options, selected }) {
             <input
                 id={`input-entity-${id}`}
                 type="text"
-                value={text}
+                value={text.value}
                 ref={inputRef}
                 onChange={handleInput}
                 onMouseDown={handleInputInsert} // Abbiamo dovuto sovrascrivere l'evento del padre
                 className={classes.entityInput}
                 onKeyDown={handleBlur}
                 style={{
-                    width: tLength === 0 ? 20 : tLength + "ch",
+                    width: (text.value.length === 0) ? 20 : (text.value.length * 1.1) + "ch",
                     cursor: selected ? "text" : "pointer"
                 }}
             />
@@ -277,7 +323,7 @@ export const Entity = memo(function Entity({ id, options, selected }) {
                 xmlns="http://www.w3.org/2000/svg"
                 style={{
                     height: size.height,
-                    width: !(size.width === 0) ? size.width : minWidth,
+                    width: size.width,
                 }}
             >
                 {connecting &&
