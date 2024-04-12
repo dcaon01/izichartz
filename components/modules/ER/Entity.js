@@ -77,6 +77,10 @@ export const Entity = memo(function Entity({ id, options, selected }) {
         if (bordersArray[1]) {
             dispatch(elementsSlice.actions.modifyElementOptions({ id: id, option: "size", value: { width: size.width + quantity.x, height: size.height } }));
         }
+        if (borders[2]) {
+            dispatch(elementsSlice.actions.modifyElementOptions({ id: id, option: "size", value: { width: size.width, height: size.height - quantity.y } }));
+            dispatch(elementsSlice.actions.modifyElementOptions({ id: id, option: "position", value: { x: position.x, y: position.y + quantity.y} }));
+        }
     }
 
     /**
@@ -115,7 +119,7 @@ export const Entity = memo(function Entity({ id, options, selected }) {
         console.log(event.pageX + " " + event.pageY);
         setOffset({ x: offX, y: offY });
         console.log(offX + " " + offY);
-        //setBorders(isOnBorder(offset));
+        setBorders(isOnBorder(offset));
         if (borders[0]) {
             setResizing(true);
         } else {
@@ -144,14 +148,19 @@ export const Entity = memo(function Entity({ id, options, selected }) {
             let y = event.pageY - offset.y;
             dispatch(elementsSlice.actions.modifyElementOptions({ id: id, option: "position", value: { x, y } }));
         } else {
-            /*
-            let offX = event.pageX - position.x;
-            let offY = event.pageY - position.y;
-            console.log(event.pageX + " " + event.pageY);
-            console.log(offX + " " + offY);
-            setOffset({ x: offX, y: offY });
-            setBorders(isOnBorder(offset));
-            */
+            if (resizing) {
+                let x = event.pageX - position.x - size.width + 14;
+                let y = event.pageY - position.y - 14;
+                console.log(x + " " + y);
+                resize(borders, { x, y });
+            } else {
+                let offX = event.pageX - position.x;
+                let offY = event.pageY - position.y;
+                console.log(event.pageX + " " + event.pageY);
+                console.log(offX + " " + offY);
+                setOffset({ x: offX, y: offY });
+                setBorders(isOnBorder(offset));
+            }
         }
     }
 
