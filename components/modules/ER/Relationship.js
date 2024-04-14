@@ -195,7 +195,7 @@ export const Relationship = memo(function Relationship({ id, options, selected }
                     stroke="black"
                     animate={{ strokeWidth: selected ? "2.5px" : "0.5px" }}
                     transition={{ duration: 0.1 }}
-                // Al poligon non si possono assegnare cursori
+                    // Al poligon non si possono assegnare cursori
                 />
             </svg>
         </div>

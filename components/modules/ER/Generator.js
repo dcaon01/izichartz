@@ -26,6 +26,7 @@ export default function Generator({ generate }) {
     let generated = generate.map((element) => {
         switch (element.type) {
             case "entity" || "relationship":
+                console.log("culo");
                 return (
                     <EntityRelationship
                         key={`${element.type}-${element.id}`}
@@ -37,6 +38,18 @@ export default function Generator({ generate }) {
                     />
                 );
             // end case
+            case "relationship":
+                console.log("culo");
+                return (
+                    <EntityRelationship
+                        key={`${element.type}-${element.id}`}
+                        id={element.id}
+                        type={element.type}
+                        options={element.options}
+                        selected={element.selected}
+                    // links={linksMatrix[element.id - 1]}
+                    />
+                );
             /*
             case "Link":
                 return (

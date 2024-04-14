@@ -9,11 +9,12 @@ const init = [
         id: 1,
         selected: false,
         options: {
-            text: {value: "ENTITY1", width: 57.75},
+            text: { value: "ENTITY1", width: 57.75 },
             position: {
                 x: 150,
                 y: 200,
             },
+            minSize: 70,
             size: {
                 width: 127.75,
                 height: 70,
@@ -26,11 +27,12 @@ const init = [
         id: 2,
         selected: false,
         options: {
-            text: {value: "ENTITY2", width: 57.75},
+            text: { value: "ENTITY2", width: 57.75 },
             position: {
                 x: 400,
                 y: 300,
             },
+            minSize: 70,
             size: {
                 width: 127.75,
                 height: 70,
@@ -38,20 +40,25 @@ const init = [
             connecting: false,
         },
     },
-    /*
-    {   
+    {
         type: "relationship",
         id: 3,
         selected: false,
         options: {
-            text: "RELATIONSHIP1",
+            text: { value: "", width: 0 },
             position: {
-                x: 600, 
+                x: 600,
                 y: 150,
+            },
+            minSize: 80,
+            size: {
+                width: 80,
+                height: 80,
             },
             connecting: false
         },
     },
+    /*
     {
         type: "link",
         id: 4,
@@ -169,7 +176,7 @@ export const elementsSlice = createSlice({
                     id = element.id;
                 }
             });
-            if(id !== 0){
+            if (id !== 0) {
                 console.log("connecting");
             }
             // Attento che non può collegarsi da solo un elemento.

@@ -1,6 +1,6 @@
 import { motion } from "framer-motion";
 
-export default function ({ id, width, height, selected, connecting, curs }) {
+export default function ({ id, width, height, selected, connecting }) {
     return (
         <svg
             xmlns="http://www.w3.org/2000/svg"
@@ -46,7 +46,6 @@ export default function ({ id, width, height, selected, connecting, curs }) {
                 stroke="black"
                 animate={{
                     zIndex: 3,
-                    cursor: curs,
                     strokeWidth: selected ? "2.5px" : "0.5px",
                 }}
                 transition={{ duration: 0.1 }}

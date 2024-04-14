@@ -3,8 +3,6 @@
     display: flex;
     justify-content: center;
     align-items: center;
-    min-width: 50;
-    min-height: 50;
     z-index: 1;
 }
 
