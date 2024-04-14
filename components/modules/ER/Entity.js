@@ -312,3 +312,4 @@ export const Entity = memo(function Entity({ id, options, selected }) {
         </motion.div>
     );
 });
+

@@ -13,7 +13,7 @@ import { elementsSlice } from '@/store/design/elements-slice.js';
  * Ci sono definite tutte le funzioni che gestiscono una logica generale.
  * Le logiche dei singoli componenti, anche se ridondanti, sono all'interno di essi stessi.
  */
-export default function ER() {
+export default function Module() {
     /* Campi di Esemplare */
     const elements = useSelector(state => state.designElements);
     const wpHeight = 720;
