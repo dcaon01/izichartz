@@ -1,9 +1,7 @@
 'use client';
 
-import { Entity } from "./Entity.js";
-import { Relationship } from "./Relationship.js";
+import { EntityRelationship } from "./EntityRelationship.js";
 import { Linker } from "./Linker.js";
-import { memo } from "react";
 
 /**
  * Generator
@@ -27,25 +25,15 @@ export default function Generator({ generate }) {
     generiamo un elemente diverso, tra quelli del modulo */
     let generated = generate.map((element) => {
         switch (element.type) {
-            case "entity":
+            case "entity" || "relationship":
                 return (
-                    <Entity
+                    <EntityRelationship
                         key={`${element.type}-${element.id}`}
                         id={element.id}
+                        type={element.type}
                         options={element.options}
                         selected={element.selected}
-                        // links={linksMatrix[element.id - 1]}
-                    />
-                );
-            // end case
-            case "relationship":
-                return (
-                    <Relationship
-                        key={`${element.type}-${element.id}`}
-                        id={element.id}
-                        options={element.options}
-                        selected={element.selected}
-                        // links={linksMatrix[element.id - 1]}
+                    // links={linksMatrix[element.id - 1]}
                     />
                 );
             // end case

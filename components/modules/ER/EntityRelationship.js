@@ -1,10 +1,11 @@
 'use client';
 
-import { useDispatch } from "react-redux";
 import classes from "./Entity.module.css";
+import { useDispatch } from "react-redux";
 import { useState, useRef, memo } from "react";
-import { elementsSlice } from "@/store/design/elements-slice";
 import { motion } from 'framer-motion';
+import { elementsSlice } from "@/store/design/elements-slice";
+import EntityGraphics from "./EntityGraphics.js";
 
 /**
  * Entity
@@ -13,7 +14,7 @@ import { motion } from 'framer-motion';
  * @param options opzioni utili al rendering dell'elemento.
  * @param selected flag di selezione dell'elemento.
  */
-export const Entity = memo(function Entity({ id, options, selected }) {
+export const EntityRelationship = memo(function EntityRelationship({ id, type, options, selected }) {
     /* Prelevamento delle opzioni utili */
     let text = options.text; // Testo interno al rettangolo.
     let position = options.position; // Oggetto posizione.
@@ -68,7 +69,7 @@ export const Entity = memo(function Entity({ id, options, selected }) {
      * @param bordersArray array con le indicazioni sui borders che sono stati triggerati.
      * @param quantity json con la quantità da dimensionare.
      */
-    function resize(bordersArray, event) {
+    function resize(bordersArray, event, text, position) {
         // right
         if (bordersArray[1]) {
             let newWidth = event.pageX - position.x + 14;
@@ -279,7 +280,7 @@ export const Entity = memo(function Entity({ id, options, selected }) {
             dispatch(elementsSlice.actions.modifyElementOptions({ id: id, option: "position", value: { x, y } }));
         } else {
             if (resizing) {
-                resize(borders, event);
+                resize(borders, event, text, position);
             } else {
                 let offX = event.pageX - position.x;
                 let offY = event.pageY - position.y;
@@ -391,56 +392,10 @@ export const Entity = memo(function Entity({ id, options, selected }) {
                     cursor: selected ? "text" : "pointer"
                 }}
             />
-            <svg
-                xmlns="http://www.w3.org/2000/svg"
-                style={{
-                    height: size.height,
-                    width: size.width,
-                }}
-            >
-                {connecting &&
-                    <motion.rect
-                        id={`connect-entity-${id}`}
-                        x="4"
-                        y="4"
-                        rx="5"
-                        ry="5"
-                        fill="transparent"
-                        stroke="black"
-                        strokeWidth="1"
-                        style={{
-                            zIndex: 1,
-                        }}
-                        initial={{
-                            height: size.height - 14,
-                            width: size.width - 14,
-                        }}
-                        animate={{
-                            height: size.height - 8,
-                            width: size.width - 8,
-                        }}
-                        transition={{ duration: 0.1 }}
-                    />
-                }
-                {/* Rettangolo che costituisce l'area dell'entità*/}
-                <motion.rect
-                    id={`body-entity-${id}`}
-                    height={size.height - 14.5}
-                    width={size.width - 14.5}
-                    x="7"
-                    y="7"
-                    rx="5"
-                    ry="5"
-                    fill="white"
-                    stroke="black"
-                    animate={{
-                        zIndex: 3,
-                        cursor: curs,
-                        strokeWidth: selected ? "2.5px" : "0.5px",
-                    }}
-                    transition={{ duration: 0.1 }}
-                />
-            </svg>
+            {type === "entity"
+                ? <EntityGraphics id={id} width={size.width} height={size.height} selected={selected} connecting={connecting} curs={curs}/>
+                : null
+            }
         </motion.div>
     );
 });
