@@ -1,6 +1,6 @@
 'use client';
 
-import classes from "./Entity.module.css";
+import classes from "./EntityRelationship.module.css";
 import { useDispatch } from "react-redux";
 import { useState, useRef, memo } from "react";
 import { motion } from 'framer-motion';
