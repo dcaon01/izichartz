@@ -164,20 +164,23 @@ export const elementsSlice = createSlice({
         },
 
         /**
-         * whoIsConnecting
+         * connecting
          * @param state stato corrente.
-         * @returns 0 se nessun elemento è in connessione, oppure l'id dell'elemento che
-         * è in connessione.
+         * @param action azione che ha scatenato questa reducer. Il payload dell'azione avrà i 
+         * seguenti parametri:
+         * - id: id dell'elememnto che sta cercando di fare la connessione.
          */
-        connecting(state, payload) {
+        connecting(state, action) {
             let id = 0;
             state.forEach((element) => {
                 if (element.options && element.options.connecting === true) {
                     id = element.id;
                 }
             });
-            if (id !== 0) {
+            if (id !== 0 && id !== action.payload) {
                 console.log("connecting");
+            } else {
+                console.log("Non puoi connettere lo stesso elemento");
             }
             // Attento che non può collegarsi da solo un elemento.
         }

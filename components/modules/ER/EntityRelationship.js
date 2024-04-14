@@ -250,6 +250,7 @@ export const EntityRelationship = memo(function EntityRelationship({ id, type, o
      * @param event oggetto evento triggerato onMouseDown.
      */
     function handleGrabbing(event) {
+        dispatch(elementsSlice.actions.setConnectingElement(0));
         let offX = event.pageX - position.x;
         let offY = event.pageY - position.y;
         setOffset({ x: offX, y: offY });
@@ -313,6 +314,7 @@ export const EntityRelationship = memo(function EntityRelationship({ id, type, o
         let oldEffectiveWidth = size.width - text.width;
         let newHeight = type === "relationship" ? (inputRef.current.getBoundingClientRect().height * size.width) / (2 * (size.width - inputRef.current.getBoundingClientRect().width)) + 80 : size.height;
         console.log(type === "relationship");
+        dispatch(elementsSlice.actions.setConnectingElement(0));
         dispatch(elementsSlice.actions.modifyElementOptions({ id: id, option: "text", value: { value: event.target.value, width: inputRef.current.getBoundingClientRect().width } }));
         dispatch(elementsSlice.actions.modifyElementOptions({
             id: id,
