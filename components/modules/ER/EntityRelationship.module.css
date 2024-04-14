@@ -1,14 +1,12 @@
-.relationship{
+.entity {
     position: absolute;
     display: flex;
     justify-content: center;
     align-items: center;
-    min-width: 50;
-    min-height: 50;
     z-index: 1;
 }
 
-.relationshipInput{
+.entityInput {
     position: absolute;
     align-self: center;
     justify-self: center;
@@ -21,6 +19,7 @@
     overflow: visible;
 }
 
-.relationshipInput:focus {
+.entityInput:focus {
     outline: none;
+    background-color: transparent;
 }

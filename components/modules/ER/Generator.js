@@ -1,7 +1,6 @@
 'use client';
 
-import { Entity } from "./Entity.js";
-import { Relationship } from "./Relationship.js";
+import { EntityRelationship } from "./EntityRelationship.js";
 import { Linker } from "./Linker.js";
 
 /**
@@ -9,7 +8,7 @@ import { Linker } from "./Linker.js";
  * elemente che genera i elementi all'interno di un workpane.
  * @param generate array di JSON da renderizzare.
  */
-export default function Generator({ generate, functs }) {
+export default function Generator({ generate }) {
     /* Creiamo la matrice di collegamenti, in modo da riuscire a passarli agli elementi che non sono
     link e gestirli all'interno di essi - Ma ha senso? */
     let linksMatrix = [];
@@ -26,30 +25,31 @@ export default function Generator({ generate, functs }) {
     generiamo un elemente diverso, tra quelli del modulo */
     let generated = generate.map((element) => {
         switch (element.type) {
-            case "entity":
+            case "entity" || "relationship":
+                console.log("culo");
                 return (
-                    <Entity
+                    <EntityRelationship
                         key={`${element.type}-${element.id}`}
                         id={element.id}
+                        type={element.type}
                         options={element.options}
                         selected={element.selected}
-                        links={linksMatrix[element.id - 1]}
-                        functs={functs}
+                    // links={linksMatrix[element.id - 1]}
                     />
                 );
             // end case
             case "relationship":
+                console.log("culo");
                 return (
-                    <Relationship
+                    <EntityRelationship
                         key={`${element.type}-${element.id}`}
                         id={element.id}
+                        type={element.type}
                         options={element.options}
                         selected={element.selected}
-                        links={linksMatrix[element.id - 1]}
-                        functs={functs}
+                    // links={linksMatrix[element.id - 1]}
                     />
                 );
-            // end case
             /*
             case "Link":
                 return (

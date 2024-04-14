@@ -1,11 +1,11 @@
-import ER from '@/components/modules/ER/ER.js';
+import Module from '@/components/modules/ER/Module.js';
 import StoreProvider from './StorePrivider.js';
 
 export default function Home() {
   return (
     <main>
         <StoreProvider>
-          <ER />
+          <Module />
         </StoreProvider>
     </main>
   );

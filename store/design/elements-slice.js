@@ -9,13 +9,14 @@ const init = [
         id: 1,
         selected: false,
         options: {
-            text: "ENTITY1",
+            text: { value: "ENTITY1", width: 57.75 },
             position: {
-                x: 150, 
+                x: 150,
                 y: 200,
             },
+            minSize: 70,
             size: {
-                width: 120,
+                width: 127.75,
                 height: 70,
             },
             connecting: false,
@@ -26,27 +27,33 @@ const init = [
         id: 2,
         selected: false,
         options: {
-            text: "ENTITY2",
+            text: { value: "ENTITY2", width: 57.75 },
             position: {
-                x: 400, 
+                x: 400,
                 y: 300,
             },
+            minSize: 70,
             size: {
-                width: 120,
+                width: 127.75,
                 height: 70,
             },
             connecting: false,
         },
     },
-    {   
+    {
         type: "relationship",
         id: 3,
         selected: false,
         options: {
-            text: "RELATIONSHIP1",
+            text: { value: "", width: 0 },
             position: {
-                x: 600, 
+                x: 600,
                 y: 150,
+            },
+            minSize: 80,
+            size: {
+                width: 80,
+                height: 80,
             },
             connecting: false
         },
@@ -116,7 +123,7 @@ export const elementsSlice = createSlice({
             if (id === 0) {
                 state.forEach((element) => {
                     element.selected = false;
-                });  
+                });
             } else {
                 state.forEach((element) => {
                     if (element.id === id) {
@@ -136,12 +143,12 @@ export const elementsSlice = createSlice({
          * seguenti parametri:
          * - id: id dell'elemento da settare come "in connessione". Se 0, imposta tutti gli elementi come non "in connessione".
          */
-        setConnectingElement(state, action){
+        setConnectingElement(state, action) {
             const id = action.payload;
             if (id === 0) {
                 state.forEach((element) => {
                     // element.selected = false;
-                    if(element.options.connecting){
+                    if (element.options.connecting) {
                         element.options.connecting = false;
                     }
                 });
@@ -155,5 +162,27 @@ export const elementsSlice = createSlice({
                 });
             }
         },
+
+        /**
+         * connecting
+         * @param state stato corrente.
+         * @param action azione che ha scatenato questa reducer. Il payload dell'azione avrà i 
+         * seguenti parametri:
+         * - id: id dell'elememnto che sta cercando di fare la connessione.
+         */
+        connecting(state, action) {
+            let id = 0;
+            state.forEach((element) => {
+                if (element.options && element.options.connecting === true) {
+                    id = element.id;
+                }
+            });
+            if (id !== 0 && id !== action.payload) {
+                console.log("connecting");
+            } else {
+                console.log("Non puoi connettere lo stesso elemento");
+            }
+            // Attento che non può collegarsi da solo un elemento.
+        }
     }
 });

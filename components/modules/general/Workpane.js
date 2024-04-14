@@ -3,6 +3,7 @@
 import { useDispatch } from 'react-redux';
 import classes from './Workpane.module.css';
 import { elementsSlice } from '@/store/design/elements-slice';
+import { memo } from 'react';
 
 /**
  * Workpane
@@ -11,7 +12,7 @@ import { elementsSlice } from '@/store/design/elements-slice';
  * @param w: larghezza dell'elemento.
  * @param children: l'elemento viene utilizzato con figli al suo interno.
  */
-export default function Workpane(props) {
+export const Workpane = memo(function Workpane(props) {
     /* Campi di esemplare */
     const height = props.h;
     const width = props.w;
@@ -25,7 +26,7 @@ export default function Workpane(props) {
      * Si vuole che tutti gli elementi selezionati vengano deselezionati di default.
      * Si vuole che tutti gli elementi in connessione vengano resettati.
      */
-    function handleClicked() {
+    function handleClicked(event) {
         // Creare un'azione solo per il resetting?
         dispatch(elementsSlice.actions.setSelectedElement(0));
         dispatch(elementsSlice.actions.setConnectingElement(0));
@@ -45,4 +46,4 @@ export default function Workpane(props) {
             </div>
         </div>
     );
-}
+});
