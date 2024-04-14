@@ -9,7 +9,7 @@ const init = [
         id: 1,
         selected: false,
         options: {
-            text: { value: "ENTITY1", width: 57.75 },
+            text: { value: "ENTITY1", width: 49.5 },
             position: {
                 x: 150,
                 y: 200,
@@ -27,7 +27,7 @@ const init = [
         id: 2,
         selected: false,
         options: {
-            text: { value: "ENTITY2", width: 57.75 },
+            text: { value: "ENTITY2", width: 49.5 },
             position: {
                 x: 400,
                 y: 300,

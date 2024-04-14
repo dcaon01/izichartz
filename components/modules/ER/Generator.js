@@ -25,8 +25,7 @@ export default function Generator({ generate }) {
     generiamo un elemente diverso, tra quelli del modulo */
     let generated = generate.map((element) => {
         switch (element.type) {
-            case "entity" || "relationship":
-                console.log("culo");
+            case "entity":
                 return (
                     <EntityRelationship
                         key={`${element.type}-${element.id}`}
@@ -39,7 +38,6 @@ export default function Generator({ generate }) {
                 );
             // end case
             case "relationship":
-                console.log("culo");
                 return (
                     <EntityRelationship
                         key={`${element.type}-${element.id}`}

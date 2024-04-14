@@ -313,7 +313,6 @@ export const EntityRelationship = memo(function EntityRelationship({ id, type, o
     function handleInput(event) {
         let oldEffectiveWidth = size.width - text.width;
         let newHeight = (inputRef.current.getBoundingClientRect().height * size.width) / (2 * (size.width - inputRef.current.getBoundingClientRect().width)) + 80;
-        console.log(type === "relationship");
         dispatch(elementsSlice.actions.setConnectingElement(0));
         dispatch(elementsSlice.actions.modifyElementOptions({ id: id, option: "text", value: { value: event.target.value, width: inputRef.current.getBoundingClientRect().width } }));
         dispatch(elementsSlice.actions.modifyElementOptions({
