@@ -18,7 +18,7 @@ export default function Module() {
     const elements = useSelector(state => state.designElements);
     const wpHeight = 720;
     const wpWidth = 1920;
-    //console.log(elements);
+    console.log(elements);
 
     /* Elementi di Utility */
     const dispatch = useDispatch(); // Prelevamento del riferimento di useDispatch per poterlo usare liberamente.

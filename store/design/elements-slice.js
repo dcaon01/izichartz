@@ -58,19 +58,21 @@ const init = [
             connecting: false
         },
     },
-    /*
     {
         type: "linker",
         id: 4,
         selected: false,
         options: {
             text: "",
-            linked: [1, 3], // Id degli Elementi che devono essere collegati.
+            linked: [1, 0], // Id degli Elementi che devono essere collegati.
             segments: [       // Segmenti che compongono la linea. Il primo parte dal primo elemento, l'ultimo termina nel secondo
-                {}
+                {
+                    p1: { x: 463.875, y: 335 },
+                    p2: { x: 213.875, y: 235 }
+                }
             ],
         }
-    }*/
+    }
 ];
 
 /* Creiamo uno slice che memorizza gli elementi grafici che ci sono all'interno di
@@ -113,6 +115,9 @@ export const elementsSlice = createSlice({
          */
         modifyElementOptions(state, action) {
             state[action.payload.id - 1].options[action.payload.option] = action.payload.value;
+            if(state[action.payload.id - 1].type !== "linker") {
+                // Prelevare il linker, e in particolare 
+            }
         },
 
         /**

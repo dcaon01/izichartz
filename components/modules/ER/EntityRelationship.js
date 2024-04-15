@@ -373,6 +373,8 @@ export const EntityRelationship = memo(function EntityRelationship({ id, type, o
         }
     }
 
+    console.log(id);
+
     /* Rendering */
     return (
         <motion.div
