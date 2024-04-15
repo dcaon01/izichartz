@@ -30,7 +30,7 @@ export default function ({ id, width, height, selected, connecting }) {
                 points={`8,${height / 2} ${width / 2},${height - 8} ${(width - 8)},${height / 2} ${width / 2},8`}
                 fill="white"
                 stroke="black"
-                animate={{ strokeWidth: selected ? "2.5px" : "0.7px" }}
+                animate={{ strokeWidth: selected ? "2.5px" : "0.9px" }}
                 transition={{ duration: 0.1 }}
             // Al poligon non si possono assegnare cursori
             />

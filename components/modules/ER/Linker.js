@@ -12,6 +12,7 @@ import { motion } from "framer-motion";
  * @param options: opzioni utili al rendering dell'elemento.
  * @param selected: flag di selezione dell'elemento.
  * Se fosse troppo lento il rendering dovremmo pensare a qualcosa di diverso, tipo una gestione mirata del segments, o un svg grande tutto il workpane.
+ * Inserire dei rect lungo la lunghezza del linker in modo che possano essere cliccabili più facilmente i vari segments.
  */
 export const Linker = memo(function Linker({ id, options, selected }) {
     /* Campi di esemplare */
@@ -20,6 +21,7 @@ export const Linker = memo(function Linker({ id, options, selected }) {
     let minX = 0, maxX = 0, minY = 0, maxY = 0; // Veriabili per il calcolo della dimensione e posizionamento dell'svg.
 
     /* Elementi di utility */
+    let curs = "pointer"; // Selettore del pointer.
     let generatedSegments = segments.map((segment, index) => {
         if (segments.length === 1) { // C'è un solo segmento che compone il linker.
             minX = maxX = segment.p1.x;
@@ -47,6 +49,9 @@ export const Linker = memo(function Linker({ id, options, selected }) {
                     stroke="black"
                     strokeWidth="0.5"
                     className={classes.segment}
+                    style={{
+                        cursor: curs,
+                    }}
                 />
             );
         }
@@ -101,7 +106,7 @@ export const Linker = memo(function Linker({ id, options, selected }) {
                     x2={segment.p2.x} 
                     y2={segment.p2.y} 
                     stroke="black"
-                    strokeWidth="0.5"
+                    strokeWidth="1"
                     className={classes.segment}
                 />
             );
@@ -137,6 +142,16 @@ export const Linker = memo(function Linker({ id, options, selected }) {
     //console.log("Larghezze: " + minX + " " + maxX);
     //console.log("Altezze: " + minY + " " + maxY);
 
+    /* Gestione dinamica del cursore */
+    /*if (selected) {
+        if (moving) {
+            curs = "grabbing";
+        } else {
+            curs = "grab";
+        }
+    }*/
+
+    /* Rendering */
     return (
         <div
             id={`linker-${id}`}

@@ -46,7 +46,7 @@ export default function ({ id, width, height, selected, connecting }) {
                 stroke="black"
                 animate={{
                     zIndex: 3,
-                    strokeWidth: selected ? "2.5px" : "0.7px",
+                    strokeWidth: selected ? "2.5px" : "0.9px",
                 }}
                 transition={{ duration: 0.1 }}
             />
