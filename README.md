@@ -108,6 +108,14 @@ Possiamo andare a creare dei componenti ER che ricalcano i concetti ER e che uti
 linked è un array di 2 elementi che mi identificano i due elementi che sono stati collegati.
 I segments sono messi in ordine, nel senso che il primo elemento dell'array è collegato al primo elemento in linked, e l'ultimo elemento in segments è collegato al secondo. Questo ci aiuta a gestire la logica della generazione di parti di codice condizionale, come i pallini che si possono trascinare per cambiare la forma del linker.
 
+**Strati degli elementi**
+z-index: 
+- 0 -> Workpane;
+- 1 -> Linkers / Generalisation
+- 2 -> Attributes
+- 3 -> Entities
+- 4 -> Inputs
+
 ## Database
 L'applicazione deve gestire tutta una serie di funzionalità dell'utente. 
 Quindi abbiamo sicuro la tabella USER per memorizzare i dati dell'utente, che avrà i seguenti attributi:

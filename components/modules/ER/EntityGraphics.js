@@ -16,11 +16,11 @@ export default function ({ id, width, height, selected, connecting }) {
                     y="4"
                     rx="5"
                     ry="5"
-                    fill="transparent"
+                    fill="white"
                     stroke="black"
                     strokeWidth="1"
                     style={{
-                        zIndex: 1,
+                        zIndex: 2,
                     }}
                     initial={{
                         height: height - 14,
@@ -46,7 +46,7 @@ export default function ({ id, width, height, selected, connecting }) {
                 stroke="black"
                 animate={{
                     zIndex: 3,
-                    strokeWidth: selected ? "2.5px" : "0.5px",
+                    strokeWidth: selected ? "2.5px" : "0.7px",
                 }}
                 transition={{ duration: 0.1 }}
             />

@@ -40,12 +40,13 @@ export const Linker = memo(function Linker({ id, options, selected }) {
             return (
                 <motion.line 
                     key={`linker-${id}-segment-${index}`} 
+                    x1={segment.p1.x - minX} 
+                    y1={segment.p1.y - minY} 
+                    x2={segment.p2.x - minX} 
+                    y2={segment.p2.y - minY} 
                     stroke="black"
-                    strokeWidth="1"
-                    x1={segment.p1.x} 
-                    y1={segment.p1.y} 
-                    x2={segment.p2.x} 
-                    y2={segment.p2.y} 
+                    strokeWidth="0.5"
+                    className={classes.segment}
                 />
             );
         }
@@ -55,12 +56,13 @@ export const Linker = memo(function Linker({ id, options, selected }) {
             return (
                 <motion.line 
                     key={`linker-${id}-segment-${index}`} 
-                    stroke="black"
-                    strokeWidth="1"
                     x1={segment.p1.x} 
                     y1={segment.p1.y} 
                     x2={segment.p2.x} 
-                    y2={segment.p2.y} 
+                    y2={segment.p2.y}
+                    stroke="black"
+                    strokeWidth="0.5"
+                    className={classes.segment} 
                 />
             );
         }
@@ -94,12 +96,13 @@ export const Linker = memo(function Linker({ id, options, selected }) {
             return (
                 <motion.line 
                     key={`linker-${id}-segment-${index}`} 
-                    stroke="black"
-                    strokeWidth="1"
                     x1={segment.p1.x} 
                     y1={segment.p1.y} 
                     x2={segment.p2.x} 
                     y2={segment.p2.y} 
+                    stroke="black"
+                    strokeWidth="0.5"
+                    className={classes.segment}
                 />
             );
         }
@@ -120,18 +123,19 @@ export const Linker = memo(function Linker({ id, options, selected }) {
         return (
             <motion.line 
                 key={`linker-${id}-segment-${index}`} 
-                stroke="black"
-                strokeWidth="1"
                 x1={segment.p1.x} 
                 y1={segment.p1.y} 
                 x2={segment.p2.x} 
                 y2={segment.p2.y} 
+                stroke="black"
+                strokeWidth="0.5"
+                className={classes.segment}
             />
         );
     });
 
-    console.log("Larghezze: " + minX + " " + maxX);
-    console.log("Altezze: " + minY + " " + maxY);
+    //console.log("Larghezze: " + minX + " " + maxX);
+    //console.log("Altezze: " + minY + " " + maxY);
 
     return (
         <div
