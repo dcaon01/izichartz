@@ -48,8 +48,7 @@ export default function Generator({ generate }) {
                     // links={linksMatrix[element.id - 1]}
                     />
                 );
-            /*
-            case "Link":
+            case "linker":
                 return (
                     <Linker 
                         key={`${element.type}-${element.id}`} 
@@ -57,8 +56,7 @@ export default function Generator({ generate }) {
                         options={element.options} 
                         selected={element.selected}
                     />
-                )
-            */
+                );
             default:
                 return null;
             // end default

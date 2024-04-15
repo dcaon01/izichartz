@@ -60,13 +60,13 @@ const init = [
     },
     /*
     {
-        type: "link",
+        type: "linker",
         id: 4,
         selected: false,
         options: {
             text: "",
             linked: [1, 3], // Id degli Elementi che devono essere collegati.
-            segments: [       // Segmenti che compongono la linea. Il primo parte dal primo elemento, il secondo termina nel secondo
+            segments: [       // Segmenti che compongono la linea. Il primo parte dal primo elemento, l'ultimo termina nel secondo
                 {}
             ],
         }
@@ -82,10 +82,15 @@ export const elementsSlice = createSlice({
         /**
          * addElement
          * Reducer che si occupa dell'aggiunta di un elemento. 
-         * @param element oggetto contenente tutte le info da aggiungere all'array degli elementi.
+         * @param state stato corrente.
+         * @param action azione che ha scatenato questa reducer. Il payload dell'azione avrà i 
+         * seguenti parametri:
+         * - element: elemento da inserire all'interno dell'array degli elementi.
+         *  Il JSON dovrà avere tutti gli elementi tranne l'id.
          */
-        addElement(element) {
-
+        addElement(state, action) {
+            let id = state.length;
+            state.push({ id: id, ...action.payload });
         },
 
         /**
@@ -171,18 +176,44 @@ export const elementsSlice = createSlice({
          * - id: id dell'elememnto che sta cercando di fare la connessione.
          */
         connecting(state, action) {
-            let id = 0;
+            let startId = 0;
+            let finishId = action.payload;
             state.forEach((element) => {
                 if (element.options && element.options.connecting === true) {
-                    id = element.id;
+                    startId = element.id;
                 }
             });
-            if (id !== 0 && id !== action.payload) {
+            if (startId !== 0 && startId !== finishId) {
                 console.log("connecting");
+                startId--;
+                finishId--;
+                const p1 = {
+                    x: state[startId].options.position.x + (state[startId].options.size.width / 2),
+                    y: state[startId].options.position.y + (state[startId].options.size.height / 2),
+                }
+                const p2 = {
+                    x: state[finishId].options.position.x + (state[finishId].options.size.width / 2),
+                    y: state[finishId].options.position.y + (state[finishId].options.size.height / 2),
+                }
+                const linker = {
+                    type: "linker",
+                    id: state.length,
+                    selected: false,
+                    options: {
+                        text: "",
+                        linked: [startId, finishId], // Id degli Elementi che devono essere collegati.
+                        segments: [       // Segmenti che compongono la linea. Il primo parte dal primo elemento, l'ultimo termina nel secondo
+                            {
+                                p1: p1,
+                                p2: p2
+                            }
+                        ],
+                    }
+                }
+                state.push(linker);
             } else {
                 console.log("Non puoi connettere lo stesso elemento");
             }
-            // Attento che non può collegarsi da solo un elemento.
         }
     }
 });

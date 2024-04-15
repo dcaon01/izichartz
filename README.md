@@ -50,8 +50,8 @@ All'interno del workpane non si può zoommare all'infuori più della dimensione 
 Bisognerebbe trovare un modo di calcolare delle funzioni di zoom in modo da zoommare. Potremmo tenere in memoria un fattore di zoom, che è fisso ogni volta che apriamo un progetto, ma poi andare a cambiarlo quando lavoriamo. Quel fattore potremmo metterlo moltiplicato a tutti i parametri assoluti e gestire dinamicamente la cosa in questo modo. 
 Trovare anche il modo di matchare il contenuto del workpane se la view del workpane è più ampia della dimensione del contenuto stesso. Infatti la view del worpane sarà sempre settata per essere uguale alla finestra, e far andare in overflow il contenuto. Non possiamo quindi avere una dimensione fissa del contenuto del workpane, ma deve essere dinamica.
 
-### Renderer
-Il **Renderer** è quello che si occupa di generare.
+### Generator
+Il **Generator** è quello che si occupa di generare.
 
 
 ## Modules
@@ -90,6 +90,23 @@ Questo tipo di oggetto racchiude le informazioni necessarie per la renderizzazio
 
 ### ER
 Possiamo andare a creare dei componenti ER che ricalcano i concetti ER e che utilizzano componenti grafici. Quindi nei componenti, creiamo delle cartelle relative ai componenti dell'er, uml etc. Ad esempio, per l'appunto, nell'ER avremmo l'entità che non sarà solo composta dal rettangolo, ma anche dai pallini, stessa cosa le relazioni. Poi ci saranno componenti creati ad hoc, come la tendida che esce schiacciando il tasto destro, che potrebbe essere diversa da modulo a modulo, e anche il menu laterale.
+- **Linkers** : la gestione dei linkers è abbastanza complicata. Hanno la seguente struttura:
+```
+{
+    type: "linker",
+    id: 4,
+    selected: false,
+    options: {
+        text: "",
+        linked: [1, 3], 
+        segments: [ 
+            {}
+        ],
+    }
+}
+```
+linked è un array di 2 elementi che mi identificano i due elementi che sono stati collegati.
+I segments sono messi in ordine, nel senso che il primo elemento dell'array è collegato al primo elemento in linked, e l'ultimo elemento in segments è collegato al secondo. Questo ci aiuta a gestire la logica della generazione di parti di codice condizionale, come i pallini che si possono trascinare per cambiare la forma del linker.
 
 ## Database
 L'applicazione deve gestire tutta una serie di funzionalità dell'utente. 
