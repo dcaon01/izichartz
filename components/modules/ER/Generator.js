@@ -1,7 +1,7 @@
 'use client';
 
 import { EntityRelationship } from "./EntityRelationship.js";
-import { Linker } from "./Linker.js";
+import { Linker } from "../general/Linker.js";
 
 /**
  * Generator

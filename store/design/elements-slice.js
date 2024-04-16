@@ -69,6 +69,7 @@ const init = [
                 {
                     p1: { x: 213.875, y: 235 },
                     p2: { x: 463.875, y: 335 },
+                    selected: false,
                 }
             ],
         }
@@ -178,6 +179,43 @@ export const elementsSlice = createSlice({
                         element.selected = true;
                     } else {
                         element.selected = false;
+                    }
+                });
+            }
+        },
+
+        /**
+         * 
+         * @param state stato corrente.
+         * @param action azione che ha scatenato questa reducer. Il payload dell'azione avrà i 
+         * seguenti parametri:
+         * - id: identificativo del linker.
+         * - index: indice che identifica il segment dell'indice da andare a selezionare.
+         */
+        setSelectedSegment(state, action){
+            const id = action.payload.id;
+            if (id === 0) {
+                state.forEach((element) => {
+                    element.selected = false;
+                });
+            } else {
+                state.forEach((element) => {
+                    if (element.id === id) {
+                        element.selected = true;
+                        element.options.segments.forEach((segment, index) => {
+                            if(action.payload.index === index) {
+                                segment.selected = true;
+                            } else {
+                                segment.selected = false;
+                            }
+                        });
+                    } else {
+                        element.selected = false;
+                        if (element.type === "linker") {
+                            element.options.segments.forEach((segment) => {
+                                segment.selected = false;
+                            });
+                        }
                     }
                 });
             }

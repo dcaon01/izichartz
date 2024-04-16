@@ -3,16 +3,15 @@
 import classes from "./Linker.module.css";
 import { memo } from "react";
 import { motion } from "framer-motion";
+import Segment from "./Segment.js";
 
 /**
- * Link
+ * Linker
  * Componente che renderizza i collegamenti fra entità e relazioni. 
  * Una linea è composta da più segmenti svg. Collega il punto centrale di un elemento ad un altro punto centrale di un elemento.
  * @param id: indice e identificatore dell'elemento all'interno dell'array degli elementi.
  * @param options: opzioni utili al rendering dell'elemento.
  * @param selected: flag di selezione dell'elemento.
- * Se fosse troppo lento il rendering dovremmo pensare a qualcosa di diverso, tipo una gestione mirata del segments, o un svg grande tutto il workpane.
- * Inserire dei rect lungo la lunghezza del linker in modo che possano essere cliccabili più facilmente i vari segments.
  */
 export const Linker = memo(function Linker({ id, options, selected }) {
     /* Campi di esemplare */
@@ -20,8 +19,7 @@ export const Linker = memo(function Linker({ id, options, selected }) {
     let segments = options.segments; // Segmenti di cui è composto il linker.
     let minX = 0, maxX = 0, minY = 0, maxY = 0; // Veriabili per il calcolo della dimensione e posizionamento dell'svg.
 
-    /* Elementi di utility */
-    let curs = "pointer"; // Selettore del pointer.
+    /* Generazione del Rendering */
     let generatedSegments = segments.map((segment, index) => {
         if (segments.length === 1) { // C'è un solo segmento che compone il linker.
             minX = maxX = segment.p1.x;
@@ -40,18 +38,15 @@ export const Linker = memo(function Linker({ id, options, selected }) {
                 maxY = segment.p2.y;
             }
             return (
-                <motion.line 
-                    key={`linker-${id}-segment-${index}`} 
-                    x1={segment.p1.x - minX} 
-                    y1={segment.p1.y - minY} 
-                    x2={segment.p2.x - minX} 
-                    y2={segment.p2.y - minY} 
-                    stroke="black"
-                    strokeWidth="0.5"
-                    className={classes.segment}
-                    style={{
-                        cursor: curs,
-                    }}
+                <Segment 
+                    key={`linker-${id}-segment-${index}`}
+                    id={id} 
+                    index={index} 
+                    x1={segment.p1.x - minX}
+                    y1={segment.p1.y - minY}
+                    x2={segment.p2.x - minX}
+                    y2={segment.p2.y - minY}
+                    selected={segment.selected}
                 />
             );
         }
@@ -139,18 +134,6 @@ export const Linker = memo(function Linker({ id, options, selected }) {
         );
     });
 
-    //console.log("Larghezze: " + minX + " " + maxX);
-    //console.log("Altezze: " + minY + " " + maxY);
-
-    /* Gestione dinamica del cursore */
-    /*if (selected) {
-        if (moving) {
-            curs = "grabbing";
-        } else {
-            curs = "grab";
-        }
-    }*/
-
     /* Rendering */
     return (
         <div
@@ -165,8 +148,8 @@ export const Linker = memo(function Linker({ id, options, selected }) {
             <svg
                 xmlns="http://www.w3.org/2000/svg"
                 style={{
-                    width: maxX - minX,
-                    height: maxY - minY
+                    width: maxX - minX + 4,
+                    height: maxY - minY + 4,
                 }}
             >
                 {generatedSegments}
