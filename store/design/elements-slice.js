@@ -64,11 +64,11 @@ const init = [
         selected: false,
         options: {
             text: "",
-            linked: [1, 0], // Id degli Elementi che devono essere collegati.
+            linked: [1, 2], // Id degli Elementi che devono essere collegati.
             segments: [       // Segmenti che compongono la linea. Il primo parte dal primo elemento, l'ultimo termina nel secondo
                 {
-                    p1: { x: 463.875, y: 335 },
-                    p2: { x: 213.875, y: 235 }
+                    p1: { x: 213.875, y: 235 },
+                    p2: { x: 463.875, y: 335 },
                 }
             ],
         }
@@ -135,20 +135,21 @@ export const elementsSlice = createSlice({
                 // Troviamo i linkers collegati all'elemento di cui è stato passato l'id. 
                 // Se l'elemento è il primo in linked dobbiamo agire sul primo segment, altrimento sarà l'ultimo
                 if (linker.type === "linker") {
-                    if(linker.options.linked[0] === action.payload.id) {
+                    if (linker.options.linked[0] === action.payload.id) {
                         linker.options.segments[0] = {
                             p1: {
-                                x: element.options.position.x + (element.options.size.width / 2), 
+                                x: element.options.position.x + (element.options.size.width / 2),
                                 y: element.options.position.y + (element.options.size.height / 2),
                             },
                             p2: linker.options.segments[0].p2,
                         }
                     }
-                    if(linker.options.linked[1] === action.payload.id) {
-                        linker.options.segments[0] = {
-                            p1: linker.options.segments[0].p1,
+                    if (linker.options.linked[1] === action.payload.id) {
+                        console.log("culo");
+                        linker.options.segments[linker.options.segments.length - 1] = {
+                            p1: linker.options.segments[linker.options.segments.length - 1].p1,
                             p2: {
-                                x: element.options.position.x + (element.options.size.width / 2), 
+                                x: element.options.position.x + (element.options.size.width / 2),
                                 y: element.options.position.y + (element.options.size.height / 2),
                             },
                         }
@@ -239,11 +240,11 @@ export const elementsSlice = createSlice({
                 }
                 const linker = {
                     type: "linker",
-                    id: state.length,
+                    id: state.length + 1,
                     selected: false,
                     options: {
                         text: "",
-                        linked: [startId, finishId], // Id degli Elementi che devono essere collegati.
+                        linked: [startId + 1, finishId + 1], // Id degli Elementi che devono essere collegati.
                         segments: [       // Segmenti che compongono la linea. Il primo parte dal primo elemento, l'ultimo termina nel secondo
                             {
                                 p1: p1,

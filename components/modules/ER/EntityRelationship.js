@@ -77,18 +77,18 @@ export const EntityRelationship = memo(function EntityRelationship({ id, type, o
         if (bordersArray[1]) {
             let newWidth = event.pageX - position.x + 14;
             if (verifyDimensions(newWidth, size.height)[0]) {
-                dispatch(elementsSlice.actions.modifyElementOptions({ id: id, option: "size", value: { width: newWidth, height: size.height } }));
+                dispatch(elementsSlice.actions.modifyElementOptionsAndLinkers({ id: id, option: "size", value: { width: newWidth, height: size.height } }));
             } else {
-                dispatch(elementsSlice.actions.modifyElementOptions({ id: id, option: "size", value: { width: text.width + minSize, height: size.height } }));
+                dispatch(elementsSlice.actions.modifyElementOptionsAndLinkers({ id: id, option: "size", value: { width: text.width + minSize, height: size.height } }));
             }
         }
         // bottom
         if (borders[4]) {
             let newHeight = event.pageY - position.y + 14;
             if (verifyDimensions(size.width, newHeight)[1]) {
-                dispatch(elementsSlice.actions.modifyElementOptions({ id: id, option: "size", value: { width: size.width, height: newHeight } }));
+                dispatch(elementsSlice.actions.modifyElementOptionsAndLinkers({ id: id, option: "size", value: { width: size.width, height: newHeight } }));
             } else {
-                dispatch(elementsSlice.actions.modifyElementOptions({ id: id, option: "size", value: { width: size.width, height: minSize } }));
+                dispatch(elementsSlice.actions.modifyElementOptionsAndLinkers({ id: id, option: "size", value: { width: size.width, height: minSize } }));
             }
         }
         // top
@@ -96,10 +96,10 @@ export const EntityRelationship = memo(function EntityRelationship({ id, type, o
             let pastY = position.y;
             let newHeight = size.height + (pastY - event.pageY + 14);
             if (verifyDimensions(size.width, newHeight)[1]) {
-                dispatch(elementsSlice.actions.modifyElementOptions({ id: id, option: "position", value: { x: position.x, y: event.pageY - 14 } }));
-                dispatch(elementsSlice.actions.modifyElementOptions({ id: id, option: "size", value: { width: size.width, height: newHeight } }));
+                dispatch(elementsSlice.actions.modifyElementOptionsAndLinkers({ id: id, option: "position", value: { x: position.x, y: event.pageY - 14 } }));
+                dispatch(elementsSlice.actions.modifyElementOptionsAndLinkers({ id: id, option: "size", value: { width: size.width, height: newHeight } }));
             } else {
-                dispatch(elementsSlice.actions.modifyElementOptions({ id: id, option: "size", value: { width: size.width, height: minSize } }));
+                dispatch(elementsSlice.actions.modifyElementOptionsAndLinkers({ id: id, option: "size", value: { width: size.width, height: minSize } }));
             }
         }
         // left
@@ -107,10 +107,10 @@ export const EntityRelationship = memo(function EntityRelationship({ id, type, o
             let pastX = position.x;
             let newWidth = size.width + (pastX - event.pageX + 14);
             if (verifyDimensions(newWidth, size.height)[0]) {
-                dispatch(elementsSlice.actions.modifyElementOptions({ id: id, option: "position", value: { x: event.pageX - 14, y: position.y } }));
-                dispatch(elementsSlice.actions.modifyElementOptions({ id: id, option: "size", value: { width: newWidth, height: size.height } }));
+                dispatch(elementsSlice.actions.modifyElementOptionsAndLinkers({ id: id, option: "position", value: { x: event.pageX - 14, y: position.y } }));
+                dispatch(elementsSlice.actions.modifyElementOptionsAndLinkers({ id: id, option: "size", value: { width: newWidth, height: size.height } }));
             } else {
-                dispatch(elementsSlice.actions.modifyElementOptions({ id: id, option: "size", value: { width: text.width + minSize, height: size.height } }));
+                dispatch(elementsSlice.actions.modifyElementOptionsAndLinkers({ id: id, option: "size", value: { width: text.width + minSize, height: size.height } }));
             }
         }
         // top-right
@@ -120,18 +120,18 @@ export const EntityRelationship = memo(function EntityRelationship({ id, type, o
             let newHeight = size.height + (pastY - event.pageY + 14);
             let dimensions = verifyDimensions(newWidth, newHeight);
             if (dimensions[0] && dimensions[1]) {
-                dispatch(elementsSlice.actions.modifyElementOptions({ id: id, option: "position", value: { x: position.x, y: event.pageY - 14 } }));
-                dispatch(elementsSlice.actions.modifyElementOptions({ id: id, option: "size", value: { width: newWidth, height: newHeight } }));
+                dispatch(elementsSlice.actions.modifyElementOptionsAndLinkers({ id: id, option: "position", value: { x: position.x, y: event.pageY - 14 } }));
+                dispatch(elementsSlice.actions.modifyElementOptionsAndLinkers({ id: id, option: "size", value: { width: newWidth, height: newHeight } }));
                 console.log("culo");
             } else {
                 if (!dimensions[1]) {
-                    dispatch(elementsSlice.actions.modifyElementOptions({ id: id, option: "size", value: { width: newWidth, height: minSize } }))
+                    dispatch(elementsSlice.actions.modifyElementOptionsAndLinkers({ id: id, option: "size", value: { width: newWidth, height: minSize } }))
                 }
                 if (!dimensions[0]) {
-                    dispatch(elementsSlice.actions.modifyElementOptions({ id: id, option: "size", value: { width: text.width + minSize, height: newHeight } }));
+                    dispatch(elementsSlice.actions.modifyElementOptionsAndLinkers({ id: id, option: "size", value: { width: text.width + minSize, height: newHeight } }));
                 }
                 if (!dimensions[0] && !dimensions[1]) {
-                    dispatch(elementsSlice.actions.modifyElementOptions({ id: id, option: "size", value: { width: text.width + minSize, height: minSize } }));
+                    dispatch(elementsSlice.actions.modifyElementOptionsAndLinkers({ id: id, option: "size", value: { width: text.width + minSize, height: minSize } }));
                 }
             }
         }
@@ -142,17 +142,17 @@ export const EntityRelationship = memo(function EntityRelationship({ id, type, o
             let newHeight = event.pageY - position.y + 14;
             let dimensions = verifyDimensions(newWidth, newHeight);
             if (dimensions[0] && dimensions[1]) {
-                dispatch(elementsSlice.actions.modifyElementOptions({ id: id, option: "position", value: { x: event.pageX - 14, y: position.y } }));
-                dispatch(elementsSlice.actions.modifyElementOptions({ id: id, option: "size", value: { width: newWidth, height: newHeight } }));
+                dispatch(elementsSlice.actions.modifyElementOptionsAndLinkers({ id: id, option: "position", value: { x: event.pageX - 14, y: position.y } }));
+                dispatch(elementsSlice.actions.modifyElementOptionsAndLinkers({ id: id, option: "size", value: { width: newWidth, height: newHeight } }));
             } else {
                 if (!dimensions[1]) {
-                    dispatch(elementsSlice.actions.modifyElementOptions({ id: id, option: "size", value: { width: newWidth, height: minSize } }))
+                    dispatch(elementsSlice.actions.modifyElementOptionsAndLinkers({ id: id, option: "size", value: { width: newWidth, height: minSize } }))
                 }
                 if (!dimensions[0]) {
-                    dispatch(elementsSlice.actions.modifyElementOptions({ id: id, option: "size", value: { width: text.width + minSize, height: newHeight } }));
+                    dispatch(elementsSlice.actions.modifyElementOptionsAndLinkers({ id: id, option: "size", value: { width: text.width + minSize, height: newHeight } }));
                 }
                 if (!dimensions[0] && !dimensions[1]) {
-                    dispatch(elementsSlice.actions.modifyElementOptions({ id: id, option: "size", value: { width: text.width + minSize, height: minSize } }));
+                    dispatch(elementsSlice.actions.modifyElementOptionsAndLinkers({ id: id, option: "size", value: { width: text.width + minSize, height: minSize } }));
                 }
             }
         }
@@ -164,17 +164,17 @@ export const EntityRelationship = memo(function EntityRelationship({ id, type, o
             let newWidth = size.width + (pastX - event.pageX + 14);
             let dimensions = verifyDimensions(newWidth, newHeight);
             if (dimensions[0] && dimensions[1]) {
-                dispatch(elementsSlice.actions.modifyElementOptions({ id: id, option: "position", value: { x: event.pageX - 14, y: event.pageY - 14 } }));
-                dispatch(elementsSlice.actions.modifyElementOptions({ id: id, option: "size", value: { width: newWidth, height: newHeight } }));
+                dispatch(elementsSlice.actions.modifyElementOptionsAndLinkers({ id: id, option: "position", value: { x: event.pageX - 14, y: event.pageY - 14 } }));
+                dispatch(elementsSlice.actions.modifyElementOptionsAndLinkers({ id: id, option: "size", value: { width: newWidth, height: newHeight } }));
             } else {
                 if (!dimensions[1]) {
-                    dispatch(elementsSlice.actions.modifyElementOptions({ id: id, option: "size", value: { width: newWidth, height: minSize } }))
+                    dispatch(elementsSlice.actions.modifyElementOptionsAndLinkers({ id: id, option: "size", value: { width: newWidth, height: minSize } }))
                 }
                 if (!dimensions[0]) {
-                    dispatch(elementsSlice.actions.modifyElementOptions({ id: id, option: "size", value: { width: text.width + minSize, height: newHeight } }));
+                    dispatch(elementsSlice.actions.modifyElementOptionsAndLinkers({ id: id, option: "size", value: { width: text.width + minSize, height: newHeight } }));
                 }
                 if (!dimensions[0] && !dimensions[1]) {
-                    dispatch(elementsSlice.actions.modifyElementOptions({ id: id, option: "size", value: { width: text.width + minSize, height: minSize } }));
+                    dispatch(elementsSlice.actions.modifyElementOptionsAndLinkers({ id: id, option: "size", value: { width: text.width + minSize, height: minSize } }));
                 }
             }
         }
@@ -184,16 +184,16 @@ export const EntityRelationship = memo(function EntityRelationship({ id, type, o
             let newHeight = event.pageY - position.y + 14;
             let dimensions = verifyDimensions(newWidth, newHeight);
             if (dimensions[0] && dimensions[1]) {
-                dispatch(elementsSlice.actions.modifyElementOptions({ id: id, option: "size", value: { width: newWidth, height: newHeight } }));
+                dispatch(elementsSlice.actions.modifyElementOptionsAndLinkers({ id: id, option: "size", value: { width: newWidth, height: newHeight } }));
             } else {
                 if (!dimensions[1]) {
-                    dispatch(elementsSlice.actions.modifyElementOptions({ id: id, option: "size", value: { width: newWidth, height: minSize } }))
+                    dispatch(elementsSlice.actions.modifyElementOptionsAndLinkers({ id: id, option: "size", value: { width: newWidth, height: minSize } }))
                 }
                 if (!dimensions[0]) {
-                    dispatch(elementsSlice.actions.modifyElementOptions({ id: id, option: "size", value: { width: text.width + minSize, height: newHeight } }));
+                    dispatch(elementsSlice.actions.modifyElementOptionsAndLinkers({ id: id, option: "size", value: { width: text.width + minSize, height: newHeight } }));
                 }
                 if (!dimensions[0] && !dimensions[1]) {
-                    dispatch(elementsSlice.actions.modifyElementOptions({ id: id, option: "size", value: { width: text.width + minSize, height: minSize } }));
+                    dispatch(elementsSlice.actions.modifyElementOptionsAndLinkers({ id: id, option: "size", value: { width: text.width + minSize, height: minSize } }));
                 }
             }
         }
@@ -281,7 +281,7 @@ export const EntityRelationship = memo(function EntityRelationship({ id, type, o
         if (moving) {
             let x = event.pageX - offset.x;
             let y = event.pageY - offset.y;
-            dispatch(elementsSlice.actions.modifyElementOptions({ id: id, option: "position", value: { x, y } }));
+            dispatch(elementsSlice.actions.modifyElementOptionsAndLinkers({ id: id, option: "position", value: { x, y } }));
         } else {
             if (resizing) {
                 resize(borders, event, text, position);
@@ -315,7 +315,7 @@ export const EntityRelationship = memo(function EntityRelationship({ id, type, o
         let newHeight = (inputRef.current.getBoundingClientRect().height * size.width) / (2 * (size.width - inputRef.current.getBoundingClientRect().width)) + 80;
         dispatch(elementsSlice.actions.setConnectingElement(0));
         dispatch(elementsSlice.actions.modifyElementOptions({ id: id, option: "text", value: { value: event.target.value, width: inputRef.current.getBoundingClientRect().width } }));
-        dispatch(elementsSlice.actions.modifyElementOptions({
+        dispatch(elementsSlice.actions.modifyElementOptionsAndLinkers({
             id: id,
             option: "size",
             value: {
@@ -373,7 +373,7 @@ export const EntityRelationship = memo(function EntityRelationship({ id, type, o
         }
     }
 
-    console.log(id);
+    //console.log(id);
 
     /* Rendering */
     return (
