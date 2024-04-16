@@ -11,7 +11,7 @@ import { Linker } from "./Linker.js";
 export default function Generator({ generate }) {
     /* Creiamo la matrice di collegamenti, in modo da riuscire a passarli agli elementi che non sono
     link e gestirli all'interno di essi - Ma ha senso? */
-    let linksMatrix = [];
+    /*let linksMatrix = [];
     generate.forEach((element) => {
         linksMatrix.push([]);
         console.log(linksMatrix);
@@ -20,9 +20,9 @@ export default function Generator({ generate }) {
                 linksMatrix[id - 1].array.push(element);
             });
         }
-    });
+    });*/
 
-    console.log(linksMatrix);
+    // console.log(linksMatrix);
 
     /* Mappiamo i JSON contenuti in generate e in base al type
     generiamo un elemente diverso, tra quelli del modulo */
@@ -36,7 +36,7 @@ export default function Generator({ generate }) {
                         type={element.type}
                         options={element.options}
                         selected={element.selected}
-                        links={linksMatrix[element.id - 1]}
+                        //links={linksMatrix[element.id - 1]}
                     />
                 );
             // end case
@@ -48,7 +48,7 @@ export default function Generator({ generate }) {
                         type={element.type}
                         options={element.options}
                         selected={element.selected}
-                        links={linksMatrix[element.id - 1]}
+                        //links={linksMatrix[element.id - 1]}
                     />
                 );
             case "linker":

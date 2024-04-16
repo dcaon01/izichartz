@@ -320,7 +320,7 @@ export const EntityRelationship = memo(function EntityRelationship({ id, type, o
             option: "size",
             value: {
                 width: oldEffectiveWidth + inputRef.current.getBoundingClientRect().width,
-                height: type === "relationship" ? newHeight : size.height,
+                height: type === "relationship" ? (size.height < newHeight ? newHeight : size.height) : size.height,
             }
         }));
         if (type === "relationship") {
@@ -403,7 +403,7 @@ export const EntityRelationship = memo(function EntityRelationship({ id, type, o
                 className={classes.entityInput}
                 onKeyDown={handleBlur}
                 style={{
-                    width: (text.value.length === 0) ? 20 : (text.value.length * 1.1) + "ch",
+                    width: (text.value.length === 0) ? 20 : (text.value.length * 1.15) + "ch",
                     cursor: selected ? "text" : "pointer"
                 }}
             />

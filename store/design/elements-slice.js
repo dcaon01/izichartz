@@ -115,9 +115,46 @@ export const elementsSlice = createSlice({
          */
         modifyElementOptions(state, action) {
             state[action.payload.id - 1].options[action.payload.option] = action.payload.value;
-            if(state[action.payload.id - 1].type !== "linker") {
-                // Prelevare il linker, e in particolare 
-            }
+        },
+
+        /**
+         * modifyElementOptionsAndLinkers
+         * Reducer che si occupa della modifica degli elementi che possono avere dei linkers.
+         * @param state stato corrente.
+         * @param action  azione che ha scatenato questa reducer. Il payload dell'azione avrà i 
+         * seguenti parametri:
+         * - id: id dell'elemento.
+         * - option: nome dell'opzione da modificare.
+         * - value: valore con cui modificare quell'opzione.
+         */
+        modifyElementOptionsAndLinkers(state, action) {
+            let element = state[action.payload.id - 1]; // Viene fatta una shallow copy.
+            element.options[action.payload.option] = action.payload.value;
+            // Cerchiamo i linkers fra gli elementi.
+            state.forEach((linker) => {
+                // Troviamo i linkers collegati all'elemento di cui è stato passato l'id. 
+                // Se l'elemento è il primo in linked dobbiamo agire sul primo segment, altrimento sarà l'ultimo
+                if (linker.type === "linker") {
+                    if(linker.options.linked[0] === action.payload.id) {
+                        linker.options.segments[0] = {
+                            p1: {
+                                x: element.options.position.x + (element.options.size.width / 2), 
+                                y: element.options.position.y + (element.options.size.height / 2),
+                            },
+                            p2: linker.options.segments[0].p2,
+                        }
+                    }
+                    if(linker.options.linked[1] === action.payload.id) {
+                        linker.options.segments[0] = {
+                            p1: linker.options.segments[0].p1,
+                            p2: {
+                                x: element.options.position.x + (element.options.size.width / 2), 
+                                y: element.options.position.y + (element.options.size.height / 2),
+                            },
+                        }
+                    }
+                }
+            });
         },
 
         /**
