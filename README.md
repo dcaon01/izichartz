@@ -7,7 +7,7 @@ Il suo obiettivo è quello di aiutare gli utenti con la progettazione grafica tr
 Facciamo prima i componenti per l'ER che funzionano, poi cerchiamo di generalizzare per tutti i moduli.
 
 
-## Installed Dependencies
+## Librerie Esterne Utilizzate
 <!-- - **Typescript**: per la gestione di tipi statici. [Docs](https://www.typescriptlang.org/docs/) PER ORA LO LASCIAMO STARE-->
 - **Redux Toolkit**: per una gestione migliore degli stati. [Docs](https://redux-toolkit.js.org/usage/nextjs)
 - **Framer Motion**: per animare l'applicazione. [Docs](https://www.framer.com/motion/?utm_source=google&utm_medium=adwords&utm_campaign=PerformanceMax-Framer_&gad_source=1&gclid=CjwKCAjw48-vBhBbEiwAzqrZVPK9OUm1ZKgYlNwriO01FcAHAsEpZ2kxMAWIwdV13ztZ8HaSvrPvXBoCBYEQAvD_BwE)
@@ -33,11 +33,8 @@ Ecco la spiegazione della struttura del progetto:
 - **app**: si trovano solo i file che sono correlati con il routing dell'applicazione in Next.
 - **lib**: si trovano i file che gestiscono la parte server dell'applicazione, quindi le server actions. Le sottocartelle indicano il relativo routing o la sezione in cui sono utilizzate.
 - **components**: si trovano i file che definiscono i componenti che costruiscono il contenuto dell'applicazione e che verranno utilizzati all'interno della directory app. Non sono strettamente correlati al routing dell'applicazione ma, come detto, ne costituiscono il contenuto.   
-Le sottocartelle indicano il relativo routing o la sezione in cui sono utilizzati.
-<!-- 
-- **modules**: si trovano i file che definiscono le funzioni relative ad un determinato modulo, o anche generali. Quindi il modulo er si occuperà di definire la logica per far funzionare al meglio il lavoro su un file di progettazione ER. 
-Per ora questa directory non ha senso, ma ha più senso tenere all'interno di components le cose necessarie per creare i moduli nella cartella modules. Quindi per ora la cancelliamo.
--->
+Le sottocartelle indicano il relativo routing o la sezione in cui sono utilizzati. All'interno di **components** troviamo:
+    - **modules** si trovano i componenti che gestiscono la parte cicciosa dell'applicazione
 
 ## Components
 ### Graphics
@@ -130,6 +127,7 @@ Dobbiamo memorizzare anche tutti i dati relativi ai progetti, che devono essere 
 - name: nome del progetto
 - id: progetto, che sarà un int incrementale, o una roba del genere
 - content: che altro non sarà che un JSON o JSONB con tutte le informazioni necessarie alla traduzione del progetto in grafica.
+- module: tipo di modulo.
 - owner: che sarà un campo in integrità referenziale con la chiave primaria della tabella USER.
 
 Potremmo pensare di implementare anche una tabella per le fatture:

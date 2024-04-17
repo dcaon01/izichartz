@@ -43,6 +43,11 @@ export default function Module() {
         document.addEventListener('keydown', handleKeyDown);
     }, []);
 
+    useEffect(() => {
+        // Gestione degli errori? - Probabilmente si, perché non vogliamo inviare gli errori ma segnalarli all'utente.
+        // 
+    }, [elements]);
+
     /* Rendering */
     return (
         <>
