@@ -22,6 +22,7 @@ export const Linker = memo(function Linker({ id, options, selected }) {
     /* Generazione del Rendering */
     let generatedSegments = segments.map((segment, index) => {
         if (segments.length === 1) { // C'è un solo segmento che compone il linker.
+            console.log("Genero un linker con un segment");
             minX = maxX = segment.p1.x;
             minY = maxY = segment.p1.y;
             // p2
@@ -55,7 +56,7 @@ export const Linker = memo(function Linker({ id, options, selected }) {
             minY = maxY = segment.p1.y;
             return (
                 <motion.line 
-                    key={`linker-${id}-segment-${index}`} 
+                    key={`linker-${id}-segment-${index}`}
                     x1={segment.p1.x} 
                     y1={segment.p1.y} 
                     x2={segment.p2.x} 

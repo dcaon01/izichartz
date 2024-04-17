@@ -146,7 +146,6 @@ export const elementsSlice = createSlice({
                         }
                     }
                     if (linker.options.linked[1] === action.payload.id) {
-                        console.log("culo");
                         linker.options.segments[linker.options.segments.length - 1] = {
                             p1: linker.options.segments[linker.options.segments.length - 1].p1,
                             p2: {
@@ -172,6 +171,11 @@ export const elementsSlice = createSlice({
             if (id === 0) {
                 state.forEach((element) => {
                     element.selected = false;
+                    if (element.type === "linker") {
+                        element.options.segments.forEach((segment) => {
+                            segment.selected = false;
+                        });
+                    }
                 });
             } else {
                 state.forEach((element) => {
@@ -192,24 +196,29 @@ export const elementsSlice = createSlice({
          * - id: identificativo del linker.
          * - index: indice che identifica il segment dell'indice da andare a selezionare.
          */
-        setSelectedSegment(state, action){
+        setSelectedSegment(state, action) {
             const id = action.payload.id;
+            console.log("Id dell'elemento da selezionare: " + id);
             if (id === 0) {
                 state.forEach((element) => {
                     element.selected = false;
                 });
             } else {
                 state.forEach((element) => {
+                    console.log("Entro nel foreach degli elementi");
                     if (element.id === id) {
+                        console.log("Rilevo l'elemento che voglio selezionare");
                         element.selected = true;
                         element.options.segments.forEach((segment, index) => {
-                            if(action.payload.index === index) {
+                            console.log("Entro nel foreach di segments")
+                            if (action.payload.index === index) {
                                 segment.selected = true;
                             } else {
                                 segment.selected = false;
                             }
                         });
                     } else {
+                        console.log("Elemento da deselezionare");
                         element.selected = false;
                         if (element.type === "linker") {
                             element.options.segments.forEach((segment) => {
