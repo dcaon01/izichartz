@@ -1,12 +1,4 @@
-.entity {
-    position: absolute;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    z-index: 3;
-}
-
-.entityInput {
+.input {
     position: absolute;
     align-self: center;
     justify-self: center;
@@ -19,7 +11,7 @@
     overflow: visible;
 }
 
-.entityInput:focus {
+.input:focus {
     outline: none;
     background-color: transparent;
 }

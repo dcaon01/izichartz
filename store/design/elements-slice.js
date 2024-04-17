@@ -183,6 +183,11 @@ export const elementsSlice = createSlice({
                         element.selected = true;
                     } else {
                         element.selected = false;
+                        if (element.type === "linker") {
+                            element.options.segments.forEach((segment) => {
+                                segment.selected = false;
+                            });
+                        }
                     }
                 });
             }
@@ -198,19 +203,15 @@ export const elementsSlice = createSlice({
          */
         setSelectedSegment(state, action) {
             const id = action.payload.id;
-            console.log("Id dell'elemento da selezionare: " + id);
             if (id === 0) {
                 state.forEach((element) => {
                     element.selected = false;
                 });
             } else {
                 state.forEach((element) => {
-                    console.log("Entro nel foreach degli elementi");
                     if (element.id === id) {
-                        console.log("Rilevo l'elemento che voglio selezionare");
                         element.selected = true;
                         element.options.segments.forEach((segment, index) => {
-                            console.log("Entro nel foreach di segments")
                             if (action.payload.index === index) {
                                 segment.selected = true;
                             } else {
@@ -218,7 +219,6 @@ export const elementsSlice = createSlice({
                             }
                         });
                     } else {
-                        console.log("Elemento da deselezionare");
                         element.selected = false;
                         if (element.type === "linker") {
                             element.options.segments.forEach((segment) => {
@@ -274,7 +274,6 @@ export const elementsSlice = createSlice({
                 }
             });
             if (startId !== 0 && startId !== finishId) {
-                console.log("connecting");
                 startId--;
                 finishId--;
                 const p1 = {
