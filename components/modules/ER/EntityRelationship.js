@@ -3,7 +3,6 @@
 import classes from "./EntityRelationship.module.css";
 import { useDispatch } from "react-redux";
 import { useRef, memo } from "react";
-import { motion } from 'framer-motion';
 import { elementsSlice } from "@/store/design/elements-slice";
 import EntityGraphics from "./EntityGraphics.js";
 import RelationshipGrapics from "./RelationshipGraphics.js";
