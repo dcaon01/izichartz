@@ -6,6 +6,6 @@
 }
 
 .pane {
-    background-image: url(../../../assets/workpane-bg.png);
+    background-image: url(../../../../public/assets/design/workpane-bg.png);
     background-color: white;
 }

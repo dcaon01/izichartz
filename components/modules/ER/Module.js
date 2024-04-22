@@ -1,7 +1,7 @@
 'use client';
 
 import { useSelector } from 'react-redux';
-import { Workpane } from '../general/Workpane.js';
+import { Workpane } from '../general/ui-elements/Workpane.js';
 import Generator from './Generator.js';
 import { useCallback, useEffect } from 'react';
 import { useDispatch } from "react-redux";

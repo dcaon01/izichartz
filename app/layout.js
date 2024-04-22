@@ -1,8 +1,6 @@
 import "./globals.css";
-import { Inter } from "next/font/google";
-import MainHeader from "@/components/navigation/MainHeader.js";
-
-const inter = Inter({ subsets: ["latin"] });
+import Header from "@/components/global/Header.js";
+import { inter } from "./fonts.js";
 
 export const metadata = {
   title: "Izichartz",
@@ -12,8 +10,8 @@ export const metadata = {
 export default function RootLayout({ children }) {
   return (
     <html lang="en">
-      <MainHeader/>
       <body className={inter.className}>
+        <Header />
         {children}
       </body>
     </html>

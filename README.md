@@ -11,7 +11,7 @@ Facciamo prima i componenti per l'ER che funzionano, poi cerchiamo di generalizz
 <!-- - **Typescript**: per la gestione di tipi statici. [Docs](https://www.typescriptlang.org/docs/) PER ORA LO LASCIAMO STARE-->
 - **Redux Toolkit**: per una gestione migliore degli stati. [Docs](https://redux-toolkit.js.org/usage/nextjs)
 - **Framer Motion**: per animare l'applicazione. [Docs](https://www.framer.com/motion/?utm_source=google&utm_medium=adwords&utm_campaign=PerformanceMax-Framer_&gad_source=1&gclid=CjwKCAjw48-vBhBbEiwAzqrZVPK9OUm1ZKgYlNwriO01FcAHAsEpZ2kxMAWIwdV13ztZ8HaSvrPvXBoCBYEQAvD_BwE)
-- **Tailwind**: per uno styling CSS più rapido. [Docs](https://tailwindcss.com/docs/installation)
+- **Tailwind**: per uno styling CSS più rapido e bello. [Docs](https://tailwindcss.com/docs/installation)
 - **pg**: pacchetto per la connessione e interrogazione del database PostgreSQL. [Docs](https://node-postgres.com/)
 
 ## Flow all'interno dell'applicazione e requisiti
