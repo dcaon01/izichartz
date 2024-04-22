@@ -1,26 +1,72 @@
 .navbar {
     display: flex;
-    padding-top: 10px;
-    padding-bottom: 10px;
+    padding-top: 20px;
+    padding-bottom: 20px;
     padding-left: 20px;
     padding-right: 20px;
     width: 100%;
+    height: 70px;
     justify-content: space-evenly;
+    background-color: white;
 }
 
 .logo {
-    margin-left: auto;
-    width: 20%;
-}
-
-.whiteSpace {
-    width: 40%;
+    display: flex;
+    margin-right: auto;
+    justify-content: center;
+    padding-left: 20px;
 }
 
 .links {
-    width: 50%;
     margin-left: auto;
     display: flex;
-    justify-content: space-evenly;
+    justify-content: space-between;
     align-items: center;
+    padding-right: 20px;
+}
+
+.link {
+    color: rgb(91, 90, 90);
+    font-size: 14px;
+    transition: color 0.2s ease, font-weight 0.2s e;
+}
+
+.link:hover {
+    color: black;
+    font-weight: 400;
+}
+
+.navBotton {
+    background-color: black;
+    color: white;
+    padding-left: 15px;
+    padding-right: 15px;
+    padding-top: 2px;
+    padding-bottom: 2px;
+    border-radius: 15px;
+    font-size: 14px;
+    transition: background-color 0.2s ease, color 0.2s ease;
+}
+
+.navBotton:hover {
+    background-color: white;
+    border-width: 2px;
+    border-color: black;
+    color: black;
+    padding-left: 13.5px;
+    padding-right: 13px;
+    padding-top: 0px;
+    padding-bottom: 0px;
+}
+
+@media screen and (min-width: 700px) {
+    .links {
+        width: 70%;
+    }
+}
+
+@media screen and (min-width: 1000px) {
+    .links {
+        width: 50%;
+    }
 }
