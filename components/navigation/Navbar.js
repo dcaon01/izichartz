@@ -1,46 +1,41 @@
 'use client';
 
-import classes from "./Navbar.module.css";
-import { motion } from "framer-motion";
-import { useState } from "react";
-import Link from "next/link";
-import Image from "next/image";
-import { robotoMono } from "@/app/fonts.js";
+import { useEffect, useState } from "react";
+import DesktopNavbar from "./DesktopNavbar";
+import MobileNavbar from "./MobileNavbar.js";
 
+/**
+ * Navbar
+ * Componente che si occupa della renderizzazione condizionata del tipo di navbar
+ * da mostrare in base al formato della pagina.
+ * @returns 
+ */
 export default function Navbar() {
-    let [modulesDropDown, setModulesDropDown] = useState(false);
+    let [isMobile, setIsMobile] = useState(false);
 
-    function handleModulesDropDown() {
-        if (modulesDropDown) {
-            setModulesDropDown(false);
+    function handleIsMobile(event) {
+        if (document.documentElement.clientWidth < 700) {
+            setIsMobile(true);
         } else {
-            setModulesDropDown(true);
+            setIsMobile(false);
         }
     }
 
+    useEffect(() => {
+        window.addEventListener('resize', handleIsMobile);
+        if (document.documentElement.clientWidth < 700) {
+            setIsMobile(true);
+        }
+
+    }, []);
+
     return (
-        <nav className={classes.navbar}>
-            <Link className={classes.logo} href="/">
-                {/* Dimensioni originali: w=878, h=135*/}
-                <img src="/assets/global/logo.png" height={30} width={198} alt="Back to Home" />
-            </Link>
-            {/*<span className={classes.whiteSpace} />*/}
-            <div className={classes.links}>
-                <div>
-                    <button onClick={handleModulesDropDown} className={`${classes.link} ${robotoMono.className}`}>Modules</button>
-                </div>
-                {modulesDropDown && /* renderizza il dropdown */ null}
-                <Link className={`${classes.link} ${robotoMono.className}`} href="">Plans</Link>
-                <Link className={`${classes.link} ${robotoMono.className}`} href="">Contacts</Link>
-                <Link className={`${classes.link} ${robotoMono.className}`} href="">About</Link>
-                <Link className={`${classes.link} ${robotoMono.className}`} href="">Login</Link>
-                <Link
-                    className={`${classes.navBotton} ${robotoMono.className}`}
-                    href=""
-                >
-                    Register
-                </Link>
-            </div>
-        </nav>
+        <>
+            {
+                isMobile
+                    ? <MobileNavbar />
+                    : <DesktopNavbar />
+            }
+        </>
     );
 }

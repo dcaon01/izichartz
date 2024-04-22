@@ -6,7 +6,7 @@ import { useRef, memo } from "react";
 import { elementsSlice } from "@/store/design/elements-slice";
 import EntityGraphics from "./EntityGraphics.js";
 import RelationshipGrapics from "./RelationshipGraphics.js";
-import DFLRElement from "../general/design-elements/RDFLElement.js";
+import DFLRElement from "../general/design-elements/DFLRElement.js";
 
 /**
  * Entity
