@@ -4,9 +4,11 @@ import classes from "./MobileNavbar.module.css";
 import Link from "next/link";
 import { useState } from "react";
 import { robotoMono } from "@/app/fonts.js";
+import { useAnimate } from "framer-motion";
 
-export default function () {
+export default function MobileNavbar() {
     let [isMenuDroppedDown, setMenuDropDown] = useState(false);
+    const [scope, animate] = useAnimate();
 
     function handleMenuDropDown() {
         if (isMenuDroppedDown) {
@@ -26,11 +28,13 @@ export default function () {
                 <button
                     className={classes.menu}
                     onClick={handleMenuDropDown}
+                    ref={scope}
                 >
                     {
                         isMenuDroppedDown
                             ?
                             <img
+                                id="cross"
                                 src="/assets/global/crossed-menu.png"
                                 height={29}
                                 width={29}
@@ -38,6 +42,7 @@ export default function () {
                             />
                             :
                             <img
+                                id="hamburger"
                                 src="/assets/global/hamburger-menu.png"
                                 alt="Menu"
                                 height={29}

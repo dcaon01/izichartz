@@ -12,13 +12,12 @@ import Navbar from "../navigation/Navbar.js";
  */
 export default function Header() {
     let path = usePathname();
-    let img = "/assets/global/logo.png"
 
     return (
         <header>
             {path.startsWith("/workspace/editor/")
                 ? null
-                : <Navbar imgUri={img}/>
+                : <Navbar />
             }
         </header>
     );
