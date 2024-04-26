@@ -4,11 +4,10 @@ import classes from "./MobileNavbar.module.css";
 import Link from "next/link";
 import { useState } from "react";
 import { robotoMono } from "@/app/fonts.js";
-import { useAnimate } from "framer-motion";
+import { AnimatePresence, motion } from "framer-motion";
 
 export default function MobileNavbar() {
     let [isMenuDroppedDown, setMenuDropDown] = useState(false);
-    const [scope, animate] = useAnimate();
 
     function handleMenuDropDown() {
         if (isMenuDroppedDown) {
@@ -26,13 +25,24 @@ export default function MobileNavbar() {
                     <img src="/assets/global/logo-mobile.png" height={30} width={41} alt="Back to Home" />
                 </Link>
                 <div className={classes.menu} onClick={handleMenuDropDown}>
-                    <span className={classes.line1}/>
-                    <span className={classes.line2}/>
-                    <span className={classes.line3}/>
+                    <span className={`${classes.line1} ${isMenuDroppedDown && classes.toggleLine1}`}/>
+                    <span className={`${isMenuDroppedDown && classes.toggleLine2}`}/>
+                    <span className={`${classes.line3} ${isMenuDroppedDown && classes.toggleLine3}`}/>
                 </div>
+                <AnimatePresence>
                 {
                     isMenuDroppedDown &&
-                    <div className={classes.links}>
+                    <motion.div className={classes.links}
+                        initial={{
+                            height: 0
+                        }}
+                        animate={{
+                            height: "auto"
+                        }}
+                        exit={{
+                            height: 0
+                        }}
+                    >
                         <Link className={`${classes.link} ${robotoMono.className}`} href="">Plans</Link>
                         <Link className={`${classes.link} ${robotoMono.className}`} href="">Contacts</Link>
                         <Link className={`${classes.link} ${robotoMono.className}`} href="">About</Link>
@@ -43,8 +53,9 @@ export default function MobileNavbar() {
                         >
                             Register
                         </Link>
-                    </div>
+                    </motion.div>
                 }
+                </AnimatePresence>
             </div>
 
         </nav>

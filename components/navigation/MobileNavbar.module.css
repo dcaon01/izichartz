@@ -41,6 +41,10 @@
     border-radius: 5px;
 }
 
+.menu:hover {
+    cursor: pointer;
+}
+
 .menu span {
     position: absolute;
     background-color: black;
@@ -48,14 +52,27 @@
     height: 2px;
     border-radius: 1px;
     display: block;
+    transition: transform 0.5s, width 0.5s;
 }
 
 .line1{
-    top: 20%;
+    transform: translateY(-10px);
+}
+
+.menu .toggleLine1{
+    transform: translateY(0px) rotate(45deg);    
+}
+
+.menu .toggleLine2{
+    width: 0%;
 }
 
 .line3{
-    bottom: 20%;
+    transform:translateY(10px);
+}
+
+.menu .toggleLine3{
+    transform: translateY(0px) rotate(-45deg);    
 }
 
 .links {
