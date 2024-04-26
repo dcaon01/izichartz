@@ -1,0 +1,63 @@
+.videoContainer {
+    display: flex;
+    top: 0px;
+    left: 0px;
+    width: 100%;
+    height: 100vh;
+    z-index: 2;
+    overflow: hidden;
+    justify-content: center;
+    align-items: center;
+}
+
+.homeVideo {
+    width: 100vw;
+    height: 100vh;
+    object-fit: fill;
+}
+
+.hook {
+    position: absolute;
+    text-align: center;
+    background-color: white;
+    border-width: 1.5px;
+    border-color: black;
+    border-radius: 10px;
+}
+
+.hookText {
+    font-size: 20px;
+    font-weight: 300;
+}
+
+.boldHookText {
+    font-weight: 500;
+    margin-bottom: 20px;
+}
+
+.hookButton {
+    background-color: black;
+    color: white;
+    border-radius: 15px;
+    font-size: 20px;
+    padding-left: 13px;
+    padding-right: 13px;
+    transition: background-color 0.2s ease, color 0.2s ease;
+}
+
+.hookButton:hover {
+    background-color: white;
+    border-width: 2px;
+    border-color: black;
+    color: black;
+}
+
+@media screen and (max-width: 700px) {
+    .hookText {
+        font-size: 15px;
+    }
+
+    .hookButton {
+        font-size: 15px;
+    }
+}

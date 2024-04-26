@@ -1,5 +1,6 @@
 import "./globals.css";
 import Header from "@/components/global/Header.js";
+import Footer from "@/components/global/Footer.js";
 import { inter } from "./fonts.js";
 
 export const metadata = {
@@ -13,6 +14,7 @@ export default function RootLayout({ children }) {
       <body className={inter.className}>
         <Header />
         {children}
+        <Footer />
       </body>
     </html>
   );
