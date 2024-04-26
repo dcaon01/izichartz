@@ -1,22 +1,24 @@
 .navbar {
     background-color: white;
     width: 100%;
-    height: 70px;
+    min-height: 70px;
     position: fixed;
     top: 0px;
     left: 0px;
     z-index: 10;
+    border-bottom: 1.5px solid black;
 }
 
 .headSection {
     z-index: 10;
     display: flex;
-    padding-top: 20px;
-    padding-bottom: 20px;
+    flex-wrap: wrap;
+    padding-top: 15px;
+    padding-bottom: 15px;
     padding-left: 20px;
     padding-right: 20px;
     width: 100%;
-    height: 70px;
+    min-height: 70px;
     justify-content: space-evenly;
 }
 
@@ -29,17 +31,37 @@
 }
 
 .menu {
+    position: relative;
+    height: 40px;
+    width: 40px;
     display: flex;
     justify-content: center;
     align-items: center;
     margin-left: auto;
-    padding: 8px;
     border-radius: 5px;
+}
+
+.menu span {
+    position: absolute;
+    background-color: black;
+    width: 30px;
+    height: 2px;
+    border-radius: 1px;
+    display: block;
+}
+
+.line1{
+    top: 20%;
+}
+
+.line3{
+    bottom: 20%;
 }
 
 .links {
     position: relative;
     background-color: white;
+    flex-basis: 100%;
     display: flex;
     flex-direction: column;
     flex-wrap: wrap;

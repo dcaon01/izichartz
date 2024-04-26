@@ -25,47 +25,28 @@ export default function MobileNavbar() {
                     {/* Dimensioni originali: w=181, h=135*/}
                     <img src="/assets/global/logo-mobile.png" height={30} width={41} alt="Back to Home" />
                 </Link>
-                <button
-                    className={classes.menu}
-                    onClick={handleMenuDropDown}
-                    ref={scope}
-                >
-                    {
-                        isMenuDroppedDown
-                            ?
-                            <img
-                                id="cross"
-                                src="/assets/global/crossed-menu.png"
-                                height={29}
-                                width={29}
-                                alt="Close Menu"
-                            />
-                            :
-                            <img
-                                id="hamburger"
-                                src="/assets/global/hamburger-menu.png"
-                                alt="Menu"
-                                height={29}
-                                width={29}
-                            />
-                    }
-                </button>
-            </div>
-            {
-                isMenuDroppedDown &&
-                <div className={classes.links}>
-                    <Link className={`${classes.link} ${robotoMono.className}`} href="">Plans</Link>
-                    <Link className={`${classes.link} ${robotoMono.className}`} href="">Contacts</Link>
-                    <Link className={`${classes.link} ${robotoMono.className}`} href="">About</Link>
-                    <Link className={`${classes.link} ${robotoMono.className}`} href="">Login</Link>
-                    <Link
-                        className={`${classes.navBotton} ${robotoMono.className}`}
-                        href=""
-                    >
-                        Register
-                    </Link>
+                <div className={classes.menu} onClick={handleMenuDropDown}>
+                    <span className={classes.line1}/>
+                    <span className={classes.line2}/>
+                    <span className={classes.line3}/>
                 </div>
-            }
+                {
+                    isMenuDroppedDown &&
+                    <div className={classes.links}>
+                        <Link className={`${classes.link} ${robotoMono.className}`} href="">Plans</Link>
+                        <Link className={`${classes.link} ${robotoMono.className}`} href="">Contacts</Link>
+                        <Link className={`${classes.link} ${robotoMono.className}`} href="">About</Link>
+                        <Link className={`${classes.link} ${robotoMono.className}`} href="">Login</Link>
+                        <Link
+                            className={`${classes.navBotton} ${robotoMono.className}`}
+                            href=""
+                        >
+                            Register
+                        </Link>
+                    </div>
+                }
+            </div>
+
         </nav>
     );
 };
