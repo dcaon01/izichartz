@@ -31,10 +31,41 @@
     padding-right: 20px;
 }
 
+.modulesSelector {
+    display: flex;
+    flex-direction: row;
+    cursor: pointer;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.modulesSelectorText {
+    font-size: 14px;
+    font-weight: 300;
+    transition: color 0.2s ease, font-weight 0.2s ease;
+    user-select: none;
+}
+
+.modulesSelectorArrow {
+    fill: white; 
+    stroke: black; 
+    stroke-width: 0.5px;
+    transition: fill 0.2s ease;
+}
+
+.modulesSelector:hover .modulesSelectorText {
+    font-weight: 400;
+}
+
+.modulesSelector:hover .modulesSelectorArrow {
+    fill: black
+}
+
 .link {
     font-size: 14px;
     transition: color 0.2s ease, font-weight 0.2s ease;
     font-weight: 300;
+    user-select: none;
 }
 
 .link:hover {
