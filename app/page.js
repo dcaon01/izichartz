@@ -34,6 +34,9 @@ export default function HomePage() {
           </Link>
         </motion.div>
       </div>
+      <div className={classes.homeContent}>
+          <h1>What's Izichartz?</h1>
+      </div>
     </main>
   );
 }

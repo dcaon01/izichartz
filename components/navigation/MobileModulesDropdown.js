@@ -13,9 +13,6 @@ export default function MobileModulesDropdown() {
             animate={{
                 opacity: 1,
             }}
-            exit={{
-                opacity: 0,
-            }}
         >
             <Link className={`${classes.link} ${robotoMono.className}`} href=""> - Entity-Relationship</Link>
         </motion.div>

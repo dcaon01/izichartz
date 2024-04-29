@@ -159,6 +159,16 @@
     padding-bottom: 0px;
 }
 
+.blackBG{
+    width: 100%;
+    height: 100%;
+    position: fixed;
+    top: 0px;
+    left: 0px;
+    z-index: 9;
+    background-color: black;
+}
+
 @media screen and (min-width: 700px) {
     .navbar {
         display: none;
