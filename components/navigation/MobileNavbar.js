@@ -5,9 +5,11 @@ import Link from "next/link";
 import { useState } from "react";
 import { robotoMono } from "@/app/fonts.js";
 import { AnimatePresence, motion, useAnimate } from "framer-motion";
+import MobileModulesDropdown from "./MobileModulesDropdown";
 
 export default function MobileNavbar() {
     let [isMenuDroppedDown, setMenuDropDown] = useState(false);
+    let [modulesDropDown, setModulesDropDown] = useState(false);
     let [scope, animate] = useAnimate();
 
     function handleMenuDropDown() {
@@ -19,14 +21,23 @@ export default function MobileNavbar() {
         }
     }
 
+    function handleModulesDropDown(event) {
+        event.preventDefault();
+        if (modulesDropDown) {
+            setModulesDropDown(false);
+        } else {
+            setModulesDropDown(true);
+        }
+    }
+
     function animateLinksPresence() {
         animate("div", { opacity: 1 }, { duration: 0.3 });
     }
 
     return (
-        <nav
+        <motion.nav
             className={classes.navbar}
-            style={{ 
+            style={{
                 height: "auto",
             }}
         >
@@ -44,7 +55,7 @@ export default function MobileNavbar() {
             <AnimatePresence wait>
                 {
                     isMenuDroppedDown &&
-                    <motion.div 
+                    <motion.div
                         initial={{
                             margin: 0,
                             height: 0,
@@ -61,6 +72,17 @@ export default function MobileNavbar() {
                         ref={scope}
                     >
                         <div className={classes.links} style={{ opacity: 0 }}>
+                            <div className={classes.modulesSelector} onClick={handleModulesDropDown}>
+                                <p className={`${classes.modulesSelectorText} ${robotoMono.className}`} style={{ marginRight: 5 }}>Modules</p>
+                                <motion.svg height={10} width={10} xmlns="http://www.w3.org/2000/svg" animate={{ transform: `rotate(${modulesDropDown ? 180 : 0}deg)` }} >
+                                    <polygon points="0,0 10,0 5,10" className={classes.modulesSelectorArrow} />
+                                </motion.svg>
+                            </div>
+                            <AnimatePresence>
+                                {modulesDropDown &&
+                                    <MobileModulesDropdown />
+                                }
+                            </AnimatePresence>
                             <Link className={`${classes.link} ${robotoMono.className}`} href="">Plans</Link>
                             <Link className={`${classes.link} ${robotoMono.className}`} href="">Contacts</Link>
                             <Link className={`${classes.link} ${robotoMono.className}`} href="">About</Link>
@@ -75,6 +97,6 @@ export default function MobileNavbar() {
                     </motion.div>
                 }
             </AnimatePresence>
-        </nav>
+        </motion.nav>
     );
 };

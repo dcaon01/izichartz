@@ -229,6 +229,7 @@ export default function DFLRElement(props) {
      */
     function handleSelection(event) {
         event.stopPropagation();
+        event.preventDefault();
         dispatch(elementsSlice.actions.connecting(id));
         dispatch(elementsSlice.actions.setSelectedElement(id));
     }
@@ -241,6 +242,7 @@ export default function DFLRElement(props) {
      */
     function handleConnection(event) {
         event.stopPropagation();
+        event.preventDefault();
         dispatch(elementsSlice.actions.setConnectingElement(id));
     }
 

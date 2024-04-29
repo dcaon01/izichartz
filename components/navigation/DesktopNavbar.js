@@ -4,11 +4,11 @@ import classes from "./DesktopNavbar.module.css";
 import { useState } from "react";
 import Link from "next/link";
 import { robotoMono } from "@/app/fonts.js";
-import { useAnimate, motion } from "framer-motion";
+import { motion, AnimatePresence } from "framer-motion";
+import DesktopModulesDropdown from "./DesktopModulesDropdown.js";
 
 export default function Navbar() {
     let [modulesDropDown, setModulesDropDown] = useState(false);
-    const [scope, animate] = useAnimate();
 
     function handleModulesDropDown(event) {
         event.preventDefault();
@@ -28,13 +28,17 @@ export default function Navbar() {
             </Link>
             {/*<span className={classes.whiteSpace} />*/}
             <div className={classes.links}>
-                <div className={classes.modulesSelector} onClick={handleModulesDropDown} ref={scope}>
+                <div className={classes.modulesSelector} onClick={handleModulesDropDown}>
                     <p className={`${classes.modulesSelectorText} ${robotoMono.className}`} style={{ marginRight: 5 }}>Modules</p>
                     <motion.svg height={10} width={10} xmlns="http://www.w3.org/2000/svg" animate={{ transform: `rotate(${modulesDropDown ? 180 : 0}deg)` }} >
                         <polygon points="0,0 10,0 5,10" className={classes.modulesSelectorArrow} />
                     </motion.svg>
+                    <AnimatePresence>
+                        {modulesDropDown &&
+                            <DesktopModulesDropdown />
+                        }
+                    </AnimatePresence>
                 </div>
-                {modulesDropDown && /* renderizza il dropdown */ null}
                 <Link className={`${classes.link} ${robotoMono.className}`} href="">Plans</Link>
                 <Link className={`${classes.link} ${robotoMono.className}`} href="">Contacts</Link>
                 <Link className={`${classes.link} ${robotoMono.className}`} href="">About</Link>

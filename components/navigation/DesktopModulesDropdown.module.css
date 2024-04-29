@@ -1,0 +1,23 @@
+.modulesDropdown {
+    position: absolute;
+    display: flex;
+    min-height: 20px;
+    min-width: 100px;
+    background-color: black;
+    border-width: 1.5px;
+    border-color: black;
+    border-radius: 5px;
+    padding: 10px;
+}
+
+.link {
+    font-size: 13px;
+    transition: color 0.2s ease, font-weight 0.2s ease;
+    font-weight: 300;
+    user-select: none;
+    color: white;
+}
+
+.link:hover {
+    font-weight: 400;
+}

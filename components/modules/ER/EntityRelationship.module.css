@@ -9,6 +9,7 @@
     font-size: 12px;
     z-index: 4;
     overflow: visible;
+    user-select: none;
 }
 
 .input:focus {
