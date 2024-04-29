@@ -2,7 +2,7 @@
 
 import classes from "./MobileNavbar.module.css";
 import Link from "next/link";
-import { useEffect, useState } from "react";
+import { useState } from "react";
 import { robotoMono } from "@/app/fonts.js";
 import { AnimatePresence, motion, useAnimate } from "framer-motion";
 import MobileModulesDropdown from "./MobileModulesDropdown";
@@ -96,11 +96,11 @@ export default function MobileNavbar() {
                                     <Link key="plans-link" className={`${classes.link} ${robotoMono.className}`} href="">Plans</Link>
                                     <Link key="contacts-link" className={`${classes.link} ${robotoMono.className}`} href="">Contacts</Link>
                                     <Link key="about-link" className={`${classes.link} ${robotoMono.className}`} href="">About</Link>
-                                    <Link key="login-link" className={`${classes.link} ${robotoMono.className}`} href="">Login</Link>
+                                    <Link key="login-link" className={`${classes.link} ${robotoMono.className}`} href="/authentication/login">Login</Link>
                                     <Link
                                         key="register-link"
                                         className={`${classes.navBotton} ${robotoMono.className}`}
-                                        href=""
+                                        href="/authentication/register"
                                     >
                                         Register
                                     </Link>

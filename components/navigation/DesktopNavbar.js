@@ -42,10 +42,10 @@ export default function Navbar() {
                 <Link className={`${classes.link} ${robotoMono.className}`} href="">Plans</Link>
                 <Link className={`${classes.link} ${robotoMono.className}`} href="">Contacts</Link>
                 <Link className={`${classes.link} ${robotoMono.className}`} href="">About</Link>
-                <Link className={`${classes.link} ${robotoMono.className}`} href="">Login</Link>
+                <Link className={`${classes.link} ${robotoMono.className}`} href="/authentication/login">Login</Link>
                 <Link
                     className={`${classes.navBotton} ${robotoMono.className}`}
-                    href=""
+                    href="/authentication/register"
                 >
                     Register
                 </Link>

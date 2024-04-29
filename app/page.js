@@ -1,5 +1,6 @@
 'use client';
 
+import "./globals.css";
 import classes from "./HomePage.module.css";
 import { robotoMono } from "@/app/fonts.js";
 import { Suspense } from "react";
@@ -35,7 +36,7 @@ export default function HomePage() {
         </motion.div>
       </div>
       <div className={classes.homeContent}>
-          <h1>What's Izichartz?</h1>
+          <h1 className={`${robotoMono.className}`}>What's Izichartz?</h1>
       </div>
     </main>
   );
