@@ -7,7 +7,7 @@ import { robotoMono } from "@/app/fonts.js";
 import { motion, AnimatePresence } from "framer-motion";
 import DesktopModulesDropdown from "./DesktopModulesDropdown.js";
 
-export default function Navbar() {
+export default function DesktopNavbar() {
     let [modulesDropDown, setModulesDropDown] = useState(false);
 
     function handleModulesDropDown(event) {
@@ -17,6 +17,10 @@ export default function Navbar() {
         } else {
             setModulesDropDown(true);
         }
+    }
+
+    function handleRedirect() {
+        setModulesDropDown(false);
     }
 
     /* Redering */
@@ -39,13 +43,14 @@ export default function Navbar() {
                         }
                     </AnimatePresence>
                 </div>
-                <Link className={`${classes.link} ${robotoMono.className}`} href="">Plans</Link>
-                <Link className={`${classes.link} ${robotoMono.className}`} href="">Contacts</Link>
-                <Link className={`${classes.link} ${robotoMono.className}`} href="">About</Link>
-                <Link className={`${classes.link} ${robotoMono.className}`} href="/authentication/login">Login</Link>
+                <Link className={`${classes.link} ${robotoMono.className}`} onClick={handleRedirect} href="">Plans</Link>
+                <Link className={`${classes.link} ${robotoMono.className}`} onClick={handleRedirect} href="">Contacts</Link>
+                <Link className={`${classes.link} ${robotoMono.className}`} onClick={handleRedirect} href="">About</Link>
+                <Link className={`${classes.link} ${robotoMono.className}`} onClick={handleRedirect} href="/authentication/login">Login</Link>
                 <Link
                     className={`${classes.navBotton} ${robotoMono.className}`}
                     href="/authentication/register"
+                    onClick={handleRedirect}
                 >
                     Register
                 </Link>
