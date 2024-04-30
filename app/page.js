@@ -1,6 +1,5 @@
 'use client';
 
-import "./globals.css";
 import classes from "./HomePage.module.css";
 import { robotoMono } from "@/app/fonts.js";
 import { Suspense } from "react";

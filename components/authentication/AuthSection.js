@@ -1,3 +1,7 @@
+'use client';
+
+import classes from "./AuthSection.module.css";
+import { motion } from "framer-motion";
 
 /**
  * AuthSection
@@ -7,10 +11,18 @@
  */
 export default function AuthSection({children}) {
     return (
-        <div>
-            <div>
+        <div className={classes.authWrapper}>
+            <motion.div 
+                className={classes.authContainer}
+                style={{
+                    padding: 40
+                }}
+                whileHover={{
+                    padding: 50
+                }}
+            >
                 {children}
-            </div>
+            </motion.div>
         </div>
     );
 };

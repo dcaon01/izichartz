@@ -1,6 +1,9 @@
+import AuthSection from "@/components/authentication/AuthSection.js";
 
-export default function AuthLayout() {
+export default function AuthLayout({ children }) {
     return (
-        null
+        <AuthSection>
+            {children}
+        </AuthSection>
     );
 };
