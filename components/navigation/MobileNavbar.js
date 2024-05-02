@@ -53,7 +53,7 @@ export default function MobileNavbar() {
                 }}
             >
                 <div className={classes.headSection}>
-                    <Link className={classes.logo} href="/">
+                    <Link className={classes.logo} href="/" onClick={handleMenuDeselection}>
                         {/* Dimensioni originali: w=181, h=135*/}
                         <img src="/assets/global/logo-mobile.png" height={30} width={41} alt="Back to Home" />
                     </Link>

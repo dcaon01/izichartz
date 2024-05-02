@@ -4,12 +4,17 @@
     align-items: center;
     width: 100%;
     min-height: 100vh;
-    margin-top: 80px;
-    margin-bottom: 80px;
 }
 
 .authContainer {
     border-width: 1.5px;
     border-color: black;
     border-radius: 10px;
+}
+
+@media screen and (max-height: 620px) {
+    .authWrapper {
+        padding-top: 80px;
+        padding-bottom: 80px;
+    }
 }
