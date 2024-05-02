@@ -30,6 +30,25 @@
     margin-bottom: 10px;
 }
 
+.passwordHead {
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.visible {
+    display: flex;
+    height: 24px;
+    width: 24px;
+    justify-content: center;
+    align-items: center;
+}
+
+.visible:hover {
+    cursor: pointer;
+}
+
 .input {
     border-width: 0.75px;
     height: 26px;

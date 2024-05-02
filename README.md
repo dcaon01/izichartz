@@ -7,12 +7,16 @@ Il suo obiettivo è quello di aiutare gli utenti con la progettazione grafica tr
 Facciamo prima i componenti per l'ER che funzionano, poi cerchiamo di generalizzare per tutti i moduli.
 
 
-## Librerie Esterne Utilizzate
+## Librerie, Servizi Esterni e Tecnologie Utilizzati
 <!-- - **Typescript**: per la gestione di tipi statici. [Docs](https://www.typescriptlang.org/docs/) PER ORA LO LASCIAMO STARE-->
 - **Redux Toolkit**: per una gestione migliore degli stati. [Docs](https://redux-toolkit.js.org/usage/nextjs)
 - **Framer Motion**: per animare l'applicazione. [Docs](https://www.framer.com/motion/?utm_source=google&utm_medium=adwords&utm_campaign=PerformanceMax-Framer_&gad_source=1&gclid=CjwKCAjw48-vBhBbEiwAzqrZVPK9OUm1ZKgYlNwriO01FcAHAsEpZ2kxMAWIwdV13ztZ8HaSvrPvXBoCBYEQAvD_BwE)
 - **Tailwind**: per uno styling CSS più rapido e bello. [Docs](https://tailwindcss.com/docs/installation)
 - **pg**: pacchetto per la connessione e interrogazione del database PostgreSQL. [Docs](https://node-postgres.com/)
+- **Click to Pay**: API di mastercard per la gestione dei pagamenti con carta. [Pagina](https://developer.mastercard.com/product/click-to-pay), [Demo](https://www.mastercardsrci-demo.com/demo/guided-tour)
+- Oppure **Stripe**: API per fare la stessa cosa rispetto a click to pay.
+- **Paypal**: come metodo di pagamento alternativo.
+- **PostgreSQL**: database. [Docs](https://www.postgresql.org/docs/current/)
 
 ## Flow all'interno dell'applicazione e requisiti
 L'utente entra all'interno della home page. (Fare le immagini con GIMP). La navbar avrà due configurazioni, una per la sessione che non è ancora cominciata e una a sessione cominciata. Fare un logo sia per la versione desktop che quella mobile, quest'ultima avrà solo il loco con la scritta izi, e ovviamente il menu a tendina a burger.
@@ -136,14 +140,11 @@ z-index:
 ## Database
 L'applicazione deve gestire tutta una serie di funzionalità dell'utente. 
 Quindi abbiamo sicuro la tabella USER per memorizzare i dati dell'utente, che avrà i seguenti attributi:
-- name: nome dell'utente.
-- surname: cognome dell'utente.
+- username: nome dell'utente identificativo sull'app.
 - email: che farà da chiave primaria.
-- birhtdate: data di nascita.
-- employment (studente, lavoratore, privato, azienda... Per quest'ultima sarebbe da far inserira la partita iva) 
-(campo in integrità referenziale con una tabella in cui ci sono le varie opzioni disponibili).
+- password: password dell'utente.
 
-Dobbiamo memorizzare anche tutti i dati relativi ai progetti, che devono essere associati ad un determinato utente:
+Dobbiamo memorizzare anche tutti i dati relativi ai progetti, che devono essere associati ad un determinato utente, nella tabella PROJECTS:
 - name: nome del progetto
 - id: progetto, che sarà un int incrementale, o una roba del 
 - details: JSON o JSONB con il nome del
@@ -151,7 +152,14 @@ Dobbiamo memorizzare anche tutti i dati relativi ai progetti, che devono essere 
 - module: tipo di modulo.
 - owner: che sarà un campo in integrità referenziale con la chiave primaria della tabella USER.
 
-Potremmo pensare di implementare anche una tabella per le fatture:
+Potremmo pensare di inserire una tabella BILLING_INFO, in cui inseriamo le informazioni per la fatturazione (utili perché così inviamo tutto a stripe, e poi al programma di fatturazione da stripe):
+- 
+
+Poi abbiamo, però, bisogno di una gestione un po' particolare dei dati a seconda che il cliente sia un privato, un libero professionista (specializzazione del privato) o un'azienda, quindi si potrebbe pensare di inserire su billing info una sezione in cui mettiamo il numero identificativo della tabella, che deve essere una per ciascun tipo di persona. Non fa niente che gli identificativi possano essere uguali fra le varie tabelle, perché sappiamo in che tabella andare a cercare dal tipo di persone che abbiamo in billing_info (prevedere un attributo, o un flag, per identificarlo, visto che tanto il libero professionista ha solo la partita iva come campo in più rispetto ad un privato); 
+
+Per i metodi di pagamento potremmo fare una cosa più o meno simile, perché non possiamo prevedere quanti metodi di pagamento andremo ad implementare.
+
+Potremmo pensare di implementare anche una tabella per le fatture, chiamata BILLS:
 - client: email del cliente a cui deve essere stilata la fattura
 - date: data di fatturazione.
 - id: identificativo della fattura.

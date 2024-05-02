@@ -26,7 +26,7 @@ export default function DesktopNavbar() {
     /* Redering */
     return (
         <nav className={classes.navbar}>
-            <Link className={classes.logo} href="/">
+            <Link className={classes.logo} onClick={handleRedirect} href="/">
                 {/* Dimensioni originali: w=878, h=135*/}
                 <img src="/assets/global/logo.png" height={30} width={198} alt="Back to Home" />
             </Link>

@@ -10,7 +10,7 @@ export default function HomePage() {
   return (
     <main >
       <div className={classes.videoContainer}>
-        <Suspense fallback={<img src="/assets/global/homeimg.png" />}>
+        <Suspense fallback={<img className={classes.homeVideo} src="/assets/global/homeimg.png" />}>
           <video className={classes.homeVideo} autoPlay muted loop playsInline>
             <source src="/assets/global/homevideo.mp4" type="video/mp4" />
           </video>

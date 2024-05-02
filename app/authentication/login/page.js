@@ -25,7 +25,7 @@ export default function LoginPage() {
             </form>
             <div className={classes.account}>
                 <p className={`${robotoMono.className} ${classes.already}`}>
-                    Don't an account yet?&nbsp;
+                    Don't have an account yet?&nbsp;
                 </p>
                 <Link className={`${classes.toLogin} ${robotoMono.className}`} href="/authentication/register">Register</Link>
             </div>
