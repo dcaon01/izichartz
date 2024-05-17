@@ -64,11 +64,11 @@ const init = [
         selected: false,
         options: {
             text: "",
-            linked: [1, 2], // Id degli Elementi che devono essere collegati.
+            linked: [1, 3], // Id degli Elementi che devono essere collegati.
             segments: [       // Segmenti che compongono la linea. Il primo parte dal primo elemento, l'ultimo termina nel secondo
                 {
                     p1: { x: 213.875, y: 235 },
-                    p2: { x: 463.875, y: 335 },
+                    p2: { x: 640, y: 190 },
                     selected: false,
                 }
             ],

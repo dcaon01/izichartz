@@ -8,7 +8,7 @@ export default function LoginPage() {
             <h1 className={`${robotoMono.className}`}>Login</h1>
             <form className={classes.form}>
                 <div className={classes.inputWrapper}>
-                    <label className={`${robotoMono.className}`}>Email</label>
+                    <label className={`${robotoMono.className}`}>Email or Username</label>
                     <input className={`${robotoMono.className} ${classes.input}`} type="email" id="register-email" name="register-email" required />
                 </div>
                 <div className={classes.inputWrapper}>

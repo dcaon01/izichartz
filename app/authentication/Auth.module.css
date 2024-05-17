@@ -58,6 +58,15 @@
     padding-right: 5px;
 }
 
+.header {
+    display: flex;
+    justify-content: left;
+    font-size: 12px;
+    max-width: 216.04px;
+    margin-top: 10px;
+    margin-bottom: 10px;
+}
+
 .account {
     display: flex;
     align-items: center;

@@ -1,0 +1,14 @@
+.errorContainer {
+    display: flex;
+    padding: 5px;
+    border-width: 2px;
+    border-color: rgb(136, 0, 0);
+    background-color: rgb(255, 38, 74);
+    border-radius: 5px;
+    flex-direction: column;
+    max-width: 216.04px;
+}
+
+.errorText {
+    font-size: 12px;
+}

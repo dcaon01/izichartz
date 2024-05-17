@@ -4,11 +4,27 @@ import classes from "../Auth.module.css";
 import Link from "next/link";
 import { robotoMono } from "@/app/fonts";
 import { useState } from "react";
+import { useFormState } from "react-dom";
+import { userRegister } from "@/lib/server_actions/auth.js";
+import ErrorDisplayer from "@/components/authentication/ErrorDisplayer";
 
+/**
+ * RegisterPage
+ * Pagina di registrazione dell'utente
+ * @refactor    - Creare un componente per gli input normali e le password, ma capire se funziona con il form.
+ *              - Creare un componente per la scritta in basso.
+ *              - Creare un componente per il display dell'errore.
+ */
 export default function RegisterPage() {
+    let [state, formAction] = useFormState(userRegister, { messages: [] });
     let [isVisible1, setIsVisible1] = useState(false);
     let [isVisible2, setIsVisible2] = useState(false);
 
+    /**
+     * handlePswVisible1
+     * funzione per la gestione della prima password.
+     * @param event evento onClick.
+     */
     function handlePswVisible1(event) {
         event.preventDefault();
         event.stopPropagation();
@@ -19,6 +35,11 @@ export default function RegisterPage() {
         }
     }
 
+    /**
+     * handlePswVisible1
+     * funzione per la gestione della seconda password.
+     * @param event evento onClick.
+     */
     function handlePswVisible2(event) {
         event.preventDefault();
         event.stopPropagation();
@@ -31,13 +52,15 @@ export default function RegisterPage() {
         console.log(isVisible2);
     }
 
+    /* Rendering */
     return (
         <>
             <h1 className={`${robotoMono.className}`}>Register</h1>
-            <form className={classes.form}>
+            {state.messages.length > 0 && <ErrorDisplayer messages={state.messages} />}
+            <form className={classes.form} action={formAction} noValidate>
                 <div className={classes.inputWrapper}>
                     <label className={`${robotoMono.className}`}>Username</label>
-                    <input className={`${robotoMono.className} ${classes.input}`} type="text" id="register-username" name="register-email" required />
+                    <input className={`${robotoMono.className} ${classes.input}`} type="text" id="register-username" name="register-username" required />
                 </div>
                 <div className={classes.inputWrapper}>
                     <label className={`${robotoMono.className}`}>Email</label>
@@ -51,7 +74,7 @@ export default function RegisterPage() {
                         </div>
                     </div>
                     <input
-                        className={`${classes.input}`}
+                        className={`${classes.input} ${robotoMono.className}`}
                         type={isVisible1 ? "text" : "password"}
                         id="register-password"
                         name="register-password"
@@ -62,11 +85,11 @@ export default function RegisterPage() {
                     <div className={classes.passwordHead}>
                         <label className={`${robotoMono.className}`}>Confirm Password</label>
                         <div className={classes.visible} onClick={handlePswVisible2}>
-                            <img src={isVisible2 ? "/assets/global/visible.png" : "/assets/global/not_visible.png"} height={16} width={16} alt={isVisible2 ? "hide" : "show"}  />
+                            <img src={isVisible2 ? "/assets/global/visible.png" : "/assets/global/not_visible.png"} height={16} width={16} alt={isVisible2 ? "hide" : "show"} />
                         </div>
                     </div>
                     <input
-                        className={`${classes.input}`}
+                        className={`${classes.input} ${robotoMono.className}`}
                         type={isVisible2 ? "text" : "password"}
                         id="register-confirm-password"
                         name="register-confirm-password"

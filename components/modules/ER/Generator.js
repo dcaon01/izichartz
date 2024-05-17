@@ -51,6 +51,7 @@ export default function Generator({ generate }) {
                         //links={linksMatrix[element.id - 1]}
                     />
                 );
+            // end case
             case "linker":
                 return (
                     <Linker 
@@ -60,6 +61,7 @@ export default function Generator({ generate }) {
                         selected={element.selected}
                     />
                 );
+            // end case
             default:
                 return null;
             // end default
