@@ -8,10 +8,12 @@ import classes from "./ErrorDisplayer.module.css";
  * @returns 
  */
 export default function ErrorDisplayer({ messages }) {
+    let count = 0;
 
     let content = messages.map((message) => {
+        count++;
         return (
-            <p className={`${robotoMono.className} ${classes.errorText}`}>
+            <p className={`${robotoMono.className} ${classes.errorText}`} key={"error-message-"+count}>
                 {message}
             </p>
         );

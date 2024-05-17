@@ -43,13 +43,11 @@ export default function RegisterPage() {
     function handlePswVisible2(event) {
         event.preventDefault();
         event.stopPropagation();
-        console.log("culo");
         if (isVisible2) {
             setIsVisible2(false);
         } else {
             setIsVisible2(true);
         }
-        console.log(isVisible2);
     }
 
     /* Rendering */
