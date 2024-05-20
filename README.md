@@ -18,7 +18,9 @@ Facciamo prima i componenti per l'ER che funzionano, poi cerchiamo di generalizz
 - **Paypal**: come metodo di pagamento alternativo.
 - **PostgreSQL**: database. [Docs](https://www.postgresql.org/docs/current/)
 - **NextAuth**: libreria per la gestione delle dell'autenticazione e delle sessioni (ma credo sia per autenticazione tramite terzi servizi). [Docs](https://authjs.dev/getting-started/authentication)
-- **validator**: modulo javascript per la validazione delle stringe.
+- **validator**: modulo javascript per la validazione delle stringe. [Docs](https://www.npmjs.com/package/validator)
+- **bcrypt**: libreria javascript per il salting e l'hashing delle passwords. [Docs](https://www.npmjs.com/package/bcrypt)
+
 
 ## Flow all'interno dell'applicazione e requisiti
 L'utente entra all'interno della home page. (Fare le immagini con GIMP). La navbar avrà due configurazioni, una per la sessione che non è ancora cominciata e una a sessione cominciata. Fare un logo sia per la versione desktop che quella mobile, quest'ultima avrà solo il loco con la scritta izi, e ovviamente il menu a tendina a burger.
