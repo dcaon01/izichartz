@@ -7,7 +7,7 @@ Il suo obiettivo è quello di aiutare gli utenti con la progettazione grafica tr
 Facciamo prima i componenti per l'ER che funzionano, poi cerchiamo di generalizzare per tutti i moduli.
 
 
-## Librerie, Servizi Esterni e Tecnologie Utilizzati
+## Librerie, Tecnologie e Servizi Esterni Utilizzati
 <!-- - **Typescript**: per la gestione di tipi statici. [Docs](https://www.typescriptlang.org/docs/) PER ORA LO LASCIAMO STARE-->
 - **Redux Toolkit**: per una gestione migliore degli stati. [Docs](https://redux-toolkit.js.org/usage/nextjs)
 - **Framer Motion**: per animare l'applicazione. [Docs](https://www.framer.com/motion/?utm_source=google&utm_medium=adwords&utm_campaign=PerformanceMax-Framer_&gad_source=1&gclid=CjwKCAjw48-vBhBbEiwAzqrZVPK9OUm1ZKgYlNwriO01FcAHAsEpZ2kxMAWIwdV13ztZ8HaSvrPvXBoCBYEQAvD_BwE)
@@ -20,6 +20,7 @@ Facciamo prima i componenti per l'ER che funzionano, poi cerchiamo di generalizz
 - **NextAuth**: libreria per la gestione delle dell'autenticazione e delle sessioni (ma credo sia per autenticazione tramite terzi servizi). [Docs](https://authjs.dev/getting-started/authentication)
 - **validator**: modulo javascript per la validazione delle stringe. [Docs](https://www.npmjs.com/package/validator)
 - **bcrypt**: libreria javascript per il salting e l'hashing delle passwords. [Docs](https://www.npmjs.com/package/bcrypt)
+. **recaptcha**: per prevenire traffico in inserimento nel database (molti account farlocchi non attivati, per esempio). Serve, però, un dominio, quindi, per ora, non ha senso implementarlo. [Docs](https://developers.google.com/recaptcha/docs/v3?hl=it)
 
 
 ## Flow all'interno dell'applicazione e requisiti
