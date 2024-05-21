@@ -1,5 +1,5 @@
 import classes from "../Auth.module.css";
-import Link from "next/link";
+import RegLogSwitch from "@/components/authentication/RegLogSwitch";
 import { robotoMono } from "@/app/fonts";
 
 export default function LoginPage() {
@@ -23,12 +23,7 @@ export default function LoginPage() {
                 </div>
                 <button className={`${classes.submitButton} ${robotoMono.className}`} type="submit">Login</button>
             </form>
-            <div className={classes.account}>
-                <p className={`${robotoMono.className} ${classes.already}`}>
-                    Don't have an account yet?&nbsp;
-                </p>
-                <Link className={`${classes.toLogin} ${robotoMono.className}`} href="/authentication/register">Register</Link>
-            </div>
+            <RegLogSwitch switchTo={"register"}/>
         </>
     );
 }

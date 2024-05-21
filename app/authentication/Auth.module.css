@@ -66,23 +66,3 @@
     margin-top: 10px;
     margin-bottom: 10px;
 }
-
-.account {
-    display: flex;
-    align-items: center;
-    justify-content: center;
-}
-
-.already {
-    font-size: 12px;
-    text-align: center;
-}
-
-.toLogin {
-    font-size: 12px;
-    font-weight: 500;
-}
-
-.toLogin:hover {
-    text-decoration: underline;
-}

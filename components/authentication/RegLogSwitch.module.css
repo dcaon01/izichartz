@@ -1,0 +1,19 @@
+.switch {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.switchText {
+    font-size: 12px;
+    text-align: center;
+}
+
+.switchLink {
+    font-size: 12px;
+    font-weight: 500;
+}
+
+.switchLink:hover {
+    text-decoration: underline;
+}

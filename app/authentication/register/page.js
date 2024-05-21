@@ -1,7 +1,7 @@
 'use client';
 
 import classes from "../Auth.module.css";
-import Link from "next/link";
+import RegLogSwitch from "@/components/authentication/RegLogSwitch";
 import { robotoMono } from "@/app/fonts";
 import { useState } from "react";
 import { useFormState } from "react-dom";
@@ -96,12 +96,7 @@ export default function RegisterPage() {
                 </div>
                 <button className={`${classes.submitButton} ${robotoMono.className}`} type="submit">Register</button>
             </form>
-            <div className={classes.account}>
-                <p className={`${robotoMono.className} ${classes.already}`}>
-                    Already have an account?&nbsp;
-                </p>
-                <Link className={`${classes.toLogin} ${robotoMono.className}`} href="/authentication/login">Login</Link>
-            </div>
+            <RegLogSwitch switchTo={"login"}/>
         </>
     );
 }
