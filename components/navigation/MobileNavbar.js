@@ -96,11 +96,11 @@ export default function MobileNavbar() {
                                     <Link key="plans-link" className={`${classes.link} ${robotoMono.className}`} onClick={handleMenuDeselection} href="">Plans</Link>
                                     <Link key="contacts-link" className={`${classes.link} ${robotoMono.className}`} onClick={handleMenuDeselection} href="">Contacts</Link>
                                     <Link key="about-link" className={`${classes.link} ${robotoMono.className}`} onClick={handleMenuDeselection} href="">About</Link>
-                                    <Link key="login-link" className={`${classes.link} ${robotoMono.className}`} onClick={handleMenuDeselection} href="/authentication/login">Login</Link>
+                                    <Link key="login-link" className={`${classes.link} ${robotoMono.className}`} onClick={handleMenuDeselection} href="">Login</Link>
                                     <Link
                                         key="register-link"
                                         className={`${classes.navBotton} ${robotoMono.className}`}
-                                        href="/authentication/register"
+                                        href=""
                                         onClick={handleMenuDeselection}
                                     >
                                         Register

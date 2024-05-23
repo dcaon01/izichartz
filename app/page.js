@@ -35,7 +35,7 @@ export default function HomePage() {
         </motion.div>
       </div>
       <div className={classes.homeContent}>
-          <h1 className={`${robotoMono.className}`}>What's Izichartz?</h1>
+          <h1 className={`${robotoMono.className}`}>This app is under development...</h1>
       </div>
     </main>
   );
