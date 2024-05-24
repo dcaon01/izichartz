@@ -3,9 +3,8 @@
 import classes from "../Auth.module.css";
 import RegLogSwitch from "@/components/authentication/RegLogSwitch";
 import { robotoMono } from "@/app/fonts";
-import { useState } from "react";
 import { useFormState } from "react-dom";
-import { userRegister } from "@/lib/server_actions/auth.js";
+import { userRegister } from "@/lib/server-actions/auth.js";
 import ErrorDisplayer from "@/components/authentication/ErrorDisplayer";
 import AuthInput from "@/components/authentication/AuthInput.js";
 
