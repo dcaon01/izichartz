@@ -1,6 +1,6 @@
 import classes from "./DesktopModulesDropdown.module.css";
 import Link from "next/link";
-import { robotoMono } from "@/app/fonts.js";
+import { robotoMono } from "@/app/fonts";
 import { motion } from "framer-motion";
 
 export default function DesktopModulesDropdown() {

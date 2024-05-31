@@ -6,7 +6,7 @@ import AuthInput from "@/components/authentication/AuthInput";
 import ErrorDisplayer from "@/components/authentication/ErrorDisplayer";
 import { userAccountActivation } from "@/lib/server-actions/auth";
 import { resendActivationCode } from "@/lib/server-actions/auth";
-import { robotoMono } from "@/app/fonts";
+import { robotoMono } from "@/app/(browse)/fonts";
 import { useFormState } from "react-dom";
 
 export default function ActivationPage({ params }) {

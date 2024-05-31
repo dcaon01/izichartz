@@ -7,7 +7,7 @@ import { robotoMono } from "@/app/fonts.js";
 import { AnimatePresence, motion, useAnimate } from "framer-motion";
 import MobileModulesDropdown from "./MobileModulesDropdown";
 
-export default function MobileNavbar() {
+export default function MobileNavbar({ isSessionActive }) {
     let [isMenuDroppedDown, setMenuDropDown] = useState(false);
     let [modulesDropDown, setModulesDropDown] = useState(false);
     let [scope, animate] = useAnimate();
@@ -36,8 +36,8 @@ export default function MobileNavbar() {
         animate("div", { opacity: 1 }, { duration: 0.3 });
     }
 
-    function handleMenuDeselection() {     
-        if(isMenuDroppedDown) {
+    function handleMenuDeselection() {
+        if (isMenuDroppedDown) {
             animate("div", { opacity: 0 }, { duration: 0.3 });
             setMenuDropDown(false);
             setModulesDropDown(false);
@@ -91,7 +91,7 @@ export default function MobileNavbar() {
                                 </div>
                                 <AnimatePresence>
                                     {modulesDropDown &&
-                                        <MobileModulesDropdown key="modulesDropdown" handler={handleMenuDeselection}/>
+                                        <MobileModulesDropdown key="modulesDropdown" handler={handleMenuDeselection} />
                                     }
                                     <Link key="plans-link" className={`${classes.link} ${robotoMono.className}`} onClick={handleMenuDeselection} href="">Plans</Link>
                                     <Link key="contacts-link" className={`${classes.link} ${robotoMono.className}`} onClick={handleMenuDeselection} href="">Contacts</Link>

@@ -7,7 +7,7 @@ import { robotoMono } from "@/app/fonts.js";
 import { motion, AnimatePresence } from "framer-motion";
 import DesktopModulesDropdown from "./DesktopModulesDropdown.js";
 
-export default function DesktopNavbar() {
+export default function DesktopNavbar({ isSessionActive }) {
     let [modulesDropDown, setModulesDropDown] = useState(false);
 
     function handleModulesDropDown(event) {
@@ -46,14 +46,21 @@ export default function DesktopNavbar() {
                 <Link className={`${classes.link} ${robotoMono.className}`} onClick={handleRedirect} href="">Plans</Link>
                 <Link className={`${classes.link} ${robotoMono.className}`} onClick={handleRedirect} href="">Contacts</Link>
                 <Link className={`${classes.link} ${robotoMono.className}`} onClick={handleRedirect} href="">About</Link>
-                <Link className={`${classes.link} ${robotoMono.className}`} onClick={handleRedirect} href="/authentication/login">Login</Link>
-                <Link
-                    className={`${classes.navBotton} ${robotoMono.className}`}
-                    href="/authentication/register"
-                    onClick={handleRedirect}
-                >
-                    Register
-                </Link>
+                {isSessionActive
+                    ?
+                    null
+                    :
+                    <>
+                        <Link className={`${classes.link} ${robotoMono.className}`} onClick={handleRedirect} href="/authentication/login">Login</Link>
+                        <Link
+                            className={`${classes.navBotton} ${robotoMono.className}`}
+                            href="/authentication/register"
+                            onClick={handleRedirect}
+                        >
+                            Register
+                        </Link>
+                    </>
+                }
             </div>
         </nav>
     );

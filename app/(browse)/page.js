@@ -1,7 +1,7 @@
 'use client';
 
 import classes from "./HomePage.module.css";
-import { robotoMono } from "@/app/fonts.js";
+import { robotoMono } from "../fonts.js";
 import { Suspense } from "react";
 import Link from "next/link";
 import { motion } from "framer-motion";

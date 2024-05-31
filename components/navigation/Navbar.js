@@ -8,7 +8,6 @@ import MobileNavbar from "./MobileNavbar";
  * @returns 
  */
 export default function Navbar() {
-
     return (
         <>
             <MobileNavbar />
