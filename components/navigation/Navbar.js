@@ -1,5 +1,5 @@
 import DesktopNavbar from "./DesktopNavbar";
-import MobileNavbar from "./MobileNavbar.js";
+import MobileNavbar from "./MobileNavbar";
 
 /**
  * Navbar
