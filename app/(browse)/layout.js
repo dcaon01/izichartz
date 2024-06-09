@@ -1,8 +1,7 @@
 import "./globals.css";
-import Header from "@/components/global-layout/Header.js";
-import Footer from "@/components/global-layout/Footer.js";
+import Header from "@/components/layouts/Header.js";
+import Footer from "@/components/layouts/Footer.js";
 import { inter } from "../fonts.js";
-import { Suspense } from "react";
 
 export const metadata = {
   title: "Izichartz",

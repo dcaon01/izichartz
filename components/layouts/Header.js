@@ -1,6 +1,3 @@
-'use client';
-
-import { usePathname } from "next/navigation";
 import Navbar from "../navigation/Navbar.js";
 
 /**
@@ -11,14 +8,10 @@ import Navbar from "../navigation/Navbar.js";
  * @returns 
  */
 export default function Header() {
-    let path = usePathname();
 
     return (
         <header>
-            {path.startsWith("/workspace/editor/")
-                ? null
-                : <Navbar />
-            }
+            <Navbar />
         </header>
     );
 }

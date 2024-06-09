@@ -7,7 +7,7 @@ import { robotoMono } from "@/app/fonts.js";
 import { AnimatePresence, motion, useAnimate } from "framer-motion";
 import MobileModulesDropdown from "./MobileModulesDropdown";
 
-export default function MobileNavbar({ isSessionActive }) {
+export default function MobileNavbar({ isSessionOn }) {
     let [isMenuDroppedDown, setMenuDropDown] = useState(false);
     let [modulesDropDown, setModulesDropDown] = useState(false);
     let [scope, animate] = useAnimate();
@@ -96,15 +96,29 @@ export default function MobileNavbar({ isSessionActive }) {
                                     <Link key="plans-link" className={`${classes.link} ${robotoMono.className}`} onClick={handleMenuDeselection} href="">Plans</Link>
                                     <Link key="contacts-link" className={`${classes.link} ${robotoMono.className}`} onClick={handleMenuDeselection} href="">Contacts</Link>
                                     <Link key="about-link" className={`${classes.link} ${robotoMono.className}`} onClick={handleMenuDeselection} href="">About</Link>
-                                    <Link key="login-link" className={`${classes.link} ${robotoMono.className}`} onClick={handleMenuDeselection} href="/authentication/login">Login</Link>
-                                    <Link
-                                        key="register-link"
-                                        className={`${classes.navBotton} ${robotoMono.className}`}
-                                        href="/authentication/register"
-                                        onClick={handleMenuDeselection}
-                                    >
-                                        Register
-                                    </Link>
+                                    {isSessionOn
+                                        ?
+                                        <Link
+                                            key="register-link"
+                                            className={`${classes.navBotton} ${robotoMono.className}`}
+                                            href="/workspace"
+                                            onClick={handleMenuDeselection}
+                                        >
+                                            Workspace
+                                        </Link>
+                                        :
+                                        <>
+                                            <Link key="login-link" className={`${classes.link} ${robotoMono.className}`} onClick={handleMenuDeselection} href="/authentication/login">Login</Link>
+                                            <Link
+                                                key="register-link"
+                                                className={`${classes.navBotton} ${robotoMono.className}`}
+                                                href="/authentication/register"
+                                                onClick={handleMenuDeselection}
+                                            >
+                                                Register
+                                            </Link>
+                                        </>
+                                    }
                                 </AnimatePresence>
                             </div>
                         </motion.div>

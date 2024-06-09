@@ -1,5 +1,6 @@
 import DesktopNavbar from "./DesktopNavbar";
 import MobileNavbar from "./MobileNavbar";
+import { cookies } from "next/headers";
 
 /**
  * Navbar
@@ -8,10 +9,17 @@ import MobileNavbar from "./MobileNavbar";
  * @returns 
  */
 export default function Navbar() {
+    let sState = cookies().get("sState");
+    let isSessionOn = false;
+
+    if(sState) {
+        isSessionOn=true;
+    }
+
     return (
         <>
-            <MobileNavbar />
-            <DesktopNavbar />
+            <MobileNavbar session={isSessionOn}/>
+            <DesktopNavbar session={isSessionOn}/>
         </>
     );
 }

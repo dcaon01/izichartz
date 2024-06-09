@@ -1,18 +1,35 @@
 import { NextResponse } from 'next/server';
+import { cookies } from "next/headers";
+import { revalidatePath } from 'next/cache';
+import { redirect } from 'next/dist/server/api-utils';
 
-/* Appunti 
-Per fare in modo che se un utente è stato renderizzato in activation, e lui naviga via
-dalla pagina perché è coglione, si potrebbe pensare ad implementare una pre-sessione (nella colonna data di SESSIONS), in modo
-da riuscire, com middleware, a renderizzare l'utente alla pagina giusta, risalendo allo slug. Oppure mettiamo solo il pulsant activate account.
-e al codice relativo. Non serve per ora implementare un controllo sullo slug e sul tipo di verifica, perché l'utente non può aver
-fatto nient'altro prima di essersi registrato.
-*/
- 
+/**
+ * middleware
+ * Funzione che viene eseguita prima della risposta del server a qualsiasi richiesta.
+ * @param request richiesta dal client.
+ */
 export function middleware(request) {
-    /*
-    if(request.nextUrl.pathname.startsWith('/authentication/register') || request.nextUrl.pathname.startsWith('/authentication/login')){
-        
-    }*/
+    let sid = cookies().get("sid");
+    let sState = cookies().get("sState");
+    if (!sid) {
+        // Dobbiamo proteggere le route non accedibili da un utente non connesso. e settare il cookie sState a false.
+        if (sState && sState.value) {
+            console.log(request.nextUrl);
+            revalidatePath(request.nextUrl);
+        } 
+        if (request.nextUrl.pathname.startsWith('/workspace')) {
+            redirect("/login");
+        }
+    } else {
+        if (sState && !sState) {
+            revalidatePath(request.nextUrl);
+        }
+        // Dobbiamo proteggere le route di login, register e attivazione che non devono essere accedibili.
+        if (request.nextUrl.pathname.startsWith('/authentication')) {
+            redirect()
+        }
+    }
+    NextResponse.next()
 }
 
 /*
