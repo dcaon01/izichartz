@@ -17,7 +17,6 @@ Facciamo prima i componenti per l'ER che funzionano, poi cerchiamo di generalizz
 - Oppure **Stripe**: API per fare la stessa cosa rispetto a click to pay.
 - **Paypal**: come metodo di pagamento alternativo.
 - **PostgreSQL**: database. [Docs](https://www.postgresql.org/docs/current/)
-- **NextAuth**: libreria per la gestione delle dell'autenticazione e delle sessioni (ma credo sia per autenticazione tramite terzi servizi). [Docs](https://authjs.dev/getting-started/authentication)
 - **validator**: modulo javascript per la validazione delle stringe. [Docs](https://www.npmjs.com/package/validator)
 - **bcrypt**: libreria javascript per il salting e l'hashing delle passwords. [Docs](https://www.npmjs.com/package/bcrypt)
 - **recaptcha**: per prevenire traffico in inserimento nel database (molti account farlocchi non attivati, per esempio). Serve, però, un dominio, quindi, per ora, non ha senso implementarlo. [Docs](https://developers.google.com/recaptcha/docs/v3?hl=it)

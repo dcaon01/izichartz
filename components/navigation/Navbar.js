@@ -9,10 +9,10 @@ import { cookies } from "next/headers";
  * @returns 
  */
 export default function Navbar() {
-    let sState = cookies().get("sState");
+    let sid = cookies().get("sid");
     let isSessionOn = false;
 
-    if(sState) {
+    if(sid) {
         isSessionOn=true;
     }
 
