@@ -1,4 +1,3 @@
-import { revalidatePath } from 'next/cache';
 import { NextResponse } from 'next/server';
 
 /**
@@ -21,7 +20,7 @@ export async function middleware(request) {
                     return NextResponse.redirect(new URL(`/authentication/activation/${data.verifSlug}`, request.url));
                 } else {
                     const response = NextResponse.next();
-                    const cookie = response.cookie.get('sid');
+                    const cookie = request.cookies.get('sid');
                     const date = new Date(Date.now() + 300000);
                     response.cookies.set({
                         name: 'sid',
@@ -33,7 +32,6 @@ export async function middleware(request) {
             } else {
                 // Eliminare il cookie
                 request.cookies.delete('sid');
-                revalidatePath('/authentication/login');
                 return NextResponse.redirect(new URL('/authentication/login', request.url));
             }
         } else {
@@ -67,9 +65,7 @@ export async function middleware(request) {
             const data = await callVerifySession(sid, request);
             console.log(data);
             if (data.isSessionValid) {
-                if (data.verifSlug) {
-                    return NextResponse.next();
-                } else {
+                if (!data.verifSlug) {
                     return NextResponse.redirect(new URL('/workspace', request.url));
                 }
             } else {

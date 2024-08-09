@@ -11,7 +11,6 @@ import AuthInput from "@/components/authentication/AuthInput.js";
 /**
  * RegisterPage
  * Pagina di registrazione dell'utente
- * @refactor    - Creare un componente per gli input normali e le password, ma capire se funziona con il form.
  */
 export default function RegisterPage() {
     let [state, formAction] = useFormState(userRegister, { messages: [] });
