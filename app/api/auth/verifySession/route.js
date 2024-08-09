@@ -40,7 +40,7 @@ export async function POST(request) {
         if (result.rows.length !== 0) {
             // Troviamo il token associato
             const hashedToken = result.rows[0].sessionId;
-            const match = bcrypt.compare(token, hashedToken);
+            const match = await bcrypt.compare(token, hashedToken);
             if (match) {
                 // Controlliamo che non sia scaduto
                 if (Date.now() < result.rows[0].expires) {
