@@ -7,7 +7,7 @@ import { robotoMono } from "@/app/fonts.js";
 import { AnimatePresence, motion, useAnimate } from "framer-motion";
 import MobileModulesDropdown from "./MobileModulesDropdown";
 
-export default function MobileNavbar({ isSessionOn }) {
+export default function MobileNavbar() {
     let [isMenuDroppedDown, setMenuDropDown] = useState(false);
     let [modulesDropDown, setModulesDropDown] = useState(false);
     let [scope, animate] = useAnimate();

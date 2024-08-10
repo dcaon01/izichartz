@@ -7,7 +7,7 @@ import { robotoMono } from "@/app/fonts.js";
 import { motion, AnimatePresence } from "framer-motion";
 import DesktopModulesDropdown from "./DesktopModulesDropdown.js";
 
-export default function DesktopNavbar({ isSessionOn }) {
+export default function DesktopNavbar() {
     let [modulesDropDown, setModulesDropDown] = useState(false);
 
     function handleModulesDropDown(event) {
