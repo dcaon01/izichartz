@@ -31,6 +31,14 @@
     padding-right: 20px;
 }
 
+.links2 {
+    margin-left: auto;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding-right: 20px;
+}
+
 .modulesSelector {
     display: flex;
     flex-direction: row;
@@ -98,6 +106,9 @@
 @media screen and (min-width: 700px) {
     .links {
         width: 60%;
+    }
+    .links2 {
+        width: 30%;
     }
 }
 

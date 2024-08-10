@@ -1,6 +1,7 @@
+import "../../../globals.css";
 import WorkspaceHeader from "@/components/layouts/WorkspaceHeader.js";
 import Footer from "@/components/layouts/Footer.js";
-import { inter } from "../fonts.js";
+import { inter } from "../../../fonts.js";
 
 export const metadata = {
   title: "Izichartz",

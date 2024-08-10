@@ -5,9 +5,11 @@
  */
 export default function Workspace() {
     return (
-        <p>
-            Questo è il workspace
-        </p>
+        <main>
+            <p>
+                Questo è il workspace
+            </p>
+        </main>
     );
 }
 

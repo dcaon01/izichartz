@@ -1,4 +1,4 @@
-import "./globals.css";
+import "../globals.css";
 import BrowseHeader from "@/components/layouts/BrowseHeader.js";
 import Footer from "@/components/layouts/Footer.js";
 import { inter } from "../fonts.js";

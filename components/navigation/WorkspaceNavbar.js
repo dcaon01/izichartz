@@ -5,6 +5,7 @@ import WorkspaceDesktopNavbar from "./WorkspaceDesktopNavbar";
  * la workspace navbar, con dei 
  */
 export default function WorkspaceNavbar() {
+    
     return (
         <>
             <WorkspaceDesktopNavbar />
