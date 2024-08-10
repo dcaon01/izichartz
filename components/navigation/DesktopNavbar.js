@@ -19,6 +19,8 @@ export default function DesktopNavbar() {
         }
     }
 
+    let isSessionOn = false;
+
     function handleRedirect() {
         setModulesDropDown(false);
     }
