@@ -36,8 +36,8 @@ export default function MobileNavbar() {
         animate("div", { opacity: 1 }, { duration: 0.3 });
     }
 
-    function handleMenuDeselection() {     
-        if(isMenuDroppedDown) {
+    function handleMenuDeselection() {
+        if (isMenuDroppedDown) {
             animate("div", { opacity: 0 }, { duration: 0.3 });
             setMenuDropDown(false);
             setModulesDropDown(false);
@@ -91,20 +91,34 @@ export default function MobileNavbar() {
                                 </div>
                                 <AnimatePresence>
                                     {modulesDropDown &&
-                                        <MobileModulesDropdown key="modulesDropdown" handler={handleMenuDeselection}/>
+                                        <MobileModulesDropdown key="modulesDropdown" handler={handleMenuDeselection} />
                                     }
                                     <Link key="plans-link" className={`${classes.link} ${robotoMono.className}`} onClick={handleMenuDeselection} href="">Plans</Link>
                                     <Link key="contacts-link" className={`${classes.link} ${robotoMono.className}`} onClick={handleMenuDeselection} href="">Contacts</Link>
                                     <Link key="about-link" className={`${classes.link} ${robotoMono.className}`} onClick={handleMenuDeselection} href="">About</Link>
-                                    <Link key="login-link" className={`${classes.link} ${robotoMono.className}`} onClick={handleMenuDeselection} href="">Login</Link>
-                                    <Link
-                                        key="register-link"
-                                        className={`${classes.navBotton} ${robotoMono.className}`}
-                                        href=""
-                                        onClick={handleMenuDeselection}
-                                    >
-                                        Register
-                                    </Link>
+                                    {isSessionOn
+                                        ?
+                                        <Link
+                                            key="register-link"
+                                            className={`${classes.navBotton} ${robotoMono.className}`}
+                                            href="/workspace"
+                                            onClick={handleMenuDeselection}
+                                        >
+                                            Workspace
+                                        </Link>
+                                        :
+                                        <>
+                                            <Link key="login-link" className={`${classes.link} ${robotoMono.className}`} onClick={handleMenuDeselection} href="/authentication/login">Login</Link>
+                                            <Link
+                                                key="register-link"
+                                                className={`${classes.navBotton} ${robotoMono.className}`}
+                                                href="/authentication/register"
+                                                onClick={handleMenuDeselection}
+                                            >
+                                                Register
+                                            </Link>
+                                        </>
+                                    }
                                 </AnimatePresence>
                             </div>
                         </motion.div>

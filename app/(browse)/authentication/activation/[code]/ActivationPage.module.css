@@ -1,0 +1,19 @@
+.resend {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.resendText {
+    font-size: 12px;
+    text-align: center;
+}
+
+.resendButton {
+    font-size: 12px;
+    font-weight: 500;
+}
+
+.resendButton:hover {
+    text-decoration: underline;
+}

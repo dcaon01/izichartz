@@ -1,11 +1,17 @@
 'use client';
 
 import classes from "./HomePage.module.css";
-import { robotoMono } from "@/app/fonts.js";
+import { robotoMono } from "../fonts.js";
 import { Suspense } from "react";
 import Link from "next/link";
 import { motion } from "framer-motion";
 
+/**
+ * Pagina che renderizza la home page di Izichartz
+ * @refactor spostare tutto quello che è client side in un componente client, 
+ * e tenere quello che è server nella pagina, in modo da renderizzare
+ * più velocemente.
+ */
 export default function HomePage() {
   return (
     <main >

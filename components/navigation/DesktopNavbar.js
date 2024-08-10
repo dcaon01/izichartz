@@ -46,14 +46,27 @@ export default function DesktopNavbar() {
                 <Link className={`${classes.link} ${robotoMono.className}`} onClick={handleRedirect} href="">Plans</Link>
                 <Link className={`${classes.link} ${robotoMono.className}`} onClick={handleRedirect} href="">Contacts</Link>
                 <Link className={`${classes.link} ${robotoMono.className}`} onClick={handleRedirect} href="">About</Link>
-                <Link className={`${classes.link} ${robotoMono.className}`} onClick={handleRedirect} href="">Login</Link>
-                <Link
-                    className={`${classes.navBotton} ${robotoMono.className}`}
-                    href=""
-                    onClick={handleRedirect}
-                >
-                    Register
-                </Link>
+                {isSessionOn
+                    ?
+                    <Link
+                        className={`${classes.navBotton} ${robotoMono.className}`}
+                        href="/workspace"
+                        onClick={handleRedirect}
+                    >
+                        Workspace
+                    </Link>
+                    :
+                    <>
+                        <Link className={`${classes.link} ${robotoMono.className}`} onClick={handleRedirect} href="/authentication/login">Login</Link>
+                        <Link
+                            className={`${classes.navBotton} ${robotoMono.className}`}
+                            href="/authentication/register"
+                            onClick={handleRedirect}
+                        >
+                            Register
+                        </Link>
+                    </>
+                }
             </div>
         </nav>
     );
