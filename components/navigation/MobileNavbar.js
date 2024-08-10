@@ -11,6 +11,7 @@ export default function MobileNavbar() {
     let [isMenuDroppedDown, setMenuDropDown] = useState(false);
     let [modulesDropDown, setModulesDropDown] = useState(false);
     let [scope, animate] = useAnimate();
+    let isSessionOn = false;
 
     function handleMenuDropDown() {
         if (isMenuDroppedDown) {
