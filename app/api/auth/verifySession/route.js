@@ -53,7 +53,7 @@ export async function POST(request) {
                         response.verifSlug = result.rows[0].slug;
                     } else {
                         // Aggiorniamo la data di scadenza del token el DB
-                        const date = new Date(Date.now() + 300000);
+                        const date = new Date(Date.now() + 43200000);
                         client.query(updateSidQuery, [date, user]);
                         console.log("Risultato delle query: " + result.rows[0]);
                     }

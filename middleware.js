@@ -21,7 +21,7 @@ export async function middleware(request) {
                 } else {
                     const response = NextResponse.next();
                     const cookie = request.cookies.get('sid');
-                    const date = new Date(Date.now() + 300000);
+                    const date = new Date(Date.now() + 43200000);
                     response.cookies.set({
                         name: 'sid',
                         value: cookie.value,

@@ -1,4 +1,4 @@
-import Navbar from "../navigation/Navbar.js";
+import BrowseNavbar from "../navigation/BrowseNavbar.js";
 
 /**
  * Header
@@ -7,11 +7,11 @@ import Navbar from "../navigation/Navbar.js";
  * poiché non 
  * @returns 
  */
-export default function Header() {
+export default function BrowseHeader() {
 
     return (
         <header>
-            <Navbar />
+            <BrowseNavbar />
         </header>
     );
 }

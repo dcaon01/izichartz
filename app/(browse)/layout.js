@@ -1,5 +1,5 @@
 import "./globals.css";
-import Header from "@/components/layouts/Header.js";
+import BrowseHeader from "@/components/layouts/BrowseHeader.js";
 import Footer from "@/components/layouts/Footer.js";
 import { inter } from "../fonts.js";
 
@@ -12,7 +12,7 @@ export default function RootLayout({ children }) {
   return (
     <html lang="en">
       <body className={inter.className}>
-        <Header />
+        <BrowseHeader />
           {children}
         <Footer />
       </body>
