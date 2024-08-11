@@ -2,16 +2,18 @@
 
 import classes from "./MobileNavbar.module.css";
 import Link from "next/link";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { robotoMono } from "@/app/fonts.js";
 import { AnimatePresence, motion, useAnimate } from "framer-motion";
 import MobileModulesDropdown from "./BrowseMobileModulesDropdown";
+import { getCookie } from "cookies-next";
 
 export default function MobileNavbar() {
     let [isMenuDroppedDown, setMenuDropDown] = useState(false);
     let [modulesDropDown, setModulesDropDown] = useState(false);
     let [scope, animate] = useAnimate();
-    let isSessionOn = false;
+    let [isSessionOn, setIsSessionOn] = useState(false);
+    let [username, setUsername] = useState(null);
 
     function handleMenuDropDown() {
         if (isMenuDroppedDown) {
@@ -45,6 +47,14 @@ export default function MobileNavbar() {
         }
     }
 
+    useEffect(() => {
+        const sid = getCookie('sid');
+        if (sid) {
+            const value = JSON.parse(sid);
+            setIsSessionOn(true);
+            setUsername(value.username);
+        }
+    }, []);
     return (
         <>
             <motion.nav
@@ -102,7 +112,7 @@ export default function MobileNavbar() {
                                         <Link
                                             key="register-link"
                                             className={`${classes.navBotton} ${robotoMono.className}`}
-                                            href="/workspace"
+                                            href={`/workspace/${username}`}
                                             onClick={handleMenuDeselection}
                                         >
                                             Workspace

@@ -19,15 +19,19 @@ export async function middleware(request) {
                 if (data.verifSlug) {
                     return NextResponse.redirect(new URL(`/authentication/activation/${data.verifSlug}`, request.url));
                 } else {
-                    const response = NextResponse.next();
-                    const cookie = request.cookies.get('sid');
+                    let response = NextResponse.next();
                     const date = new Date(Date.now() + 43200000);
                     response.cookies.set({
                         name: 'sid',
-                        value: cookie.value,
+                        value: sid.value,
                         expires: date
                     });
-                    return response;
+                    const value = JSON.parse(sid.value);
+                    if (path !== `/workspace/${value.username}`) {
+                        return NextResponse.redirect(new URL(`/workspace/${value.username}`, request.url));
+                    } else {
+                        return response;
+                    }
                 }
             } else {
                 // Eliminare il cookie
