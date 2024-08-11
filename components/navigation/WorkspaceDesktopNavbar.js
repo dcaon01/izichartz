@@ -5,7 +5,7 @@ import Link from "next/link";
 import { useState } from "react";
 import { robotoMono } from "@/app/fonts.js";
 import { motion, AnimatePresence } from "framer-motion";
-import DesktopModulesDropdown from "./DesktopModulesDropdown.js";
+import DesktopModulesDropdown from "./BrowseDesktopModulesDropdown.js";
 
 export default function WorkspaceDesktopNavbar() {
     let [modulesDropDown, setModulesDropDown] = useState(false);

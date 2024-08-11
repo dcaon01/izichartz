@@ -20,9 +20,9 @@ export async function POST(request) {
     // Andiamo a verificare la sessione, tramite il session ID mandato nella richiesta
     const client = new Client(clientOpt);
     const { sid } = await request.json();
-    const user = JSON.parse(sid.value).user;
+    const email = JSON.parse(sid.value).email;
     const token = JSON.parse(sid.value).token;
-    console.log("user: " + user + " token: " + token);
+    console.log("user: " + email + " token: " + token);
     const findUserQuery = 'SELECT * FROM "SESSIONS" WHERE "user"=$1';
     const checkEnroll = 'SELECT * FROM "VERIF_CODES" WHERE "user"=$1';
     const updateSidQuery = 'UPDATE "SESSIONS" SET "expires"=$1 WHERE "user"=$2';
@@ -34,7 +34,7 @@ export async function POST(request) {
     try {
         await client.connect();
         await client.query('BEGIN');
-        result = await client.query(findUserQuery, [user]);
+        result = await client.query(findUserQuery, [email]);
         // Controlliamo che ci sia un record con il token
         console.log("Risultato delle query: " + result.rows[0].user);
         if (result.rows.length !== 0) {
@@ -54,7 +54,7 @@ export async function POST(request) {
                     } else {
                         // Aggiorniamo la data di scadenza del token el DB
                         const date = new Date(Date.now() + 43200000);
-                        client.query(updateSidQuery, [date, user]);
+                        client.query(updateSidQuery, [date, email]);
                         console.log("Risultato delle query: " + result.rows[0]);
                     }
                 }

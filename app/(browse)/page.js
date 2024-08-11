@@ -5,6 +5,7 @@ import { robotoMono } from "../fonts.js";
 import { Suspense } from "react";
 import Link from "next/link";
 import { motion } from "framer-motion";
+import general from "@/app/general.module.css";
 
 /**
  * Pagina che renderizza la home page di Izichartz
@@ -40,8 +41,8 @@ export default function HomePage() {
           </Link>
         </motion.div>
       </div>
-      <div className={classes.homeContent}>
-          <h1 className={`${robotoMono.className}`}>This app is under development...</h1>
+      <div className={general.content}>
+          <h1 className={`${robotoMono.className} ${general.title}`}>This app is under development...</h1>
       </div>
     </main>
   );

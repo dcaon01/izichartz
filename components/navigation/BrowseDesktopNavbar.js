@@ -1,14 +1,17 @@
 'use client';
 
 import classes from "./DesktopNavbar.module.css";
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import Link from "next/link";
 import { robotoMono } from "@/app/fonts.js";
 import { motion, AnimatePresence } from "framer-motion";
-import DesktopModulesDropdown from "./DesktopModulesDropdown.js";
+import DesktopModulesDropdown from "./BrowseDesktopModulesDropdown.js";
+import { getCookie } from "cookies-next";
 
 export default function DesktopNavbar() {
     let [modulesDropDown, setModulesDropDown] = useState(false);
+    let [isSessionOn, setIsSessionOn] = useState(false);
+    let [username, setUsername] = useState(null);
 
     function handleModulesDropDown(event) {
         event.preventDefault();
@@ -19,11 +22,18 @@ export default function DesktopNavbar() {
         }
     }
 
-    let isSessionOn = false;
-
     function handleRedirect() {
         setModulesDropDown(false);
     }
+
+    useEffect(() => {
+        const sid = getCookie('sid');
+        if (sid) {
+            const value = JSON.parse(sid);
+            setIsSessionOn(true);
+            setUsername(value.username);
+        }
+    }, []);
 
     /* Redering */
     return (
@@ -52,7 +62,7 @@ export default function DesktopNavbar() {
                     ?
                     <Link
                         className={`${classes.navBotton} ${robotoMono.className}`}
-                        href="/workspace"
+                        href={`/workspace/${username}`}
                         onClick={handleRedirect}
                     >
                         Workspace

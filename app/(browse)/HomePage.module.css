@@ -53,21 +53,6 @@
     color: black;
 }
 
-.homeContent {
-    position: relative;
-    display: flex;
-    width: 100%;
-    min-height: 200px;
-    border-top: 1.5px solid black;
-    justify-content: center;
-    padding-top: 50px;
-    padding-bottom: 50px;
-}
-
-.title {
-    font-size: 30px;
-}
-
 @media screen and (max-width: 700px) {
     .hookText {
         font-size: 20px;

@@ -47,7 +47,7 @@ export async function middleware(request) {
                 if (data.verifSlug) {
                     return NextResponse.redirect(new URL(`/authentication/activation/${data.verifSlug}`, request.url));
                 } else {
-                    return NextResponse.redirect(new URL('/workspace', request.url));
+                    return NextResponse.redirect(new URL(`/workspace/${sid.value.username}`, request.url));
                 }
             } else {
                 return NextResponse.next();
@@ -66,7 +66,7 @@ export async function middleware(request) {
             console.log(data);
             if (data.isSessionValid) {
                 if (!data.verifSlug) {
-                    return NextResponse.redirect(new URL('/workspace', request.url));
+                    return NextResponse.redirect(new URL(`/workspace/${sid.value.username}`, request.url));
                 }
             } else {
                 return NextResponse.redirect(new URL('/authentication/login', request.url));

@@ -108,13 +108,16 @@
         width: 60%;
     }
     .links2 {
-        width: 30%;
+        width: 45%;
     }
 }
 
 @media screen and (min-width: 1000px) {
     .links {
         width: 50%;
+    }
+    .links2 {
+        width: 35%;
     }
 }
 

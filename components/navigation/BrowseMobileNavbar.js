@@ -5,7 +5,7 @@ import Link from "next/link";
 import { useState } from "react";
 import { robotoMono } from "@/app/fonts.js";
 import { AnimatePresence, motion, useAnimate } from "framer-motion";
-import MobileModulesDropdown from "./MobileModulesDropdown";
+import MobileModulesDropdown from "./BrowseMobileModulesDropdown";
 
 export default function MobileNavbar() {
     let [isMenuDroppedDown, setMenuDropDown] = useState(false);
