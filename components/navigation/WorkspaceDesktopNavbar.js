@@ -5,7 +5,7 @@ import Link from "next/link";
 import { useState } from "react";
 import { robotoMono } from "@/app/fonts.js";
 import { motion, AnimatePresence } from "framer-motion";
-import WorkspaceDesktopModulesDropdown from "./WorkspaceDesktopModulesDropdown.js";
+import WorkspaceDesktopDropdown from "./WorkspaceDesktopDropdown.js";
 
 export default function WorkspaceDesktopNavbar() {
     let [modulesDropDown, setModulesDropDown] = useState(false);
@@ -17,8 +17,6 @@ export default function WorkspaceDesktopNavbar() {
             setModulesDropDown(true);
         }
     }
-
-    let isSessionOn = false;
 
     function handleRedirect() {
         setModulesDropDown(false);
@@ -39,17 +37,16 @@ export default function WorkspaceDesktopNavbar() {
                     </motion.svg>
                     <AnimatePresence>
                         {modulesDropDown &&
-                            <WorkspaceDesktopModulesDropdown />
+                            <WorkspaceDesktopDropdown />
                         }
                     </AnimatePresence>
                 </div>
-                <Link
+                <button
                     className={`${classes.navBotton} ${robotoMono.className}`}
-                    href="/authentication/register"
                     onClick={handleRedirect}
                 >
                     New Project
-                </Link>
+                </button>
             </div>
         </nav>
     );

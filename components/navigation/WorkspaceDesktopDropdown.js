@@ -4,7 +4,7 @@ import { robotoMono } from "@/app/fonts";
 import { motion } from "framer-motion";
 import { userLogout } from "@/lib/server-actions/auth";
 
-export default function WorkspaceDesktopModulesDropdown() {
+export default function WorkspaceDesktopDropdown() {
 
     return (
         <motion.div

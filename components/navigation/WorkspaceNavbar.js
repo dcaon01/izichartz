@@ -1,4 +1,5 @@
 import WorkspaceDesktopNavbar from "./WorkspaceDesktopNavbar";
+import WorkspaceMobileNavbar from "./WorkspaceMobileNavbar";
 
 /**
  * Sulla falsa riga della Browse Navbar, gestiamo anche
@@ -8,6 +9,7 @@ export default function WorkspaceNavbar() {
     
     return (
         <>
+            <WorkspaceMobileNavbar />
             <WorkspaceDesktopNavbar />
         </>
     );
