@@ -5,13 +5,12 @@ import Link from "next/link";
 import { useState } from "react";
 import { robotoMono } from "@/app/fonts.js";
 import { motion, AnimatePresence } from "framer-motion";
-import DesktopModulesDropdown from "./BrowseDesktopModulesDropdown.js";
+import WorkspaceDesktopModulesDropdown from "./WorkspaceDesktopModulesDropdown.js";
 
 export default function WorkspaceDesktopNavbar() {
     let [modulesDropDown, setModulesDropDown] = useState(false);
 
     function handleModulesDropDown(event) {
-        event.preventDefault();
         if (modulesDropDown) {
             setModulesDropDown(false);
         } else {
@@ -40,7 +39,7 @@ export default function WorkspaceDesktopNavbar() {
                     </motion.svg>
                     <AnimatePresence>
                         {modulesDropDown &&
-                            <DesktopModulesDropdown />
+                            <WorkspaceDesktopModulesDropdown />
                         }
                     </AnimatePresence>
                 </div>

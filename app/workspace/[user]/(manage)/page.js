@@ -10,7 +10,7 @@ import classes from "./ManagePage.module.css";
 export default function ManagePage() {
     return (
         <main>
-            <div className={classes.content}>
+            <div className={general.content}>
                 <div className={classes.description}>
                     <h1 className={`${robotoMono.className} ${general.title}`}>
                         Workspace

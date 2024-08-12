@@ -8,6 +8,7 @@ import { robotoMono } from "@/app/fonts";
 import { useFormState } from "react-dom";
 import { userLogin } from "@/lib/server-actions/auth";
 
+// Disattivare il pulsante durante l'invio del form con useFormStatus e pending
 export default function LoginPage() {
     let [state, formAction] = useFormState(userLogin, { messages: [] });
 

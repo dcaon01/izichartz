@@ -2,10 +2,12 @@ import classes from "./DesktopModulesDropdown.module.css";
 import Link from "next/link";
 import { robotoMono } from "@/app/fonts";
 import { motion } from "framer-motion";
+import { userLogout } from "@/lib/server-actions/auth";
 
-export default function BrowseDesktopModulesDropdown() {
+export default function WorkspaceDesktopModulesDropdown() {
+
     return (
-        <motion.div 
+        <motion.div
             className={classes.modulesDropdown}
             initial={{
                 top: 70,
@@ -20,7 +22,10 @@ export default function BrowseDesktopModulesDropdown() {
                 opacity: 0,
             }}
         >
-            <Link className={`${classes.link} ${robotoMono.className}`} href="/entity-relationship">Entity-Relationship</Link>
+            <Link className={`${classes.link} ${robotoMono.className}`} href="">Manage</Link>
+            <form action={userLogout}>
+                <button className={`${classes.link} ${robotoMono.className}`} type="submit">Logout</button>
+            </form>
         </motion.div>
     );
 }

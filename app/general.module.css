@@ -7,7 +7,7 @@
     position: relative;
     display: flex;
     width: 100%;
-    min-height: 200px;
+    min-height: 100vh;
     border-top: 1.5px solid black;
     justify-content: center;
     padding-top: 100px;

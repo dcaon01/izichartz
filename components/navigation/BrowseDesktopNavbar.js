@@ -5,7 +5,7 @@ import { useState, useEffect } from "react";
 import Link from "next/link";
 import { robotoMono } from "@/app/fonts.js";
 import { motion, AnimatePresence } from "framer-motion";
-import DesktopModulesDropdown from "./BrowseDesktopModulesDropdown.js";
+import BrowseDesktopModulesDropdown from "./BrowseDesktopModulesDropdown.js";
 import { getCookie } from "cookies-next";
 
 export default function DesktopNavbar() {
@@ -51,7 +51,7 @@ export default function DesktopNavbar() {
                     </motion.svg>
                     <AnimatePresence>
                         {modulesDropDown &&
-                            <DesktopModulesDropdown />
+                            <BrowseDesktopModulesDropdown />
                         }
                     </AnimatePresence>
                 </div>
