@@ -7,6 +7,7 @@ import { robotoMono } from "@/app/fonts.js";
 import { AnimatePresence, motion, useAnimate } from "framer-motion";
 import MobileModulesDropdown from "./BrowseMobileModulesDropdown";
 import { getCookie } from "cookies-next";
+import BlackOpaqueBackGround from "../utility/BlackOpaqueBackGround";
 
 export default function MobileNavbar() {
     let [isMenuDroppedDown, setMenuDropDown] = useState(false);
@@ -139,13 +140,7 @@ export default function MobileNavbar() {
             <AnimatePresence>
                 {
                     isMenuDroppedDown &&
-                    <motion.div
-                        initial={{ opacity: 0 }}
-                        animate={{ opacity: 0.5 }}
-                        exit={{ opacity: 0 }}
-                        className={classes.blackBG}
-                        onClick={handleMenuDeselection}
-                    />
+                    <BlackOpaqueBackGround funct={handleMenuDeselection} />
                 }
             </AnimatePresence>
         </>

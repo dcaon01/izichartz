@@ -181,3 +181,9 @@ L'unica cosa che dobbiamo gestire è la quantità di zoom che si può fare sul w
 la dimensione della finestra osservabile.
 
 [def]: https://www.w3schools.com/graphics/svg_intro.asp
+
+## REFACTOR
+Abbiamo alcune cose che si potrebbero costruire in modo da aver meno codice possibile. 
+Ad esempio il modale che esce con la creazione di un nuovo progetto e gli input per la registrazione sono molto simili.
+Si potrebbe pensare di unificare anche le navbar. Però, per ora, non ha senso stare qui a farsi tutte ste seghe mentali.
+Con relativi css che possono essere spostati a general. Oppure i componenti possono direttamente essere spostati in general

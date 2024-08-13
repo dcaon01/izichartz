@@ -6,10 +6,13 @@ import { useState } from "react";
 import { robotoMono } from "@/app/fonts.js";
 import { AnimatePresence, motion, useAnimate } from "framer-motion";
 import WorkspaceMobileDropdown from "./WorkspaceMobileDropdown";
+import BlackOpaqueBackGround from "../utility/BlackOpaqueBackGround";
+import NewProject from "../workspace/NewProject";
 
 export default function WorkspaceMobileNavbar() {
     let [isMenuDroppedDown, setMenuDropDown] = useState(false);
     let [modulesDropDown, setModulesDropDown] = useState(false);
+    let [modal, setModal] = useState(false);
     let [scope, animate] = useAnimate();
 
     function handleMenuDropDown() {
@@ -99,7 +102,7 @@ export default function WorkspaceMobileNavbar() {
                                     {modulesDropDown &&
                                         <WorkspaceMobileDropdown key="accountDropdown" handler={handleMenuDeselection} />
                                     }
-                                    <Link className={`${classes.link} ${robotoMono.className}`} onClick={handleMenuDeselection} href="">Back Home</Link>
+                                    <Link className={`${classes.link} ${robotoMono.className}`} onClick={handleMenuDeselection} href="/">Back Home</Link>
                                 </AnimatePresence>
                             </div>
                         </motion.div>
@@ -110,15 +113,12 @@ export default function WorkspaceMobileNavbar() {
             <AnimatePresence>
                 {
                     isMenuDroppedDown &&
-                    <motion.div
-                        initial={{ opacity: 0 }}
-                        animate={{ opacity: 0.5 }}
-                        exit={{ opacity: 0 }}
-                        className={classes.blackBG}
-                        onClick={handleMenuDeselection}
-                    />
+                    <BlackOpaqueBackGround funct={handleMenuDeselection} />
                 }
             </AnimatePresence>
+            {
+                modal && <NewProject />
+            }
         </>
     );
 };
