@@ -6,6 +6,7 @@ import { robotoMono } from "@/app/fonts";
 import { useFormState } from "react-dom";
 import { createProject } from "@/lib/server-actions/manage";
 import { motion } from "framer-motion";
+import ErrorDisplayer from "@/components/authentication/ErrorDisplayer";
 
 /**
  * NewProject
@@ -39,17 +40,20 @@ export default function NewProject({ funct }) {
                         <img src="/assets/global/crossed-menu.png" className={classes.cross} onClick={funct} />
                     </div>
                     <h1 className={`${robotoMono.className}`}>New Project</h1>
+                    <div style={{width: 300}}>
+                        {state.messages.length > 0 && <ErrorDisplayer messages={state.messages} />}
+                    </div>
                     <form action={formAction} className={classes.form}>
                         {/* Da generalizzare, ma per ora va bene */}
                         <AuthInput id="project-name" type="text" label="Insert Project Name" />
                         <div className={classes.selection}>
                             <label className={`${robotoMono.className}`}>Select Module</label>
                             <select id="project-module" name="project-module" className={classes.selector}>
-                                <option value="" selected disabled>-</option>
+                                <option value="-" selected>-</option>
                                 <option value="entity-relationship">Entity-Relationship</option>
                             </select>
                         </div>
-                        <button type="submit" className={`${robotoMono.className} ${classes.submitButton}`}>Create</button>
+                        <button type="submit" className={`${robotoMono.className} ${classes.projectSubmitButton}`}>Create</button>
                     </form>
                 </motion.div>
             </div>

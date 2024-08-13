@@ -153,12 +153,11 @@ Quindi abbiamo sicuro la tabella USER per memorizzare i dati dell'utente, che av
 - password: password dell'utente.
 
 Dobbiamo memorizzare anche tutti i dati relativi ai progetti, che devono essere associati ad un determinato utente, nella tabella PROJECTS:
-- name: nome del progetto
-- id: progetto, che sarà un int incrementale, o una roba del 
-- details: JSON o JSONB con il nome del
+- name: nome del progetto.
 - content: che altro non sarà che un JSON o JSONB con tutte le informazioni necessarie alla traduzione del progetto in grafica.
 - module: tipo di modulo.
 - owner: che sarà un campo in integrità referenziale con la chiave primaria della tabella USER.
+- creation: data di creazione del progetto.
 
 Potremmo pensare di inserire una tabella BILLING_INFO, in cui inseriamo le informazioni per la fatturazione (utili perché così inviamo tutto a stripe, e poi al programma di fatturazione da stripe):
 - 

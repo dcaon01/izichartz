@@ -47,6 +47,15 @@ export default function WorkspaceMobileNavbar() {
         }
     }
 
+    function handleModal() {
+        setModulesDropDown(false);
+        if (modal) {
+            setModal(false);
+        } else {
+            setModal(true);
+        }
+    }
+
     return (
         <>
             <motion.nav
@@ -89,7 +98,7 @@ export default function WorkspaceMobileNavbar() {
                                 <AnimatePresence>
                                     <button
                                         className={`${classes.navBotton} ${robotoMono.className}`}
-                                        onClick={handleMenuDeselection}
+                                        onClick={handleModal}
                                     >
                                         New Project
                                     </button>
@@ -117,7 +126,7 @@ export default function WorkspaceMobileNavbar() {
                 }
             </AnimatePresence>
             {
-                modal && <NewProject />
+                modal && <NewProject funct={handleModal}/>
             }
         </>
     );

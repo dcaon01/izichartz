@@ -1,11 +1,11 @@
 .modal {
-   position: fixed;
-   z-index: 13;
-   display: flex;
-   justify-content: center;
-   align-items: center;
-   height: 100%;
-   width: 100%;
+    position: fixed;
+    z-index: 13;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 100%;
+    width: 100%;
 }
 
 .formContainer {
@@ -39,7 +39,7 @@
     height: 26px;
 }
 
-.submitButton {
+.projectSubmitButton {
     display: flex;
     justify-content: center;
     align-items: center;
@@ -54,7 +54,7 @@
     margin-top: 20px;
 }
 
-.submitButton:hover {
+.projectSubmitButton:hover {
     background-color: white;
     border-width: 2px;
     border-color: black;
