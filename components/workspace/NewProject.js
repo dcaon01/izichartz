@@ -7,6 +7,7 @@ import { useFormState } from "react-dom";
 import { createProject } from "@/lib/server-actions/manage";
 import { motion } from "framer-motion";
 import ErrorDisplayer from "@/components/authentication/ErrorDisplayer";
+import FormButton from "@/components/utility/FormButton";
 
 /**
  * NewProject
@@ -40,7 +41,7 @@ export default function NewProject({ funct }) {
                         <img src="/assets/global/crossed-menu.png" className={classes.cross} onClick={funct} />
                     </div>
                     <h1 className={`${robotoMono.className}`}>New Project</h1>
-                    <div style={{width: 300}}>
+                    <div style={{ width: 300 }}>
                         {state.messages.length > 0 && <ErrorDisplayer messages={state.messages} />}
                     </div>
                     <form action={formAction} className={classes.form}>
@@ -53,7 +54,7 @@ export default function NewProject({ funct }) {
                                 <option value="entity-relationship">Entity-Relationship</option>
                             </select>
                         </div>
-                        <button type="submit" className={`${robotoMono.className} ${classes.projectSubmitButton}`}>Create</button>
+                        <FormButton text="Create" pendingText="Creating" />
                     </form>
                 </motion.div>
             </div>

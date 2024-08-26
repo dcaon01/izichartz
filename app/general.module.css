@@ -9,7 +9,8 @@
     width: 100%;
     min-height: 100vh;
     border-top: 1.5px solid black;
-    justify-content: center;
+    align-items: center;
     padding-top: 100px;
     padding-bottom: 100px;
+    flex-direction: column;
 }

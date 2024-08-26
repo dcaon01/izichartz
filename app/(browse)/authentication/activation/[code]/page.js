@@ -4,6 +4,7 @@ import classes from "../../Auth.module.css";
 import specClasses from "./ActivationPage.module.css";
 import AuthInput from "@/components/authentication/AuthInput";
 import ErrorDisplayer from "@/components/authentication/ErrorDisplayer";
+import FormButton from "@/components/utility/FormButton";
 import { userAccountActivation } from "@/lib/server-actions/auth";
 import { resendActivationCode } from "@/lib/server-actions/auth";
 import { robotoMono } from "@/app/fonts";
@@ -12,17 +13,20 @@ import { useFormState } from "react-dom";
 export default function ActivationPage({ params }) {
     const [accActError, userAccAct] = useFormState(userAccountActivation, { messages: [] });
     const [resError, resend] = useFormState(resendActivationCode, { messages: [] });
-    
+
     return (
         <>
             <h1 className={`${robotoMono.className}`}>Activate</h1>
+            <div style={{ width: 300 }}>
+                {state.messages.length > 0 && <ErrorDisplayer messages={state.messages} />}
+            </div>
             {accActError.messages.length > 0 && <ErrorDisplayer messages={accActError.messages} />}
             <p className={`${robotoMono.className} ${classes.header}`}>
                 Insert here the code we sent to your email to activate your account.
             </p>
             <form className={classes.form} action={userAccAct}>
                 <AuthInput id="activation-code" type="text" label="Code" />
-                <button className={`${classes.submitButton} ${robotoMono.className}`} type="submit">Activate</button>
+                <FormButton text="Activate" pendingText="Activating..."/>
                 <input style={{ display: "none" }} id="activation-slug" name="activation-slug" value={params.code} readOnly />
             </form>
             <form className={specClasses.resend} action={resend} >

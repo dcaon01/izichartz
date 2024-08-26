@@ -7,6 +7,7 @@ import { useFormState } from "react-dom";
 import { userRegister } from "@/lib/server-actions/auth.js";
 import ErrorDisplayer from "@/components/authentication/ErrorDisplayer";
 import AuthInput from "@/components/authentication/AuthInput.js";
+import FormButton from "@/components/utility/FormButton";
 
 /**
  * RegisterPage
@@ -19,15 +20,17 @@ export default function RegisterPage() {
     return (
         <>
             <h1 className={`${robotoMono.className}`}>Register</h1>
-            {state.messages.length > 0 && <ErrorDisplayer messages={state.messages} />}
+            <div style={{ width: 300 }}>
+                {state.messages.length > 0 && <ErrorDisplayer messages={state.messages} />}
+            </div>
             <form className={classes.form} action={formAction} noValidate>
-                <AuthInput id="register-username" type="text" label="Username"/>
-                <AuthInput id="register-email" type="email" label="Email"/>
-                <AuthInput id="register-password" type="password" label="Password"/>
-                <AuthInput id="register-confirm-password" type="password" label="Confirm Password"/>
-                <button className={`${classes.submitButton} ${robotoMono.className}`} type="submit">Register</button>
+                <AuthInput id="register-username" type="text" label="Username" />
+                <AuthInput id="register-email" type="email" label="Email" />
+                <AuthInput id="register-password" type="password" label="Password" />
+                <AuthInput id="register-confirm-password" type="password" label="Confirm Password" />
+                <FormButton text="Register" pendingText="Registering..."/>
             </form>
-            <RegLogSwitch switchTo={"login"}/>
+            <RegLogSwitch switchTo={"login"} />
         </>
     );
 }

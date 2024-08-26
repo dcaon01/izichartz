@@ -1,20 +1,7 @@
 import { NextResponse } from "next/server";
 import { Client } from "pg";
 import bcrypt from "bcrypt";
-
-// Database
-const client_user = process.env.DB_CLIENT_USER;
-const client_host = process.env.DB_CLIENT_HOST;
-const client_db = process.env.DB_CLIENT_DBNAME;
-const client_password = process.env.DB_CLIENT_PASSWORD;
-const client_port = process.env.DB_CLIENT_PORT;
-const clientOpt = {
-    user: client_user,
-    password: client_password,
-    host: client_host,
-    port: client_port,
-    database: client_db,
-}
+import clientOpt from "@/lib/utility/pgClientOptions";
 
 export async function POST(request) {
     // Andiamo a verificare la sessione, tramite il session ID mandato nella richiesta

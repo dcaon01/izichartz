@@ -1,19 +1,6 @@
 import { Client } from "pg";
 import { NextResponse } from "next/server";
-
-// Database
-const client_user = process.env.DB_CLIENT_USER;
-const client_host = process.env.DB_CLIENT_HOST;
-const client_db = process.env.DB_CLIENT_DBNAME;
-const client_password = process.env.DB_CLIENT_PASSWORD;
-const client_port = process.env.DB_CLIENT_PORT;
-const clientOpt = {
-    user: client_user,
-    password: client_password,
-    host: client_host,
-    port: client_port,
-    database: client_db,
-}
+import clientOpt from "@/lib/utility/pgClientOptions";
 
 /** 
  * Route handler per la verifica di esistenza di
@@ -27,8 +14,8 @@ export async function POST(request) {
     let response = {
         isOk: false
     }
+    const client = new Client(clientOpt);
     try {
-        const client = new Client(clientOpt);
         await client.connect();
         const result = await client.query(verifyProjectNameQuery, [name, email]);
         if (result.rows.length === 1) {
