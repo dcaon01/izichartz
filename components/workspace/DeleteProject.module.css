@@ -1,0 +1,46 @@
+.modal {
+    position: fixed;
+    z-index: 13;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 100%;
+    width: 100%;
+    top: 0;
+}
+
+.formContainer {
+    background-color: white;
+    border-radius: 10px;
+    border-color: black;
+    border-width: 1.5px;
+    padding: 20px;
+    display: flex;
+    flex-direction: column;
+    margin-top: 20px;
+}
+
+.form {
+    width: 300px;
+}
+
+.crossContainer {
+    display: flex;
+}
+
+.cross {
+    margin-left: auto;
+    height: 20px;
+}
+
+.cross:hover {
+    cursor: pointer;
+}
+
+.deletingText {
+    display: flex;
+    word-wrap: break-word;
+    overflow-wrap: break-word;
+    font-size: 12px;
+    margin-top: 20px;
+}

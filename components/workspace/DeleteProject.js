@@ -1,23 +1,22 @@
 'use client';
 
-import classes from "./NewProject.module.css";
-import AuthInput from "../authentication/AuthInput";
+import classes from "./DeleteProject.module.css";
 import { robotoMono } from "@/app/fonts";
 import { useFormState } from "react-dom";
-import { createProject } from "@/lib/server-actions/manage";
+import { deleteProject } from "@/lib/server-actions/manage";
 import { motion } from "framer-motion";
 import ErrorDisplayer from "@/components/authentication/ErrorDisplayer";
 import FormButton from "@/components/utility/FormButton";
 
 /**
- * NewProject
- * Componente che renderizza una finestra modale per la creazione
+ * DeleteProject
+ * Componente che renderizza una finestra modale per l'eliminazione
  * di un nuovo progetto.
- * Si selezionerà semplicemente il nome e il tipo di modulo.
+ * Si selezionerà semplicemente yes o no.
  * @refactor andare ad estrapolare un modale esterno che poi può essere riutilizzato?
  */
-export default function NewProject({ funct }) {
-    let [state, formAction] = useFormState(createProject, { messages: [] });
+export default function DeleteProject({ name, funct }) {
+    let [state, formAction] = useFormState(deleteProject, { messages: [] });
 
     function handleFormClick(event) {
         event.stopPropagation();
@@ -41,21 +40,27 @@ export default function NewProject({ funct }) {
                     <div className={classes.crossContainer}>
                         <img src="/assets/global/crossed-menu.png" className={classes.cross} onClick={funct} />
                     </div>
-                    <h1 className={`${robotoMono.className}`}>New Project</h1>
+                    <h1 className={`${robotoMono.className}`}>Delete Project</h1>
                     <div style={{ width: 300 }}>
                         {state.messages.length > 0 && <ErrorDisplayer messages={state.messages} />}
                     </div>
                     <form action={formAction} className={classes.form}>
-                        {/* Da generalizzare, ma per ora va bene */}
-                        <AuthInput id="project-name" type="text" label="Insert Project Name" />
-                        <div className={classes.selection}>
-                            <label className={`${robotoMono.className}`}>Select Module</label>
-                            <select id="project-module" name="project-module" className={classes.selector}>
-                                <option value="-" selected>-</option>
-                                <option value="entity-relationship">Entity-Relationship</option>
-                            </select>
-                        </div>
-                        <FormButton text="Create" pendingText="Creating..." />
+                        <p className={`${robotoMono.className} ${classes.deletingText}`}>
+                            Are you sure to delete {name}? <br />
+                            You won't be able to restore it anymore. <br />
+                            If you are sure, click "Delete", <br />
+                            otherwise close this window.
+                        </p>
+                        <input
+                            id="deleting-project-name"
+                            name="deleting-project-name"
+                            type="text"
+                            value={name}
+                            className={`${robotoMono.className} ${classes.deletingText}`}
+                            style={{ display: "none" }}
+                            readOnly
+                        />
+                        <FormButton onClick={funct} text="Delete" pendingText="Deleting..." />
                     </form>
                 </motion.div>
             </div>
@@ -76,4 +81,3 @@ export default function NewProject({ funct }) {
         </>
     );
 }
-

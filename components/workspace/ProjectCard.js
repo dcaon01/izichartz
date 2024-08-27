@@ -4,10 +4,13 @@ import { robotoMono } from "@/app/fonts";
 import classes from "./ProjectCard.module.css";
 import { AnimatePresence, motion } from "framer-motion";
 import { useState } from "react";
+import DeleteProject from "@/components/workspace/DeleteProject";
 
 export default function ProjectCard({ name, module, creation, preview }) {
     let [isHover, setIsHover] = useState(false);
     let [tooltipText, setTooltipText] = useState("");
+    let [isDeleting, setIsDeleting] = useState(false);
+    let [isRenaming, setIsRenaming] = useState(false);
 
     function setIsHoverTrue() {
         setIsHover(true);
@@ -27,9 +30,29 @@ export default function ProjectCard({ name, module, creation, preview }) {
             setTooltipText("Click to Delete");
         }
     }
+    
+    function deleteProject(event) {
+        event.preventDefault();
+        if (isDeleting) {
+            setIsDeleting(false);
+        } else {
+            setIsDeleting(true);
+        }
+    }
+
+    function renameProject(event) {
+        event.stopPropagation();
+        if (isRenaming) {
+            setIsRenaming(false);
+        } else {
+            setIsRenaming(true);
+        }
+    }
 
     return (
         <>
+            {/* Renderizziamo i due modali */}
+            {isDeleting && <DeleteProject name={name} funct={deleteProject}/>}
             <motion.div
                 className={classes.card}
                 onHoverStart={setIsHoverTrue}
@@ -78,6 +101,7 @@ export default function ProjectCard({ name, module, creation, preview }) {
                         onHoverStart={setHoverTooltip}
                         onHoverEnd={setIsHoverTrue}
                         id="rename-project-tooltip"
+                        onClick={renameProject}
                     />
                     <motion.img
                         src="/assets/global/crossed-menu.png"
@@ -93,6 +117,7 @@ export default function ProjectCard({ name, module, creation, preview }) {
                         onHoverStart={setHoverTooltip}
                         onHoverEnd={setIsHoverTrue}
                         id="delete-project-tooltip"
+                        onClick={deleteProject}
                     />
                     {/* Immagine className={classes.preview} */}
                     <img src={preview} height={200} width={200} style={{}} />
