@@ -67,7 +67,7 @@
     border-right: 1.5px solid white;
 }
 
-@media screen and (max-width: 750px){
+@media screen and (max-width: 780px){
     .footerContent {
         flex-direction: column;
         margin-top: 20px;

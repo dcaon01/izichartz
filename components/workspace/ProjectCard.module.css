@@ -9,6 +9,42 @@
     width: 200;
 }
 
+.card:hover {
+    cursor: pointer;
+}
+
 .info {
     padding: 10px;
+}
+
+.actionImage {
+    position: absolute;
+    top: 5px;
+}
+
+.modifyImage {
+    left: 5px;
+}
+
+.eliminateImage {
+    right: 5px;
+}
+
+.actionImage:hover {
+    cursor: pointer;
+}
+
+.tooltip {
+    position: absolute;
+    display: flex;
+    justify-content: center;
+    text-align: center;
+    background-color: black;
+    padding: 4px;
+    border-radius: 2px;
+}
+
+.tooltip p {
+    color: white;
+    font-size: 12px;
 }
