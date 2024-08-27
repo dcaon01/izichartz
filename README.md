@@ -24,6 +24,7 @@ Facciamo prima i componenti per l'ER che funzionano, poi cerchiamo di generalizz
 - **csprng**: package che permette si generare delle stringe pseudocasuali crittograficamente sicure, cioè con un entropia alta e quindi non guessabili facilmente.
 - **crypto-js**: package che permette la criptazione (non hashing, che non è reversibile) di stringhe.
 - **cookies-next**: package che permette il prelevamento dei cookies da client components in next in modo più semplice.
+- **flaticon**: per l'itulizzo di icone in modo gratuito [Site](https://www.flaticon.com)
 
 
 ## Flow all'interno dell'applicazione e requisiti
