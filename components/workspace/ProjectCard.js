@@ -7,13 +7,25 @@ import { useState } from "react";
 
 export default function ProjectCard({ name, module, creation, preview }) {
     let [isHover, setIsHover] = useState(false);
+    let [tooltipText, setTooltipText] = useState("");
 
     function setIsHoverTrue() {
         setIsHover(true);
+        setTooltipText("Click to Edit");
     }
 
     function setIsHoverFalse() {
         setIsHover(false);
+        setTooltipText("");
+    }
+
+    function setHoverTooltip(event) {
+        if(event.target.id === "rename-project-tooltip") {
+            setTooltipText("Click to Rename");
+        }
+        if (event.target.id === "delete-project-tooltip") {
+            setTooltipText("Click to Delete");
+        }
     }
 
     return (
@@ -44,7 +56,7 @@ export default function ProjectCard({ name, module, creation, preview }) {
                             top: -30
                         }}
                     >
-                        <p className={`${robotoMono.className}`} >Click to edit</p>
+                        <p className={`${robotoMono.className}`} >{tooltipText}</p>
                     </motion.div>
                     :
                     null
@@ -63,6 +75,9 @@ export default function ProjectCard({ name, module, creation, preview }) {
                         animate={{
                             opacity: isHover ? 1 : 0,
                         }}
+                        onHoverStart={setHoverTooltip}
+                        onHoverEnd={setIsHoverTrue}
+                        id="rename-project-tooltip"
                     />
                     <motion.img
                         src="/assets/global/crossed-menu.png"
@@ -75,6 +90,9 @@ export default function ProjectCard({ name, module, creation, preview }) {
                         animate={{
                             opacity: isHover ? 1 : 0,
                         }}
+                        onHoverStart={setHoverTooltip}
+                        onHoverEnd={setIsHoverTrue}
+                        id="delete-project-tooltip"
                     />
                     {/* Immagine className={classes.preview} */}
                     <img src={preview} height={200} width={200} style={{}} />
