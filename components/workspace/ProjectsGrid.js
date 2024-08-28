@@ -24,7 +24,11 @@ export default async function ProjectGrid() {
             body: JSON.stringify({ email }),
         }
     );
-    const projects = await fetchedProjects.json();
+    let projects = await fetchedProjects.json();
+    // Ordiniamo in ordine decrescente di data di modifica.
+    await projects.sort((proj1, proj2) => {
+        return new Date(proj2.lastModified).getTime() - new Date(proj1.lastModified).getTime();
+    });
 
     return (
         <div className={classes.gridContainer}>
@@ -39,32 +43,46 @@ export default async function ProjectGrid() {
                         </div>
                         :
                         projects.map((project) => {
-                            // Mettiamo la data in un formato leggibile
-                            const date = new Date(project.creation);
-                            const timeZone = Intl.DateTimeFormat().resolvedOptions().timeZone;
-                            // Opzioni per la formattazione della data e dell'ora
-                            const options = {
-                                year: 'numeric',
-                                month: '2-digit',
-                                day: '2-digit',
-                                hour: '2-digit',
-                                minute: '2-digit',
-                                hour12: false, // usa il formato 24 ore
-                                timeZone: timeZone, // applica il fuso orario dell'utente
-                            };
-                            const formattedDateTime = date.toLocaleString('default', options);
-                            // Modifica il formato per "YYYY/MM/DD HH:mm"
-                            // Split per ottenere data e ora separati
-                            const [datePart, timePart] = formattedDateTime.split(', ');
-                            const [month, day, year] = datePart.split('/');
-                            const formattedDate = `${year}/${month}/${day}`;
-                            const newDate = `${formattedDate} ${timePart}`;
+                            const creation = timestampToReadableFormat(project.creation);
+                            console.log(project.lastModified);
+                            const lastModified = timestampToReadableFormat(project.lastModified);
                             console.log(project.preview);
-                            return (<ProjectCard key={project.name} name={project.name} module={project.module} creation={newDate} preview={project.preview} />);
+                            return (<ProjectCard key={project.name} name={project.name} module={project.module} creation={creation} lastModified={lastModified} preview={project.preview} />);
                         })
                 }
             </Suspense>
         </div>
     );
 }
+
+/**
+ * timestampToReadableFormat()
+ * Funzione che prende in pasto una data in timestamp e 
+ * la ritorna col seguente formato: YYYY/MM/DD HH:mm
+ * @param toConvert data in timestamp da convertire.
+ * @return data convertita nel formato designato.
+ */
+function timestampToReadableFormat(timestamp) {
+     // Mettiamo la data in un formato leggibile
+     const date = new Date(timestamp);
+     const timeZone = Intl.DateTimeFormat().resolvedOptions().timeZone;
+     // Opzioni per la formattazione della data e dell'ora
+     const options = {
+         year: 'numeric',
+         month: '2-digit',
+         day: '2-digit',
+         hour: '2-digit',
+         minute: '2-digit',
+         hour12: false, // usa il formato 24 ore
+         timeZone: timeZone, // applica il fuso orario dell'utente
+     };
+     const formattedDateTime = date.toLocaleString('default', options);
+     // Modifica il formato per "YYYY/MM/DD HH:mm"
+     // Split per ottenere data e ora separati
+     const [datePart, timePart] = formattedDateTime.split(', ');
+     const [month, day, year] = datePart.split('/');
+     const formattedDate = `${year}/${month}/${day}`;
+     const newDate = `${formattedDate} ${timePart}`;
+     return newDate;
+}   
 

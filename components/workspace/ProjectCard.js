@@ -6,12 +6,21 @@ import { AnimatePresence, motion } from "framer-motion";
 import { useState } from "react";
 import DeleteProject from "@/components/workspace/DeleteProject";
 import RenameProject from "@/components/workspace/RenameProject";
+import { useRouter } from "next/navigation";
 
-export default function ProjectCard({ name, module, creation, preview }) {
+export default function ProjectCard({ name, module, creation, lastModified, preview }) {
     let [isHover, setIsHover] = useState(false);
     let [tooltipText, setTooltipText] = useState("");
     let [isDeleting, setIsDeleting] = useState(false);
     let [isRenaming, setIsRenaming] = useState(false);
+    const router = useRouter();
+    let visualName = null;
+
+    if (name.length > 20) {
+        visualName = name.substring(0, 19) + "...";
+    } else {
+        visualName = name;
+    }
 
     function setIsHoverTrue() {
         setIsHover(true);
@@ -24,15 +33,16 @@ export default function ProjectCard({ name, module, creation, preview }) {
     }
 
     function setHoverTooltip(event) {
-        if(event.target.id === "rename-project-tooltip") {
+        if (event.target.id === "rename-project-tooltip") {
             setTooltipText("Click to Rename");
         }
         if (event.target.id === "delete-project-tooltip") {
             setTooltipText("Click to Delete");
         }
     }
-    
+
     function deleteProject(event) {
+        event.stopPropagation();
         event.preventDefault();
         if (isDeleting) {
             setIsDeleting(false);
@@ -43,6 +53,7 @@ export default function ProjectCard({ name, module, creation, preview }) {
 
     function renameProject(event) {
         event.stopPropagation();
+        event.preventDefault();
         if (isRenaming) {
             setIsRenaming(false);
         } else {
@@ -50,11 +61,16 @@ export default function ProjectCard({ name, module, creation, preview }) {
         }
     }
 
+    function editProject(event) {
+        event.stopPropagation();
+        router.push("/");
+    }
+
     return (
         <>
             {/* Renderizziamo i due modali */}
-            {isDeleting && <DeleteProject name={name} funct={deleteProject}/>}
-            {isRenaming && <RenameProject name={name} funct={renameProject}/>}
+            {isDeleting && <DeleteProject name={name} funct={deleteProject} />}
+            {isRenaming && <RenameProject name={name} funct={renameProject} />}
             <motion.div
                 className={classes.card}
                 onHoverStart={setIsHoverTrue}
@@ -66,11 +82,12 @@ export default function ProjectCard({ name, module, creation, preview }) {
                     y: -5,
                     boxShadow: '0 5px 4px rgba(0, 0, 0, 0.2)'
                 }}
+                onClick={editProject}
             >
                 <AnimatePresence />
                 {isHover
                     ?
-                    <motion.div 
+                    <motion.div
                         className={classes.tooltip}
                         initial={{
                             opacity: 0,
@@ -122,12 +139,13 @@ export default function ProjectCard({ name, module, creation, preview }) {
                         onClick={deleteProject}
                     />
                     {/* Immagine className={classes.preview} */}
-                    <img src={preview} height={200} width={200} style={{}} />
+                    <img src={preview} className={classes.preview} />
                 </div>
                 <div className={classes.info}>
-                    <p className={robotoMono.className}>{name}</p>
+                    <p className={robotoMono.className}>{visualName}</p>
                     <p className={robotoMono.className} style={{ fontSize: 12 }}>{module}</p>
-                    <p className={robotoMono.className} style={{ fontSize: 12 }}>{creation}</p>
+                    <p className={robotoMono.className} style={{ fontSize: 12 }}>Last modified: {lastModified}</p>
+                    <p className={robotoMono.className} style={{ fontSize: 12 }}>Created: {creation}</p>
                 </div>
             </motion.div>
         </>

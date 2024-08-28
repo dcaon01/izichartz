@@ -6,11 +6,17 @@
     border-radius: 5px;
     justify-content: center;
     align-items: center;
-    width: 200;
+    width: 250px;
 }
 
 .card:hover {
     cursor: pointer;
+}
+
+.preview {
+    width: 250px;
+    height: 200px;
+    overflow: hidden;
 }
 
 .info {

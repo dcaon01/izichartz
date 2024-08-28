@@ -8,7 +8,7 @@ import { NextResponse } from "next/server";
  */
 export async function POST(request) {
     const { email } = await request.json();
-    const fetchProjectsQuery = 'SELECT "name", "module", "creation", "preview" FROM "PROJECTS" WHERE "owner"=$1';
+    const fetchProjectsQuery = 'SELECT "name", "module", "creation", "lastModified", "preview" FROM "PROJECTS" WHERE "owner"=$1';
     const client = new Client(clientOpt);
     let projects = [];
     let results = null;
