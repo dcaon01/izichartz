@@ -5,6 +5,7 @@ import classes from "./ProjectCard.module.css";
 import { AnimatePresence, motion } from "framer-motion";
 import { useState } from "react";
 import DeleteProject from "@/components/workspace/DeleteProject";
+import RenameProject from "@/components/workspace/RenameProject";
 
 export default function ProjectCard({ name, module, creation, preview }) {
     let [isHover, setIsHover] = useState(false);
@@ -53,6 +54,7 @@ export default function ProjectCard({ name, module, creation, preview }) {
         <>
             {/* Renderizziamo i due modali */}
             {isDeleting && <DeleteProject name={name} funct={deleteProject}/>}
+            {isRenaming && <RenameProject name={name} funct={renameProject}/>}
             <motion.div
                 className={classes.card}
                 onHoverStart={setIsHoverTrue}

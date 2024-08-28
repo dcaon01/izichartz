@@ -1,0 +1,54 @@
+.modal {
+    position: fixed;
+    z-index: 13;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 100%;
+    width: 100%;
+    top: 0;
+}
+
+.formContainer {
+    background-color: white;
+    border-radius: 10px;
+    border-color: black;
+    border-width: 1.5px;
+    padding: 20px;
+    display: flex;
+    flex-direction: column;
+    margin-top: 20px;
+}
+
+.form {
+    width: 300px;
+}
+
+.crossContainer {
+    display: flex;
+}
+
+.cross {
+    margin-left: auto;
+    height: 20px;
+}
+
+.cross:hover {
+    cursor: pointer;
+}
+
+.inputWrapper {
+    display: flex;
+    flex-direction: column;
+    margin-top: 10px;
+    margin-bottom: 10px;
+}
+
+.input {
+    border-width: 0.75px;
+    height: 26px;
+    border-color: black;
+    border-radius: 5px;
+    padding-left: 5px;
+    padding-right: 5px;
+}
