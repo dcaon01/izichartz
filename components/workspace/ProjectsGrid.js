@@ -47,7 +47,7 @@ export default async function ProjectGrid() {
                             console.log(project.lastModified);
                             const lastModified = timestampToReadableFormat(project.lastModified);
                             console.log(project.preview);
-                            return (<ProjectCard key={project.name} name={project.name} module={project.module} creation={creation} lastModified={lastModified} preview={project.preview} />);
+                            return (<ProjectCard key={project.id} id={project.id} name={project.name} module={project.module} creation={creation} lastModified={lastModified} preview={project.preview} />);
                         })
                 }
             </Suspense>
@@ -63,26 +63,26 @@ export default async function ProjectGrid() {
  * @return data convertita nel formato designato.
  */
 function timestampToReadableFormat(timestamp) {
-     // Mettiamo la data in un formato leggibile
-     const date = new Date(timestamp);
-     const timeZone = Intl.DateTimeFormat().resolvedOptions().timeZone;
-     // Opzioni per la formattazione della data e dell'ora
-     const options = {
-         year: 'numeric',
-         month: '2-digit',
-         day: '2-digit',
-         hour: '2-digit',
-         minute: '2-digit',
-         hour12: false, // usa il formato 24 ore
-         timeZone: timeZone, // applica il fuso orario dell'utente
-     };
-     const formattedDateTime = date.toLocaleString('default', options);
-     // Modifica il formato per "YYYY/MM/DD HH:mm"
-     // Split per ottenere data e ora separati
-     const [datePart, timePart] = formattedDateTime.split(', ');
-     const [month, day, year] = datePart.split('/');
-     const formattedDate = `${year}/${month}/${day}`;
-     const newDate = `${formattedDate} ${timePart}`;
-     return newDate;
-}   
+    // Mettiamo la data in un formato leggibile
+    const date = new Date(timestamp);
+    const timeZone = Intl.DateTimeFormat().resolvedOptions().timeZone;
+    // Opzioni per la formattazione della data e dell'ora
+    const options = {
+        year: 'numeric',
+        month: '2-digit',
+        day: '2-digit',
+        hour: '2-digit',
+        minute: '2-digit',
+        hour12: false, // usa il formato 24 ore
+        timeZone: timeZone, // applica il fuso orario dell'utente
+    };
+    const formattedDateTime = date.toLocaleString('default', options);
+    // Modifica il formato per "YYYY/MM/DD HH:mm"
+    // Split per ottenere data e ora separati
+    const [datePart, timePart] = formattedDateTime.split(', ');
+    const [month, day, year] = datePart.split('/');
+    const formattedDate = `${year}/${month}/${day}`;
+    const newDate = `${formattedDate} ${timePart}`;
+    return newDate;
+}
 

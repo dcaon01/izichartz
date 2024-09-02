@@ -105,7 +105,7 @@ export default function MobileNavbar() {
                                     {modulesDropDown &&
                                         <MobileModulesDropdown key="modulesDropdown" handler={handleMenuDeselection} />
                                     }
-                                    <Link key="plans-link" className={`${classes.link} ${robotoMono.className}`} onClick={handleMenuDeselection} href="">Plans</Link>
+                                    <Link key="plans-link" className={`${classes.link} ${robotoMono.className}`} onClick={handleMenuDeselection} href="/plans">Plans</Link>
                                     <Link key="contacts-link" className={`${classes.link} ${robotoMono.className}`} onClick={handleMenuDeselection} href="">Contacts</Link>
                                     <Link key="about-link" className={`${classes.link} ${robotoMono.className}`} onClick={handleMenuDeselection} href="">About</Link>
                                     {isSessionOn

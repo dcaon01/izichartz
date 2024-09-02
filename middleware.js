@@ -1,4 +1,3 @@
-import { revalidatePath } from 'next/cache';
 import { NextResponse } from 'next/server';
 
 /**
@@ -31,10 +30,10 @@ export async function middleware(request) {
                         });
                         if (path.includes("/editor/")) {
                             //Preleviamo il nome del progetto
-                            const name = path.substring(path.lastIndexOf("/") + 1);
-                            console.log(name);
+                            const id = path.substring(path.lastIndexOf("/") + 1);
+                            console.log(id);
                             //Controlliamo che il progetto esista
-                            const project = await callFetchProject(name, value.email, request);
+                            const project = await callFetchProject(id, value.email, request);
                             if (project.isOk) {
                                 return response;
                             } else {
@@ -127,7 +126,7 @@ async function callVerifySession(sid, request) {
  * @returns Response sotto forma di JSON con le informazioni necessarie per 
  * un giusto reindirizzamento
  */
-async function callFetchProject(name, email, request) {
+async function callFetchProject(id, email, request) {
     const resp = await fetch(new URL('/api/fetch/fetchProject', request.url), {
         method: 'POST',
         headers: {
@@ -135,7 +134,7 @@ async function callFetchProject(name, email, request) {
         },
         body: JSON.stringify({
             value: {
-                name: name,
+                id: id,
                 email: email,
             }
         })

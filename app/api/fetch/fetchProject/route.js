@@ -9,15 +9,15 @@ import clientOpt from "@/lib/utility/pgClientOptions";
 export async function POST(request) {
     const { value } = await request.json();
     const email = value.email;
-    const name = value.name;
-    const verifyProjectNameQuery = 'SELECT * FROM "PROJECTS" WHERE "name"=$1 and "owner"=$2';
+    const id = value.id;
+    const verifyProjectNameQuery = 'SELECT * FROM "PROJECTS" WHERE "id"=$1 and "owner"=$2';
     let response = {
         isOk: false
     }
     const client = new Client(clientOpt);
     try {
         await client.connect();
-        const result = await client.query(verifyProjectNameQuery, [name, email]);
+        const result = await client.query(verifyProjectNameQuery, [id, email]);
         if (result.rows.length === 1) {
             response.isOk = true;
         }

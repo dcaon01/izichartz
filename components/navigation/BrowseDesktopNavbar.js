@@ -55,7 +55,7 @@ export default function DesktopNavbar() {
                         }
                     </AnimatePresence>
                 </div>
-                <Link className={`${classes.link} ${robotoMono.className}`} onClick={handleRedirect} href="">Plans</Link>
+                <Link className={`${classes.link} ${robotoMono.className}`} onClick={handleRedirect} href="/plans">Plans</Link>
                 <Link className={`${classes.link} ${robotoMono.className}`} onClick={handleRedirect} href="">Contacts</Link>
                 <Link className={`${classes.link} ${robotoMono.className}`} onClick={handleRedirect} href="">About</Link>
                 {isSessionOn

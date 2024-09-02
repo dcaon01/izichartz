@@ -22,10 +22,10 @@ Facciamo prima i componenti per l'ER che funzionano, poi cerchiamo di generalizz
 - **recaptcha**: per prevenire traffico in inserimento nel database (molti account farlocchi non attivati, per esempio). Serve, però, un dominio, quindi, per ora, non ha senso implementarlo. [Docs](https://developers.google.com/recaptcha/docs/v3?hl=it)
 - **resend**: package per l'invio di mail. [Docs](https://resend.com/docs)
 - **csprng**: package che permette si generare delle stringe pseudocasuali crittograficamente sicure, cioè con un entropia alta e quindi non guessabili facilmente.
-- **crypto-js**: package che permette la criptazione (non hashing, che non è reversibile) di stringhe.
+- **crypto-js**: package che permette la criptazione (non hashing, che non è reversibile) di stringhe. (disinstallato)
 - **cookies-next**: package che permette il prelevamento dei cookies da client components in next in modo più semplice.
 - **flaticon**: per l'itulizzo di icone in modo gratuito [Site](https://www.flaticon.com)
-
+- **uuid**: libreria che permette di generare un univeral unique identifier. [Docs](https://www.npmjs.com/package/uuid)
 
 ## Flow all'interno dell'applicazione e requisiti
 L'utente entra all'interno della home page. (Fare le immagini con GIMP). La navbar avrà due configurazioni, una per la sessione che non è ancora cominciata e una a sessione cominciata. Fare un logo sia per la versione desktop che quella mobile, quest'ultima avrà solo il loco con la scritta izi, e ovviamente il menu a tendina a burger.

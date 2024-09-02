@@ -3,16 +3,18 @@
 import { robotoMono } from "@/app/fonts";
 import classes from "./ProjectCard.module.css";
 import { AnimatePresence, motion } from "framer-motion";
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import DeleteProject from "@/components/workspace/DeleteProject";
 import RenameProject from "@/components/workspace/RenameProject";
 import { useRouter } from "next/navigation";
+import { getCookie } from "cookies-next";
 
-export default function ProjectCard({ name, module, creation, lastModified, preview }) {
+export default function ProjectCard({ id, name, module, creation, lastModified, preview }) {
     let [isHover, setIsHover] = useState(false);
     let [tooltipText, setTooltipText] = useState("");
     let [isDeleting, setIsDeleting] = useState(false);
     let [isRenaming, setIsRenaming] = useState(false);
+    let [username, setUsername] = useState(null);
     const router = useRouter();
     let visualName = null;
 
@@ -63,8 +65,16 @@ export default function ProjectCard({ name, module, creation, lastModified, prev
 
     function editProject(event) {
         event.stopPropagation();
-        router.push("/");
+        router.push(`/workspace/${username}/editor/${id}`);
     }
+
+    useEffect(() => {
+        const sid = getCookie('sid');
+        if (sid) {
+            const value = JSON.parse(sid);
+            setUsername(value.username);
+        }
+    }, []);
 
     return (
         <>

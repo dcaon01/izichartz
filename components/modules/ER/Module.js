@@ -39,6 +39,7 @@ export default function Module() {
             // Invia i dati al DB.
         }
     });
+    
     useEffect(() => {
         document.addEventListener('keydown', handleKeyDown);
     }, []);

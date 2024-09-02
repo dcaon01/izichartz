@@ -7,7 +7,7 @@ import makeStore from '@/store/design/store.js';
 export default function StoreProvider({ children }) {
   const storeRef = useRef(null);
   if (!storeRef.current) {
-    storeRef.current = makeStore();
+    storeRef.current = makeStore(); // Creiamo lo store e gli slices
   }
 
   return (
