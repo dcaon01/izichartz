@@ -1,5 +1,7 @@
 import { createSlice } from "@reduxjs/toolkit";
 
+// PER ORA E' INUTILE
+
 /* Stato iniziale dello slice globalSlice.
 *  - selected: indica l'id numerico con cui identificare l'elemento selezionato.
 *  Se è 0 allora nessun elemento del design è selezionato.

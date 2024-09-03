@@ -16,7 +16,7 @@ import { useState } from "react";
  * Si selezionerà semplicemente yes o no.
  * @refactor andare ad estrapolare un modale esterno che poi può essere riutilizzato?
  */
-export default function DeleteProject({ name, funct }) {
+export default function RenameProject({ name, funct }) {
     let [state, formAction] = useFormState(renameProject, { messages: [] });
     let [projectName, setProjectName] = useState(name);
 

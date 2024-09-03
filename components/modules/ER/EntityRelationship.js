@@ -55,6 +55,7 @@ export const EntityRelationship = memo(function EntityRelationship({ id, type, o
         }
     }
 
+    /* Spostiamo il focus dell'elemento (togli il contorno in pratica) */
     function handleBlur(event) {
         if (event.key === "Enter") {
             inputRef.current.blur();
@@ -105,3 +106,46 @@ export const EntityRelationship = memo(function EntityRelationship({ id, type, o
         </DFLRElement>
     );
 });
+
+/* STRUTTURE 
+
+> Entity
+{
+    type: "entity",
+    id: numero di elemento,
+    selected: false,
+    options: {
+        text: { value: "ENTITY2", width: 49.5 },
+        position: {
+            x: 400,
+            y: 300,
+        },
+        minSize: 70,
+        size: {
+            width: 127.75,
+            height: 70,
+        },
+        connecting: false,
+    },
+},
+
+> Relationship
+{
+        type: "relationship",
+        id: numero di elemento,
+        selected: false,
+        options: {
+            text: { value: "", width: 0 },
+            position: {
+                x: 600,
+                y: 150,
+            },
+            minSize: 80,
+            size: {
+                width: 80,
+                height: 80,
+            },
+            connecting: false
+        },
+    },
+*/

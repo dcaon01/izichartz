@@ -35,6 +35,7 @@ export async function middleware(request) {
                             //Controlliamo che il progetto esista
                             const project = await callFetchProject(id, value.email, request);
                             if (project.isOk) {
+                                response.headers.set("Project-Id", id);
                                 return response;
                             } else {
                                 return NextResponse.redirect(new URL(`/workspace/${value.username}`, request.url));
@@ -127,7 +128,7 @@ async function callVerifySession(sid, request) {
  * un giusto reindirizzamento
  */
 async function callFetchProject(id, email, request) {
-    const resp = await fetch(new URL('/api/fetch/fetchProject', request.url), {
+    const resp = await fetch(new URL('/api/fetch/fetchProjectStatus', request.url), {
         method: 'POST',
         headers: {
             'Content-Type': 'application/json',

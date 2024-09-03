@@ -1,6 +1,6 @@
 import { motion } from "framer-motion";
 
-export default function ({ id, width, height, selected, connecting }) {
+export default function EntityGrapics({ id, width, height, selected, connecting }) {
     return (
         <svg
             xmlns="http://www.w3.org/2000/svg"

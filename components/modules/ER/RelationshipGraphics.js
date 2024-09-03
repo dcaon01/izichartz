@@ -1,6 +1,6 @@
 import { motion } from "framer-motion";
 
-export default function ({ id, width, height, selected, connecting }) {
+export default function RelationshipGraphics({ id, width, height, selected, connecting }) {
     return (
         <svg
             style={{

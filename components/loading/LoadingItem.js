@@ -6,7 +6,7 @@ export default function LoadingItem({ text }) {
     return (
         <div className={classes.LoadingItem}>
             <LoadingCircle />
-            <p className={robotoMono.className}>{text}</p>
+            {text && <p className={robotoMono.className}>{text}</p>}
         </div>
     );
 }

@@ -8,11 +8,21 @@ import { elementsSlice } from "./elements-slice";
  * @returns un puntatore alla funzione configureStore, gestito da Redux.
  */
 export default function makeStore() {
+
     // Richiedi di creare lo store
     return configureStore({
         reducer: {
             designGlobal: globalSlice.reducer,
             designElements: elementsSlice.reducer
+        },
+        preloadedState: {
+            designGlobal: {
+                // Quello che prelevi
+            }
         }
     });
 }
+
+/** 
+ * 
+ */

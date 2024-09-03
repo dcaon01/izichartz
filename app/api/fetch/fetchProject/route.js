@@ -1,42 +1,39 @@
+import clientOpt from "@/lib/utility/pgClientOptions";
 import { Client } from "pg";
 import { NextResponse } from "next/server";
-import clientOpt from "@/lib/utility/pgClientOptions";
 
-/** 
- * Route handler per la verifica di esistenza di
- * un determinato progetto all'interno del database
- */
 export async function POST(request) {
-    const { value } = await request.json();
-    const email = value.email;
-    const id = value.id;
-    const verifyProjectNameQuery = 'SELECT * FROM "PROJECTS" WHERE "id"=$1 and "owner"=$2';
-    let response = {
-        isOk: false
-    }
+    const { id } = await request.json();
+    //console.log("Dalla api route:" + id);
+    const fetchProjectQuery = 'SELECT * FROM "PROJECTS" WHERE "id"=$1';
+    let results = null;
+    let project = {};
     const client = new Client(clientOpt);
     try {
         await client.connect();
-        const result = await client.query(verifyProjectNameQuery, [id, email]);
-        if (result.rows.length === 1) {
-            response.isOk = true;
-        }
+        results = await client.query(fetchProjectQuery, [id]);
+        //console.log(results.rows);
+        project = results.rows[0];
+        client.end()
+    } catch (error) {
+        //console.log(error);
         client.end();
-        return new NextResponse(JSON.stringify(response), {
+        return new NextResponse(JSON.stringify(null),
+            {
+                status: 500,
+                headers: {
+                    'Content-Type': 'application/json'
+                }
+            }
+        );
+    }
+    return new NextResponse(JSON.stringify(project),
+        {
             status: 200,
             headers: {
                 "Content-Type": "application/json"
-            }
-        });
-    } catch (error) {
-        client.end();
-        return new NextResponse(JSON.stringify({
-            isOk: false
-        }), {
-            status: 500,
-            headers: {
-                "Content-Type": "application/json"
-            }
-        });
-    }
+            },
+            cache: "no-store"
+        }
+    );
 }

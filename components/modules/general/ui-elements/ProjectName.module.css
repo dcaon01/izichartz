@@ -1,0 +1,14 @@
+.projectName {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.name {
+    font-size: 20px;
+    font-weight: 400;
+}
+
+.pen:hover {
+    cursor: pointer;
+}

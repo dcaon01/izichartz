@@ -20,13 +20,21 @@ export async function POST(request) {
         client.end()
     } catch (error) {
         client.end();
+        return new NextResponse(JSON.stringify(null),
+            {
+                status: 500,
+                headers: {
+                    'Content-Type': 'application/json'
+                }
+            }
+        );
     }
-    return new NextResponse(JSON.stringify(projects), 
-    {
-        status: 200,
-        headers: {
-            "Content-Type": "application/json"
-        },
-        cache: "no-store"
-    });
+    return new NextResponse(JSON.stringify(projects),
+        {
+            status: 200,
+            headers: {
+                "Content-Type": "application/json"
+            },
+            cache: "no-store"
+        });
 }

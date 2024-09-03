@@ -9,7 +9,8 @@ const ProjectCard = lazy(() => import("./ProjectCard"));
  * ProjectGrid
  * Componente che renderizza la griglia con tutti i progetti relativi ad 
  * un utente. 
- * @refactor fare in modo che i progetti vengano refetchati
+ * @refactor fare in modo che i progetti vengano refetchati.
+ * @refactor gestire il caso in cui venga ritornato 500 come status code.
  */
 export default async function ProjectGrid() {
     const cookie = cookies().get('sid');

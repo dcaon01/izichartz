@@ -1,5 +1,7 @@
-import Module from '@/components/modules/ER/Module.js';
-import StoreProvider from './StorePrivider.js';
+import ERModule from '@/components/modules/ER/ERModule.js';
+import StoreProvider from './StoreProvider.js';
+import Toolbar from "@/components/modules/general/ui-elements/Toolbar.js";
+import { headers } from 'next/headers';
 
 /**
  * EditorPage
@@ -17,14 +19,45 @@ import StoreProvider from './StorePrivider.js';
  * - La sidebar, che permette la modifica indiretta degli elementi. 
  * Questi due ultimi elementi sono invece comuni a tutti i moduli. Non so come potrebbero essere generalizzati 
  * (Navbar molto semplice, sidebar un po meno) ma ci possiamo lavorare.
+ * - Per risolvere l'assenza di internet mettiam un suspanse per tutta la pagina in modo che l'utente
+ * non possa fare un cazzo prima che tutto sia caricato.
  */
-export default function EditorPage() {
-    /* tramite headers potremmo riuscire a prelevare il nome del progetto (l'utente ce lo abbiamo già dal cookie) */
+export default async function EditorPage() {
+    const headersList = headers();
+    const id = headersList.get('Project-Id');
+    // console.log("ID del progetto " + id);
+
+    const project = await getProject(id);
+    // console.log("Questo è il progetto: " + JSON.stringify(project));
+    console.log("Progetto: " + project.name);
+
     return (
         <main>
             <StoreProvider>
-                <Module />
+                <Toolbar projectName={project.name} />
             </StoreProvider>
         </main>
     );
 };
+
+/**
+ * getProject
+ * Funzione che fetcha tutti i dati relativi al progetto, selezionato tramite il suo id.
+ * @param id identificativo del progetto alla quale vogliamo lavorare.
+ * @returns json con i dati relativi del progetto prelevato.
+ */
+async function getProject(id) {
+    const resp = await fetch(new URL('http://localhost:3000/api/fetch/fetchProject'),
+        {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json'
+            },
+            body: JSON.stringify({ id })
+        }
+    );
+    console.log(resp);
+    let project = await resp.json();
+    return project;
+    // Gestire anche l'errore del server
+}
