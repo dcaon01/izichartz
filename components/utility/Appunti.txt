@@ -1,0 +1,9 @@
+Cambiare utility in general? 
+Comunque qui vanno messi tutti quegli elementi ricorrenti, che per ora sono:
+Dropdown vari delle navbar.
+Bottoni già fatto.
+
+Sempre se si può fare, perché per esempio nel renaming, non possiamo farci nulla poiché il formData sono specifiche. 
+Non ho nemmeno alcun modo per passare la route al quale vengono richiamati. 
+
+L'unica è fare un componente che contiene il form, poi un componente specifico

@@ -1,0 +1,45 @@
+.zoom {
+    display: flex;
+    justify-self: center;
+    align-items: center;
+    flex-direction: row;
+}
+
+.formZoom {
+    display: flex;
+    justify-self: center;
+    align-items: center;
+    gap: 10px;
+}
+
+.valueSelector {
+    width: 30px;
+}
+
+.rangeSelector {
+    -webkit-appearance: none; /* Override default look */
+    appearance: none;
+    background: transparent;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    outline: none;
+}
+
+.rangeSelector::-webkit-slider-runnable-track {
+    background: black;
+    border-radius: 2px;
+    height: 4px;
+}
+
+.rangeSelector::-webkit-slider-thumb {
+    -webkit-appearance: none; /* Override default look */
+    appearance: none;
+    background: white;
+    margin-top: -4px;
+    border: 2px solid black;
+    width: 12px;
+    height: 12px;
+    border-radius: 5px;
+}
