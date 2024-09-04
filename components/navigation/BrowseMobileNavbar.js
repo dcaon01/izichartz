@@ -3,7 +3,6 @@
 import classes from "./MobileNavbar.module.css";
 import Link from "next/link";
 import { useEffect, useState } from "react";
-import { robotoMono } from "@/app/fonts.js";
 import { AnimatePresence, motion, useAnimate } from "framer-motion";
 import MobileModulesDropdown from "./BrowseMobileModulesDropdown";
 import { getCookie } from "cookies-next";
@@ -96,7 +95,7 @@ export default function MobileNavbar() {
                         >
                             <div className={classes.links} style={{ opacity: 0 }}>
                                 <div className={classes.modulesSelector} onClick={handleModulesDropDown}>
-                                    <p className={`${classes.modulesSelectorText} ${robotoMono.className}`} style={{ marginRight: 5 }}>Modules</p>
+                                    <p className={`${classes.modulesSelectorText}`} style={{ marginRight: 5 }}>Modules</p>
                                     <motion.svg height={10} width={10} xmlns="http://www.w3.org/2000/svg" animate={{ transform: `rotate(${modulesDropDown ? 180 : 0}deg)` }} >
                                         <polygon points="0,0 10,0 5,10" className={classes.modulesSelectorArrow} />
                                     </motion.svg>
@@ -105,14 +104,14 @@ export default function MobileNavbar() {
                                     {modulesDropDown &&
                                         <MobileModulesDropdown key="modulesDropdown" handler={handleMenuDeselection} />
                                     }
-                                    <Link key="plans-link" className={`${classes.link} ${robotoMono.className}`} onClick={handleMenuDeselection} href="/plans">Plans</Link>
-                                    <Link key="contacts-link" className={`${classes.link} ${robotoMono.className}`} onClick={handleMenuDeselection} href="">Contacts</Link>
-                                    <Link key="about-link" className={`${classes.link} ${robotoMono.className}`} onClick={handleMenuDeselection} href="">About</Link>
+                                    <Link key="plans-link" className={`${classes.link}`} onClick={handleMenuDeselection} href="/plans">Plans</Link>
+                                    <Link key="contacts-link" className={`${classes.link}`} onClick={handleMenuDeselection} href="">Contacts</Link>
+                                    <Link key="about-link" className={`${classes.link}`} onClick={handleMenuDeselection} href="">About</Link>
                                     {isSessionOn
                                         ?
                                         <Link
                                             key="register-link"
-                                            className={`${classes.navBotton} ${robotoMono.className}`}
+                                            className={`${classes.navBotton}`}
                                             href={`/workspace/${username}`}
                                             onClick={handleMenuDeselection}
                                         >
@@ -120,10 +119,10 @@ export default function MobileNavbar() {
                                         </Link>
                                         :
                                         <>
-                                            <Link key="login-link" className={`${classes.link} ${robotoMono.className}`} onClick={handleMenuDeselection} href="/authentication/login">Login</Link>
+                                            <Link key="login-link" className={`${classes.link}`} onClick={handleMenuDeselection} href="/authentication/login">Login</Link>
                                             <Link
                                                 key="register-link"
-                                                className={`${classes.navBotton} ${robotoMono.className}`}
+                                                className={`${classes.navBotton}`}
                                                 href="/authentication/register"
                                                 onClick={handleMenuDeselection}
                                             >

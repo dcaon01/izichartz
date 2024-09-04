@@ -2,7 +2,6 @@
 
 import classes from "../Auth.module.css";
 import RegLogSwitch from "@/components/authentication/RegLogSwitch";
-import { robotoMono } from "@/app/fonts";
 import { useFormState } from "react-dom";
 import { userRegister } from "@/lib/server-actions/auth.js";
 import ErrorDisplayer from "@/components/authentication/ErrorDisplayer";
@@ -19,7 +18,7 @@ export default function RegisterPage() {
     /* Rendering */
     return (
         <>
-            <h1 className={`${robotoMono.className}`}>Register</h1>
+            <h1>Register</h1>
             <div style={{ width: 300 }}>
                 {state.messages.length > 0 && <ErrorDisplayer messages={state.messages} />}
             </div>

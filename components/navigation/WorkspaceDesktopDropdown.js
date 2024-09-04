@@ -1,6 +1,5 @@
 import classes from "./DesktopModulesDropdown.module.css";
 import Link from "next/link";
-import { robotoMono } from "@/app/fonts";
 import { motion } from "framer-motion";
 import { userLogout } from "@/lib/server-actions/auth";
 
@@ -22,9 +21,9 @@ export default function WorkspaceDesktopDropdown() {
                 opacity: 0,
             }}
         >
-            <Link className={`${classes.link} ${robotoMono.className}`} href="">Manage</Link>
+            <Link className={`${classes.link}`} href="">Manage</Link>
             <form action={userLogout}>
-                <button className={`${classes.link} ${robotoMono.className}`} type="submit">Logout</button>
+                <button className={`${classes.link}`} type="submit">Logout</button>
             </form>
         </motion.div>
     );

@@ -1,6 +1,5 @@
 import classes from "./MobileModulesDropdown.module.css";
 import Link from "next/link";
-import { robotoMono } from "@/app/fonts.js";
 import { motion } from "framer-motion";
 
 export default function MobileModulesDropdown({ handler }) {
@@ -14,7 +13,7 @@ export default function MobileModulesDropdown({ handler }) {
                 opacity: 1,
             }}
         >
-            <Link className={`${classes.link} ${robotoMono.className}`} onClick={handler} href=""> - Entity-Relationship</Link>
+            <Link className={`${classes.link}`} onClick={handler} href=""> - Entity-Relationship</Link>
         </motion.div>
     );
 }

@@ -1,5 +1,5 @@
 import "@/app/globals.css";
-import { inter } from "@/app/fonts";
+import { robotoMono } from "../../../../fonts";
 
 export const metadata = {
   title: "Izichartz",
@@ -9,7 +9,7 @@ export const metadata = {
 export default function EditorLayout({ children }) {
   return (
     <html lang="en">
-      <body className={inter.className}>
+      <body className={robotoMono.className} >
           {children}
       </body>
     </html>

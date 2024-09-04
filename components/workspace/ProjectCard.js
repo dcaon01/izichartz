@@ -1,6 +1,5 @@
 'use client'
 
-import { robotoMono } from "@/app/fonts";
 import classes from "./ProjectCard.module.css";
 import { AnimatePresence, motion } from "framer-motion";
 import { useState, useEffect } from "react";
@@ -108,7 +107,7 @@ export default function ProjectCard({ id, name, module, creation, lastModified, 
                             top: -30
                         }}
                     >
-                        <p className={`${robotoMono.className}`} >{tooltipText}</p>
+                        <p>{tooltipText}</p>
                     </motion.div>
                     :
                     null
@@ -152,10 +151,10 @@ export default function ProjectCard({ id, name, module, creation, lastModified, 
                     <img src={preview} className={classes.preview} />
                 </div>
                 <div className={classes.info}>
-                    <p className={robotoMono.className}>{visualName}</p>
-                    <p className={robotoMono.className} style={{ fontSize: 12 }}>{module}</p>
-                    <p className={robotoMono.className} style={{ fontSize: 12 }}>Last modified: {lastModified}</p>
-                    <p className={robotoMono.className} style={{ fontSize: 12 }}>Created: {creation}</p>
+                    <p>{visualName}</p>
+                    <p style={{ fontSize: 12 }}>{module}</p>
+                    <p style={{ fontSize: 12 }}>Last modified: {lastModified}</p>
+                    <p style={{ fontSize: 12 }}>Created: {creation}</p>
                 </div>
             </motion.div>
         </>

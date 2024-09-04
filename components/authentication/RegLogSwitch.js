@@ -1,6 +1,5 @@
 import classes from "./RegLogSwitch.module.css";
 import Link from "next/link";
-import { robotoMono } from "@/app/fonts";
 
 /**
  * RegLogSwitch
@@ -25,11 +24,10 @@ export default function RegLogSwitch({switchTo}) {
 
     return (
         <div className={classes.switch}>
-            <p className={`${robotoMono.className} ${classes.switchText}`}>
+            <p className={`${classes.switchText}`}>
                 {text}&nbsp;
             </p>
-            <Link className={`${classes.switchLink} ${robotoMono.className}`} href={link}>{linkText}</Link>
+            <Link className={`${classes.switchLink}`} href={link}>{linkText}</Link>
         </div>
     );
 }
-;

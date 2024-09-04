@@ -39,7 +39,12 @@ export default function ERModule() {
     * Come esc si potrebbe implementare un indietro nello storico e inviare la modifica.
     */
     function handleKeyDown(event) {
-        if (event.key === "Enter") {
+        if (event.key === "Enter" || event.key === "Escape") {
+            setContextMenu({
+                rendered: false,
+                x: 0,
+                y: 0
+            });
             dispatch(elementsSlice.actions.setSelectedElement(0));
             dispatch(elementsSlice.actions.setConnectingElement(0));
             // Salva lo stato nello storico.
@@ -56,6 +61,7 @@ export default function ERModule() {
     function handleRightClickMenu(event) {
         event.stopPropagation();
         event.preventDefault(); // non facciamo attivare del browser
+        // Controllare anche che il contextMenu non vada fuori dalla schermata
         if (contextMenu.rendered) {
             setContextMenu({
                 rendered: false,

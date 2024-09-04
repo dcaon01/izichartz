@@ -1,4 +1,3 @@
-import { robotoMono } from "@/app/fonts";
 import classes from "./ErrorDisplayer.module.css";
 
 /**
@@ -13,7 +12,7 @@ export default function ErrorDisplayer({ messages }) {
     let content = messages.map((message) => {
         count++;
         return (
-            <p className={`${robotoMono.className} ${classes.errorText}`} key={"error-message-"+count}>
+            <p className={`${classes.errorText}`} key={"error-message-"+count}>
                 {message}
             </p>
         );

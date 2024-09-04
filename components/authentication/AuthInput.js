@@ -1,7 +1,6 @@
 'use client';
 
 import classes from "./AuthInput.module.css";
-import { robotoMono } from "@/app/fonts";
 import { useState } from "react";
 
 /**
@@ -37,17 +36,17 @@ export default function AuthInput({ id, type, label }) {
         <div className={classes.inputWrapper}>
             {isPassword &&
                 <div className={classes.passwordHead}>
-                    <label className={`${robotoMono.className}`}>{label}</label>
+                    <label>{label}</label>
                     <div className={classes.visible} onClick={handlePswVisible}>
                         <img src={isVisible ? "/assets/global/visible.png" : "/assets/global/not_visible.png"} height={16} width={16} alt={isVisible ? "hide" : "show"} />
                     </div>
                 </div>
             }
             {!isPassword && 
-                <label className={`${robotoMono.className}`}>{label}</label>
+                <label>{label}</label>
             }
             <input
-                className={`${classes.input} ${robotoMono.className}`}
+                className={`${classes.input}`}
                 type={isPassword ? (isVisible ? "text" : "password") : type}
                 id={id}
                 name={id}

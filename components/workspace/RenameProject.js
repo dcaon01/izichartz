@@ -1,7 +1,6 @@
 'use client';
 
 import classes from "./RenameProject.module.css";
-import { robotoMono } from "@/app/fonts";
 import { useFormState } from "react-dom";
 import { renameProject } from "@/lib/server-actions/manage";
 import { motion } from "framer-motion";
@@ -47,21 +46,21 @@ export default function RenameProject({ name, funct }) {
                     <div className={classes.crossContainer}>
                         <img src="/assets/global/crossed-menu.png" className={classes.cross} onClick={funct} />
                     </div>
-                    <h1 className={`${robotoMono.className}`}>Rename Project</h1>
+                    <h1>Rename Project</h1>
                     <div style={{ width: 300 }}>
                         {state.messages.length > 0 && <ErrorDisplayer messages={state.messages} />}
                     </div>
                     <form action={formAction} className={classes.form}>
                         <div className={classes.inputWrapper}>
-                            <label className={robotoMono.className}>Rename your Project</label>
-                            <input type="text" id="renaming-project-name" name="renaming-project-name" value={projectName} className={`${classes.input} ${robotoMono.className}`} onChange={changeName}/>
+                            <label>Rename your Project</label>
+                            <input type="text" id="renaming-project-name" name="renaming-project-name" value={projectName} className={`${classes.input}`} onChange={changeName}/>
                         </div>
                         <input
                             id="renaming-project-prevName"
                             name="renaming-project-prevName"
                             type="text"
                             value={name}
-                            className={`${robotoMono.className} ${classes.deletingText}`}
+                            className={`${classes.deletingText}`}
                             style={{ display: "none" }}
                             readOnly
                         />

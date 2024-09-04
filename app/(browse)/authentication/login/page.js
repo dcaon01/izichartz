@@ -5,7 +5,6 @@ import RegLogSwitch from "@/components/authentication/RegLogSwitch";
 import AuthInput from "@/components/authentication/AuthInput";
 import ErrorDisplayer from "@/components/authentication/ErrorDisplayer";
 import FormButton from "@/components/utility/FormButton";
-import { robotoMono } from "@/app/fonts";
 import { useFormState } from "react-dom";
 import { userLogin } from "@/lib/server-actions/auth";
 
@@ -15,7 +14,7 @@ export default function LoginPage() {
 
     return (
         <>
-            <h1 className={`${robotoMono.className}`}>Login</h1>
+            <h1>Login</h1>
             <div style={{ width: 300 }}>
                 {state.messages.length > 0 && <ErrorDisplayer messages={state.messages} />}
             </div>

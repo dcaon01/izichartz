@@ -2,7 +2,6 @@
 
 import classes from "./NewProject.module.css";
 import AuthInput from "../authentication/AuthInput";
-import { robotoMono } from "@/app/fonts";
 import { useFormState } from "react-dom";
 import { createProject } from "@/lib/server-actions/manage";
 import { motion } from "framer-motion";
@@ -41,7 +40,7 @@ export default function NewProject({ funct }) {
                     <div className={classes.crossContainer}>
                         <img src="/assets/global/crossed-menu.png" className={classes.cross} onClick={funct} />
                     </div>
-                    <h1 className={`${robotoMono.className}`}>New Project</h1>
+                    <h1>New Project</h1>
                     <div style={{ width: 300 }}>
                         {state.messages.length > 0 && <ErrorDisplayer messages={state.messages} />}
                     </div>
@@ -49,10 +48,17 @@ export default function NewProject({ funct }) {
                         {/* Da generalizzare, ma per ora va bene */}
                         <AuthInput id="project-name" type="text" label="Insert Project Name" />
                         <div className={classes.selection}>
-                            <label className={`${robotoMono.className}`}>Select Module</label>
+                            <label>Select Module</label>
                             <select id="project-module" name="project-module" className={classes.selector}>
                                 <option value="-" selected>-</option>
                                 <option value="entity-relationship">Entity-Relationship</option>
+                            </select>
+                        </div>
+                        <div className={classes.selection}>
+                            <label>Select Size</label>
+                            <select id="project-module" name="project-module" className={classes.selector}>
+                                <option value="-" selected>-</option>
+                                <option value={{width: 1920, height:1080}}>1920x1080</option>
                             </select>
                         </div>
                         <FormButton text="Create" pendingText="Creating..." />

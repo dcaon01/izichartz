@@ -34,6 +34,7 @@ export const EntityRelationship = memo(function EntityRelationship({ id, type, o
      * @param event oggetto evento triggerato onChange.
      */
     function handleInput(event) {
+        event.stopPropagation();
         let oldEffectiveWidth = size.width - text.width;
         let newHeight = (inputRef.current.getBoundingClientRect().height * size.width) / (2 * (size.width - inputRef.current.getBoundingClientRect().width)) + 80;
         dispatch(elementsSlice.actions.setConnectingElement(0));

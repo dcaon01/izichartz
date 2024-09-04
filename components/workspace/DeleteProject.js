@@ -1,7 +1,6 @@
 'use client';
 
 import classes from "./DeleteProject.module.css";
-import { robotoMono } from "@/app/fonts";
 import { useFormState } from "react-dom";
 import { deleteProject } from "@/lib/server-actions/manage";
 import { motion } from "framer-motion";
@@ -40,12 +39,12 @@ export default function DeleteProject({ name, funct }) {
                     <div className={classes.crossContainer}>
                         <img src="/assets/global/crossed-menu.png" className={classes.cross} onClick={funct} />
                     </div>
-                    <h1 className={`${robotoMono.className}`}>Delete Project</h1>
+                    <h1>Delete Project</h1>
                     <div style={{ width: 300 }}>
                         {state.messages.length > 0 && <ErrorDisplayer messages={state.messages} />}
                     </div>
                     <form action={formAction} className={classes.form}>
-                        <p className={`${robotoMono.className} ${classes.deletingText}`}>
+                        <p className={`${classes.deletingText}`}>
                             Are you sure to delete {name}? <br />
                             You won't be able to restore it anymore. <br />
                             If you are sure, click "Delete", <br />
@@ -56,7 +55,7 @@ export default function DeleteProject({ name, funct }) {
                             name="deleting-project-name"
                             type="text"
                             value={name}
-                            className={`${robotoMono.className} ${classes.deletingText}`}
+                            className={`${classes.deletingText}`}
                             style={{ display: "none" }}
                             readOnly
                         />

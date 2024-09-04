@@ -1,6 +1,5 @@
 import classes from "./MobileModulesDropdown.module.css";
 import Link from "next/link";
-import { robotoMono } from "@/app/fonts.js";
 import { motion } from "framer-motion";
 import { userLogout } from "@/lib/server-actions/auth";
 
@@ -15,9 +14,9 @@ export default function WorkspaceMobileDropdown({ handler }) {
                 opacity: 1,
             }}
         >
-            <Link className={`${classes.link} ${robotoMono.className}`} href="" onClick={handler}>Manage</Link>
+            <Link className={`${classes.link}`} href="" onClick={handler}>Manage</Link>
             <form action={userLogout}>
-                <button className={`${classes.link} ${robotoMono.className}`} type="submit" onClick={handler}>Logout</button>
+                <button className={`${classes.link}`} type="submit" onClick={handler}>Logout</button>
             </form>
         </motion.div>
     );

@@ -26,11 +26,6 @@ export default function ContextMenu({children, posX, posY }) {
                 top: posY,
                 opacity: 1
             }}
-            exit={{
-                left: posX,
-                top: posY,
-                opacity: 0
-            }}
         >
             <ContextMenuOption text="Copy" img="/assets/design/copy.png" />
             <ContextMenuOption text="Cut" img="/assets/design/cut.png" />

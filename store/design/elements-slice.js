@@ -5,16 +5,25 @@ L'array contiene tutti i JSON che codificano gli elementi presenti nel
 workpane. 
 > Struttura dello Stato
 {
-    Sync: true/false, - In base al fatto che lo stato corrente sia sincronizzato con il db o meno
-    Elements: [  - Elementi che compongono il disegno
+    status: ["saved" | "tosave" | "noconnection"],
+    selected: [],
+    contextModule: true | false,
+    sidebar: true, false,
+    workpane: { heigth: , width: }
+    zoom: 0.5-2 - Dove 2 è la visualizzazione massima
+    elements: [  - Elementi che compongono il disegno
         {}
     ],
-    Errors: ?
+    errors: [] - array di errori
 }
+
+status, selected, contexModule e sidebar potrebbero essere comunque salvati con dei valori
+"disattivati" in modo da non comparire al fetchin successivo del programma, ma comunque non dare problemi
+per il resto.
 */
 
 const init = {
-    sync: false,
+    saved: false,
     elements: []
 }
 
@@ -34,8 +43,9 @@ export const elementsSlice = createSlice({
          *  Il JSON dovrà avere tutti gli elementi tranne l'id.
          */
         addElement(state, action) {
-            let id = state.length;
-            state.push({ id: id, ...action.payload });
+            console.log("Entro in add Element");
+            let id = state.elements.length + 1;
+            state.elements.push({ id: id, ...action.payload });
         },
 
         /**
@@ -220,12 +230,12 @@ export const elementsSlice = createSlice({
                 startId--;
                 finishId--;
                 const p1 = {
-                    x: state[startId].options.position.x + (state[startId].options.size.width / 2),
-                    y: state[startId].options.position.y + (state[startId].options.size.height / 2),
+                    x: state.elements[startId].options.position.x + (state.elements[startId].options.size.width / 2),
+                    y: state.elements[startId].options.position.y + (state.elements[startId].options.size.height / 2),
                 }
                 const p2 = {
-                    x: state[finishId].options.position.x + (state[finishId].options.size.width / 2),
-                    y: state[finishId].options.position.y + (state[finishId].options.size.height / 2),
+                    x: state.elements[finishId].options.position.x + (state.elements[finishId].options.size.width / 2),
+                    y: state.elements[finishId].options.position.y + (state.elements[finishId].options.size.height / 2),
                 }
                 const linker = {
                     type: "linker",
@@ -242,7 +252,7 @@ export const elementsSlice = createSlice({
                         ],
                     }
                 }
-                state.push(linker);
+                state.elements.push(linker);
             } else {
                 console.log("Non puoi connettere lo stesso elemento");
             }

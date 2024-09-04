@@ -1,7 +1,6 @@
 'use client';
 
 import classes from "./HomePage.module.css";
-import { robotoMono } from "../fonts.js";
 import { Suspense } from "react";
 import Link from "next/link";
 import { motion } from "framer-motion";
@@ -33,11 +32,11 @@ export default function HomePage() {
             padding: 50,
           }}
         >
-          <p className={`${classes.hookText} ${robotoMono.className}`}>The best</p>
-          <p className={`${classes.hookText} ${classes.boldHookText} ${robotoMono.className}`}>Software Design Tool</p>
+          <p className={`${classes.hookText}`}>The best</p>
+          <p className={`${classes.hookText} ${classes.boldHookText}`}>Software Design Tool</p>
           <Link
             href="/authentication/login"
-            className={`${classes.hookButton} ${robotoMono.className}`}
+            className={`${classes.hookButton}`}
           >
             START DESIGNING NOW
           </Link>
@@ -45,10 +44,10 @@ export default function HomePage() {
       </div>
       <div className={general.content} style={{ paddingTop: 50 }}>
 
-        <h1 className={`${robotoMono.className} ${general.title}`}>What's Izichartz?</h1>
+        <h1 className={`${general.title}`}>What's Izichartz?</h1>
         <div className={classes.section}>
           <OnScrollWrapper direction="right" intensity={30} size={45}>
-            <p className={`${robotoMono.className} ${classes.description}`}>
+            <p className={`${classes.description}`}>
               Izichartz is the best tool for software design. It aims to facilitate this crucial
               phase by improving functionalities and addressing issues found in similar
               existing programs.
@@ -71,7 +70,7 @@ export default function HomePage() {
             </Suspense>
           </OnScrollWrapper>
           <OnScrollWrapper direction="left" intensity={30} size={45}>
-            <p className={`${robotoMono.className} ${classes.description}`}>
+            <p className={`${classes.description}`}>
               Izichartz is the best tool for software design. It aims to facilitate this crucial
               phase by improving functionalities and addressing issues found in similar
               existing programs.

@@ -1,6 +1,5 @@
 import classes from "./DesktopModulesDropdown.module.css";
 import Link from "next/link";
-import { robotoMono } from "@/app/fonts";
 import { motion } from "framer-motion";
 
 export default function BrowseDesktopModulesDropdown() {
@@ -20,7 +19,7 @@ export default function BrowseDesktopModulesDropdown() {
                 opacity: 0,
             }}
         >
-            <Link className={`${classes.link} ${robotoMono.className}`} href="/entity-relationship">Entity-Relationship</Link>
+            <Link className={`${classes.link}`} href="/entity-relationship">Entity-Relationship</Link>
         </motion.div>
     );
 }

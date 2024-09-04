@@ -1,11 +1,9 @@
 .view {
     position: relative;
     background-repeat: repeat;
-    overflow: visible;
     z-index: 0;
-}
-
-.pane {
     background-image: url(../../../../public/assets/design/workpane-bg.png);
     background-color: white;
+    height: 100vh;
+    width: 100vw;
 }

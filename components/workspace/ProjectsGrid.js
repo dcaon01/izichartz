@@ -2,7 +2,6 @@ import classes from "./ProjectsGrid.module.css";
 import { cookies } from "next/headers";
 import { Suspense, lazy } from "react";
 import LoadingItem from "@/components/loading/LoadingItem";
-import { robotoMono } from "@/app/fonts";
 const ProjectCard = lazy(() => import("./ProjectCard"));
 
 /**
@@ -39,8 +38,8 @@ export default async function ProjectGrid() {
                 {
                     projects.length === 0 ?
                         <div className={classes.noProjects}>
-                            <p className={robotoMono.className} style={{ fontSize: 13 }}>No project found.</p>
-                            <p className={robotoMono.className} style={{ fontSize: 13 }}>Click "New Project" to create one.</p>
+                            <p style={{ fontSize: 13 }}>No project found.</p>
+                            <p style={{ fontSize: 13 }}>Click "New Project" to create one.</p>
                         </div>
                         :
                         projects.map((project) => {

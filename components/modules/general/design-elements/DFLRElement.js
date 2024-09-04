@@ -235,13 +235,20 @@ export default function DFLRElement(props) {
     }
 
     /**
+     * 
+     */
+    function handleContextMenu(event) {
+        event.preventDefault();
+        dispatch(elementsSlice.actions.setSelectedElement(id));
+    }
+
+    /**
      * handleConnection
      * Funzione che gestisce la connessione (provvisoria) dell'elemento, aggiornanod
      * lo slice globale.
      * @param event oggetto evento triggerato onDoubleClick.
      */
     function handleConnection(event) {
-        event.stopPropagation();
         event.preventDefault();
         dispatch(elementsSlice.actions.setConnectingElement(id));
     }
@@ -254,15 +261,22 @@ export default function DFLRElement(props) {
      * @param event oggetto evento triggerato onMouseDown.
      */
     function handleGrabbing(event) {
-        dispatch(elementsSlice.actions.setConnectingElement(0));
-        let offX = event.pageX - position.x;
-        let offY = event.pageY - position.y;
-        setOffset({ x: offX, y: offY });
-        setBorders(isOnBorder(offset));
-        if (borders[0]) {
-            setResizing(true);
-        } else {
-            setMoving(true);
+        // Tasto sinistro
+        if (event.button === 0) {
+            if (event.button)
+                dispatch(elementsSlice.actions.setConnectingElement(0));
+                let offX = event.pageX - position.x;
+                let offY = event.pageY - position.y;
+                setOffset({ x: offX, y: offY });
+                setBorders(isOnBorder(offset));
+                if (borders[0]) {
+                    setResizing(true);
+                } else {
+                    setMoving(true);
+                }
+        }
+        if (event.button === 2) {
+            
         }
     }
 
@@ -339,6 +353,7 @@ export default function DFLRElement(props) {
             id={`${type}-${id}`}
             onClick={handleSelection}
             onDoubleClick={handleConnection}
+            onContextMenu={handleContextMenu}
             onMouseDown={selected ? handleGrabbing : null}
             onMouseUp={selected ? handleNotGrabbingAnymore : null}
             onMouseMove={selected ? handleDragging : null}

@@ -7,7 +7,6 @@ import ErrorDisplayer from "@/components/authentication/ErrorDisplayer";
 import FormButton from "@/components/utility/FormButton";
 import { userAccountActivation } from "@/lib/server-actions/auth";
 import { resendActivationCode } from "@/lib/server-actions/auth";
-import { robotoMono } from "@/app/fonts";
 import { useFormState } from "react-dom";
 
 export default function ActivationPage({ params }) {
@@ -16,12 +15,12 @@ export default function ActivationPage({ params }) {
 
     return (
         <>
-            <h1 className={`${robotoMono.className}`}>Activate</h1>
+            <h1>Activate</h1>
             <div style={{ width: 300 }}>
                 {state.messages.length > 0 && <ErrorDisplayer messages={state.messages} />}
             </div>
             {accActError.messages.length > 0 && <ErrorDisplayer messages={accActError.messages} />}
-            <p className={`${robotoMono.className} ${classes.header}`}>
+            <p className={`${classes.header}`}>
                 Insert here the code we sent to your email to activate your account.
             </p>
             <form className={classes.form} action={userAccAct}>
@@ -30,10 +29,10 @@ export default function ActivationPage({ params }) {
                 <input style={{ display: "none" }} id="activation-slug" name="activation-slug" value={params.code} readOnly />
             </form>
             <form className={specClasses.resend} action={resend} >
-                <p className={`${robotoMono.className} ${specClasses.resendText}`}>
+                <p className={`${specClasses.resendText}`}>
                     Didn't get the code? &nbsp;
                 </p>
-                <button className={`${specClasses.resendButton} ${robotoMono.className}`} type="submit">Resend</button>
+                <button className={`${specClasses.resendButton}`} type="submit">Resend</button>
                 <input style={{ display: "none" }} id="resend-activation-slug" value={params.code} readOnly />
             </form>
             {resError.messages.length > 0 && <ErrorDisplayer messages={resError.messages} />}

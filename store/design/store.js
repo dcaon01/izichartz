@@ -18,7 +18,7 @@ export default function makeStore(elements) {
         },
         preloadedState: {
             designElements: {
-                sync: true,
+                saved: true,
                 elements: elements,
             }
         }
