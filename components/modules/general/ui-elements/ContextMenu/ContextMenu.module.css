@@ -11,3 +11,11 @@
     padding: 10px;
     border-radius: 5px;
 }
+
+.contextLine {
+    border: none;        /* Rimuove il bordo predefinito */
+    border-top: 1.5px solid #00000052; /* Crea una linea orizzontale */
+    width: 100%;         /* Imposta la larghezza della linea */
+    margin-top: 5px;
+    margin-bottom: 5px;
+}

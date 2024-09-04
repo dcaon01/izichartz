@@ -6,7 +6,7 @@ import ERGenerator from './ERGenerator.js';
 import { useEffect, useState } from 'react';
 import { useDispatch } from "react-redux";
 import { elementsSlice } from '@/store/design/elements-slice.js';
-import ContextMenu from "@/components/modules/general/ui-elements/ContextMenu.js";
+import ERContextMenu from "./ERContextMenu.js";
 import { AnimatePresence } from 'framer-motion';
 
 /**
@@ -98,7 +98,7 @@ export default function ERModule() {
             <Workpane h={wpHeight} w={wpWidth} onContextMenu={handleRightClickMenu} onClick={handleWorkpaneClicked}>
                 <ERGenerator generate={state.elements} />
                 <AnimatePresence>
-                    {contextMenu.rendered && <ContextMenu posX={contextMenu.x} posY={contextMenu.y} />}
+                    {contextMenu.rendered && <ERContextMenu posX={contextMenu.x} posY={contextMenu.y} />}
                 </AnimatePresence>
             </Workpane>
         </>
