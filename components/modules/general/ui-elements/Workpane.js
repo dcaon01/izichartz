@@ -10,12 +10,13 @@ import { memo } from 'react';
  * Componente che renderizza l'elemento sulla quale vivono gli elementi di design.
  * @param h: altezza dell'elemento.
  * @param w: larghezza dell'elemento.
+ * @param onContextMenu: funzione che viene utilizzata dal modulo che lo richiama per gestire quello che vuole
  * @param children: l'elemento viene utilizzato con figli al suo interno.
  */
-export const Workpane = memo(function Workpane(props) {
+export const Workpane = memo(function Workpane({ children, h, w, onContextMenu, onClick }) {
     /* Campi di esemplare */
-    const height = props.h;
-    const width = props.w;
+    const height = h;
+    const width = w;
 
     /* Elementi di utility */
     const dispatch = useDispatch();
@@ -25,6 +26,7 @@ export const Workpane = memo(function Workpane(props) {
      * Funzione che gestisce il click sull'elemento. 
      * Si vuole che tutti gli elementi selezionati vengano deselezionati di default.
      * Si vuole che tutti gli elementi in connessione vengano resettati.
+     * @refactor potrei passare pure questa dal modulo
      */
     function handleClicked(event) {
         // Creare un'azione solo per il resetting?
@@ -36,13 +38,14 @@ export const Workpane = memo(function Workpane(props) {
     return (
         <div
             className={classes.view}
-            onClick={handleClicked}
+            onClick={onClick}
+            onContextMenu={onContextMenu}
         >
-            <div 
+            <div
                 className={classes.pane}
                 style={{ height: height, width: width }}
             >
-                {props.children}
+                {children}
             </div>
         </div>
     );

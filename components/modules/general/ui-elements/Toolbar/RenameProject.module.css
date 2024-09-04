@@ -1,4 +1,4 @@
-.modal {
+.editorRenameModal {
     position: fixed;
     z-index: 13;
     display: flex;
@@ -6,8 +6,8 @@
     align-items: center;
     height: 100%;
     width: 100%;
-    top: 0;
-    left: 0;
+    left: 0px;
+    top: 0px;
 }
 
 .formContainer {

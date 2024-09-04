@@ -3,9 +3,11 @@
 import { useSelector } from 'react-redux';
 import { Workpane } from '../general/ui-elements/Workpane.js';
 import ERGenerator from './ERGenerator.js';
-import { useEffect } from 'react';
+import { useEffect, useState } from 'react';
 import { useDispatch } from "react-redux";
 import { elementsSlice } from '@/store/design/elements-slice.js';
+import ContextMenu from "@/components/modules/general/ui-elements/ContextMenu.js";
+import { AnimatePresence } from 'framer-motion';
 
 /**
  * ER
@@ -15,10 +17,15 @@ import { elementsSlice } from '@/store/design/elements-slice.js';
  */
 export default function ERModule() {
     /* Campi di Esemplare */
-    const elements = useSelector(state => state.designElements);
+    const state = useSelector(state => state.designElements);
     const wpHeight = 720;
     const wpWidth = 1920;
-    console.log(elements);
+    let [contextMenu, setContextMenu] = useState({
+        rendered: false,
+        x: 0,
+        y: 0
+    });
+    console.log(state);
 
     /* Elementi di Utility */
     const dispatch = useDispatch(); // Prelevamento del riferimento di useDispatch per poterlo usare liberamente.
@@ -39,22 +46,60 @@ export default function ERModule() {
             // Invia i dati al DB.
         }
     }
-    
+
+    /**
+     * handleRightClickMenu
+     * Funzione per la gestione del right click sul workpane
+     * Renderizziamo un menu per la gestione delle azioni, come copia,
+     * taglia, incolla, new entity, new relationship, etc.
+     */
+    function handleRightClickMenu(event) {
+        event.stopPropagation();
+        event.preventDefault(); // non facciamo attivare del browser
+        if (contextMenu.rendered) {
+            setContextMenu({
+                rendered: false,
+                x: 0,
+                y: 0
+            });
+        } else {
+            setContextMenu({
+                rendered: true,
+                x: event.clientX,
+                y: event.clientY
+            });
+        }
+    }
+
+    /** 
+     * handleWorkpaneClicked
+     * Funzione che si occupa di deselezionare tutti gli elementi 
+     * e/o chiudere tutti i pop-up
+     */
+    function handleWorkpaneClicked(event) {
+        // Creare un'azione solo per il resetting?
+        dispatch(elementsSlice.actions.setSelectedElement(0));
+        dispatch(elementsSlice.actions.setConnectingElement(0));
+        setContextMenu({
+            rendered: false,
+            x: 0,
+            y: 0
+        });
+    }
+
     useEffect(() => {
         document.addEventListener('keydown', handleKeyDown);
     }, []);
-
-    useEffect(() => {
-        // Gestione degli errori? - Probabilmente si, perché non vogliamo inviare gli errori ma segnalarli all'utente.
-        // 
-    }, [elements]);
 
     /* Rendering */
     return (
         <>
             {/* Possiamo usare suspanse nel mentre che si caricano i dati */}
-            <Workpane h={wpHeight} w={wpWidth}>
-                <ERGenerator generate={elements} />
+            <Workpane h={wpHeight} w={wpWidth} onContextMenu={handleRightClickMenu} onClick={handleWorkpaneClicked}>
+                <ERGenerator generate={state.elements} />
+                <AnimatePresence>
+                    {contextMenu.rendered && <ContextMenu posX={contextMenu.x} posY={contextMenu.y} />}
+                </AnimatePresence>
             </Workpane>
         </>
     );

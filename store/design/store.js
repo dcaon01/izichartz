@@ -7,7 +7,8 @@ import { elementsSlice } from "./elements-slice";
  * Funzione che si occupa del setup dello store.
  * @returns un puntatore alla funzione configureStore, gestito da Redux.
  */
-export default function makeStore() {
+export default function makeStore(elements) {
+    console.log("Stampiamo elements nel makeStore: " + elements);
 
     // Richiedi di creare lo store
     return configureStore({
@@ -16,8 +17,9 @@ export default function makeStore() {
             designElements: elementsSlice.reducer
         },
         preloadedState: {
-            designGlobal: {
-                // Quello che prelevi
+            designElements: {
+                sync: true,
+                elements: elements,
             }
         }
     });

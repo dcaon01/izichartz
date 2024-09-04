@@ -1,0 +1,14 @@
+.savingStatus {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.savingText {
+    font-size: 14px;
+    font-weight: 300;
+}
+
+.savingImage {
+    margin-bottom: 2px;
+}

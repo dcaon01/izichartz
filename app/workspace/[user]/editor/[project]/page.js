@@ -1,6 +1,6 @@
 import ERModule from '@/components/modules/ER/ERModule.js';
 import StoreProvider from './StoreProvider.js';
-import Toolbar from "@/components/modules/general/ui-elements/Toolbar.js";
+import Toolbar from "@/components/modules/general/ui-elements/Toolbar/Toolbar.js";
 import { headers } from 'next/headers';
 
 /**
@@ -25,16 +25,14 @@ import { headers } from 'next/headers';
 export default async function EditorPage() {
     const headersList = headers();
     const id = headersList.get('Project-Id');
-    // console.log("ID del progetto " + id);
-
     const project = await getProject(id);
-    // console.log("Questo è il progetto: " + JSON.stringify(project));
-    console.log("Progetto: " + project.name);
+    console.log("Stampiamo il progetto in EditorPage: " + JSON.stringify(project))
 
     return (
         <main>
-            <StoreProvider>
+            <StoreProvider elements={project.content.content}>
                 <Toolbar projectName={project.name} />
+                <ERModule />
             </StoreProvider>
         </main>
     );
@@ -56,7 +54,6 @@ async function getProject(id) {
             body: JSON.stringify({ id })
         }
     );
-    console.log(resp);
     let project = await resp.json();
     return project;
     // Gestire anche l'errore del server

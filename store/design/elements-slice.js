@@ -1,80 +1,22 @@
 import { createSlice } from "@reduxjs/toolkit";
 
-/* Stato iniziale dello slice componentsSlice.
+/* Stato iniziale dello slice elementsSlice.
 L'array contiene tutti i JSON che codificano gli elementi presenti nel
-workpane. */
-const init = [
-    {
-        type: "entity",
-        id: 1,
-        selected: false,
-        options: {
-            text: { value: "ENTITY1", width: 49.5 },
-            position: {
-                x: 150,
-                y: 200,
-            },
-            minSize: 70,
-            size: {
-                width: 127.75,
-                height: 70,
-            },
-            connecting: false,
-        }
-    },
-    {
-        type: "entity",
-        id: 2,
-        selected: false,
-        options: {
-            text: { value: "ENTITY2", width: 49.5 },
-            position: {
-                x: 400,
-                y: 300,
-            },
-            minSize: 70,
-            size: {
-                width: 127.75,
-                height: 70,
-            },
-            connecting: false,
-        },
-    },
-    {
-        type: "relationship",
-        id: 3,
-        selected: false,
-        options: {
-            text: { value: "", width: 0 },
-            position: {
-                x: 600,
-                y: 150,
-            },
-            minSize: 80,
-            size: {
-                width: 80,
-                height: 80,
-            },
-            connecting: false
-        },
-    },
-    {
-        type: "linker",
-        id: 4,
-        selected: false,
-        options: {
-            text: "",
-            linked: [1, 3], // Id degli Elementi che devono essere collegati.
-            segments: [       // Segmenti che compongono la linea. Il primo parte dal primo elemento, l'ultimo termina nel secondo
-                {
-                    p1: { x: 213.875, y: 235 },
-                    p2: { x: 640, y: 190 },
-                    selected: false,
-                }
-            ],
-        }
-    }
-];
+workpane. 
+> Struttura dello Stato
+{
+    Sync: true/false, - In base al fatto che lo stato corrente sia sincronizzato con il db o meno
+    Elements: [  - Elementi che compongono il disegno
+        {}
+    ],
+    Errors: ?
+}
+*/
+
+const init = {
+    sync: false,
+    elements: []
+}
 
 /* Creiamo uno slice che memorizza gli elementi grafici che ci sono all'interno di
 un workpane come oggetti all'interno dell'array presente nello slice stesso.*/
@@ -115,7 +57,7 @@ export const elementsSlice = createSlice({
          * - value: valore con cui modificare quell'opzione.
          */
         modifyElementOptions(state, action) {
-            state[action.payload.id - 1].options[action.payload.option] = action.payload.value;
+            state.elements[action.payload.id - 1].options[action.payload.option] = action.payload.value;
         },
 
         /**
@@ -129,10 +71,10 @@ export const elementsSlice = createSlice({
          * - value: valore con cui modificare quell'opzione.
          */
         modifyElementOptionsAndLinkers(state, action) {
-            let element = state[action.payload.id - 1]; // Viene fatta una shallow copy.
+            let element = state.elements[action.payload.id - 1]; // Viene fatta una shallow copy.
             element.options[action.payload.option] = action.payload.value;
             // Cerchiamo i linkers fra gli elementi.
-            state.forEach((linker) => {
+            state.elements.forEach((linker) => {
                 // Troviamo i linkers collegati all'elemento di cui è stato passato l'id. 
                 // Se l'elemento è il primo in linked dobbiamo agire sul primo segment, altrimento sarà l'ultimo
                 if (linker.type === "linker") {
@@ -168,8 +110,9 @@ export const elementsSlice = createSlice({
          */
         setSelectedElement(state, action) {
             const id = action.payload;
+            console.log("Stampiamo gli elementi: " + state.elements);
             if (id === 0) {
-                state.forEach((element) => {
+                state.elements.forEach((element) => {
                     element.selected = false;
                     if (element.type === "linker") {
                         element.options.segments.forEach((segment) => {
@@ -178,7 +121,7 @@ export const elementsSlice = createSlice({
                     }
                 });
             } else {
-                state.forEach((element) => {
+                state.elements.forEach((element) => {
                     if (element.id === id) {
                         element.selected = true;
                     } else {
@@ -204,11 +147,11 @@ export const elementsSlice = createSlice({
         setSelectedSegment(state, action) {
             const id = action.payload.id;
             if (id === 0) {
-                state.forEach((element) => {
+                state.elements.forEach((element) => {
                     element.selected = false;
                 });
             } else {
-                state.forEach((element) => {
+                state.elements.forEach((element) => {
                     if (element.id === id) {
                         element.selected = true;
                         element.options.segments.forEach((segment, index) => {
@@ -241,14 +184,14 @@ export const elementsSlice = createSlice({
         setConnectingElement(state, action) {
             const id = action.payload;
             if (id === 0) {
-                state.forEach((element) => {
+                state.elements.forEach((element) => {
                     // element.selected = false;
                     if (element.options.connecting) {
                         element.options.connecting = false;
                     }
                 });
             } else {
-                state.forEach((element) => {
+                state.elements.forEach((element) => {
                     if (element.id === id) {
                         element.options.connecting = true;
                     } else {
@@ -268,7 +211,7 @@ export const elementsSlice = createSlice({
         connecting(state, action) {
             let startId = 0;
             let finishId = action.payload;
-            state.forEach((element) => {
+            state.elements.forEach((element) => {
                 if (element.options && element.options.connecting === true) {
                     startId = element.id;
                 }

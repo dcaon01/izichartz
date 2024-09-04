@@ -34,7 +34,7 @@ export default function RenameProject({ name, funct }) {
 
     return (
         <>
-            <div className={classes.modal}
+            <div className={classes.editorRenameModal}
                 onClick={funct}
             >
                 <motion.div

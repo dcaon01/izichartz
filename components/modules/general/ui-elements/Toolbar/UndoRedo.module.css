@@ -5,3 +5,12 @@
     align-items: center;
     gap: 10px;
 }
+
+.undoredoImage {
+    margin-bottom: 2px;
+    user-select: none;
+}
+
+.undoredoImage:hover {
+    cursor: pointer;
+}
