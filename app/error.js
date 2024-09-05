@@ -1,6 +1,8 @@
 'use client'
 
 import Link from "next/link";
+import { robotoMono } from "./fonts";
+import classes from "./error.module.css";
 
 /**
  * Error Page
@@ -10,14 +12,18 @@ import Link from "next/link";
  */
 export default function ErrorPage() {
     return (
-        <body>
-            <main>
-                <div>
-                    <p>Oops... Something strange happened..</p>
-                    <Link href="/">Go back Home</Link>
-                </div>
-            </main>
-        </body>
+        <html lang="en">
+            <body>
+                <main>
+                    <div className={`${robotoMono.className} ${classes.errorContainer}`}>
+                        <img src="/assets/global/logo.png" style={{ height: "30px", width: "auto" }} />
+                        <p className={classes.errorText}>ERROR</p>
+                        <p>Oops... Something strange happened...</p>
+                        <Link href="/" className={classes.errorLink}>Go back Home</Link>
+                    </div>
+                </main>
+            </body>
+        </html>
     );
 }
 
