@@ -1,9 +1,7 @@
 'use client';
 
-import { useDispatch } from 'react-redux';
 import classes from './Workpane.module.css';
-import { elementsSlice } from '@/store/design/elements-slice';
-import { memo } from 'react';
+import { memo, useEffect } from 'react';
 
 /**
  * Workpane
@@ -14,37 +12,37 @@ import { memo } from 'react';
  * @param onContextMenu: funzione che viene utilizzata dal modulo che lo richiama per gestire quello che vuole
  * @param children: l'elemento viene utilizzato con figli al suo interno.
  */
-export const Workpane = memo(function Workpane({ children, h, w, onContextMenu, onClick }) {
+export const Workpane = memo(function Workpane({ children, h, w, onContextMenu, onClick, zoom }) {
     /* Campi di esemplare */
-    const height = h;
-    const width = w;
+    const height = h * (zoom/100);
+    const width = w * (zoom/100);
+    //const aspectRatio = width / height;
 
-    /* Elementi di utility */
-    const dispatch = useDispatch();
-
-    /**
-     * handleClicked
-     * Funzione che gestisce il click sull'elemento. 
-     * Si vuole che tutti gli elementi selezionati vengano deselezionati di default.
-     * Si vuole che tutti gli elementi in connessione vengano resettati.
-     * @refactor potrei passare pure questa dal modulo
-     */
-    function handleClicked(event) {
-        // Creare un'azione solo per il resetting?
-        dispatch(elementsSlice.actions.setSelectedElement(0));
-        dispatch(elementsSlice.actions.setConnectingElement(0));
-    }
+    /*
+    useEffect(() => {
+        const scrollHeight = document.documentElement.scrollHeight;
+        const scrollWidth = document.documentElement.scrollWidth;
+        window.scrollTo(0, scrollHeight / 4);
+        window.scrollTo(0, scrollWidth / 4);
+      }, []);
+    */
 
     /* Rendering */
     return (
         <div
             className={classes.view}
-            onClick={onClick}
-            onContextMenu={onContextMenu}
+            id="view"
+            style={{
+                minHeight: height,
+                minWidth: width
+            }}
         >
             <div
+                onClick={onClick}
+                onContextMenu={onContextMenu}
                 className={classes.pane}
                 style={{ height: height, width: width }}
+                id="workpane"
             >
                 {children}
             </div>

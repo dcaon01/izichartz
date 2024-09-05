@@ -18,8 +18,8 @@ import { AnimatePresence } from 'framer-motion';
 export default function ERModule() {
     /* Campi di Esemplare */
     const state = useSelector(state => state.designElements);
-    const wpHeight = 720;
-    const wpWidth = 1920;
+    const wpHeight = state.workpane.height;
+    const wpWidth = state.workpane.width;
     let [contextMenu, setContextMenu] = useState({
         rendered: false,
         x: 0,
@@ -101,7 +101,7 @@ export default function ERModule() {
     return (
         <>
             {/* Possiamo usare suspanse nel mentre che si caricano i dati */}
-            <Workpane h={wpHeight} w={wpWidth} onContextMenu={handleRightClickMenu} onClick={handleWorkpaneClicked}>
+            <Workpane h={wpHeight} w={wpWidth} zoom={state.zoom} onContextMenu={handleRightClickMenu} onClick={handleWorkpaneClicked}>
                 <ERGenerator generate={state.elements} />
                 <AnimatePresence>
                     {contextMenu.rendered && <ERContextMenu posX={contextMenu.x} posY={contextMenu.y} />}

@@ -5,10 +5,10 @@ import { Provider } from 'react-redux';
 import makeStore from '@/store/design/store.js';
 import LoadingItem from '@/components/loading/LoadingItem';
 
-export default function StoreProvider({ children, elements }) {
+export default function StoreProvider({ children, content }) {
   const storeRef = useRef(null);
   if (!storeRef.current) {
-    storeRef.current = makeStore(elements); // Creiamo lo store e gli slices
+    storeRef.current = makeStore(content); // Creiamo lo store e gli slices
   }
 
   return (

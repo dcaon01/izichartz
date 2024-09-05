@@ -30,7 +30,7 @@ export default async function EditorPage() {
 
     return (
         <main>
-            <StoreProvider elements={project.content.elements}>
+            <StoreProvider content={project.content}>
                 <Toolbar projectName={project.name} />
                 <ERModule />
             </StoreProvider>

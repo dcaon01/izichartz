@@ -10,7 +10,7 @@ workpane.
     contextModule: true | false,
     sidebar: true, false,
     workpane: { heigth: , width: }
-    zoom: 0.5-2 - Dove 2 è la visualizzazione massima
+    zoom: 10-200 - Dove 200 è la visualizzazione massima
     elements: [  - Elementi che compongono il disegno
         {}
     ],
@@ -43,7 +43,6 @@ export const elementsSlice = createSlice({
          *  Il JSON dovrà avere tutti gli elementi tranne l'id.
          */
         addElement(state, action) {
-            console.log("Entro in add Element");
             let id = state.elements.length + 1;
             state.elements.push({ id: id, ...action.payload });
         },
@@ -256,6 +255,19 @@ export const elementsSlice = createSlice({
             } else {
                 console.log("Non puoi connettere lo stesso elemento");
             }
+        },
+
+        /**
+         * setZoom.
+         * Reducer per il setting dello zoom degli elementi visualizzati.
+         * @param state stato corrente.
+         * @param action azione che ha scatenato questa reducer. Il payload dell'azione avrà i 
+         * azione che ha scatenato questa reducer. Il payload dell'azione avrà i 
+         * seguenti parametri:
+         * - zoom: valore al quale cambiare lo zoom
+         */
+        modifyZoom(state, action) {
+            state.zoom = action.payload;
         }
-    }
+    } // end reducers
 });

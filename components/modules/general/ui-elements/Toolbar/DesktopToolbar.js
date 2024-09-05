@@ -7,11 +7,13 @@ import { robotoMono } from "@/app/fonts";
 import { motion, AnimatePresence } from "framer-motion";
 import FileDropdown from './FileDropdown';
 import UndoRedo from "./UndoRedo";
-import Zoom from "./Zoom";
+import { Zoom } from "./Zoom";
 import SavingStatus from "./SavingStatus";
+import { useSelector } from "react-redux";
 
 export default function DesktopToolbar({ projectName }) {
     let [modulesDropDown, setModulesDropDown] = useState(false);
+    const state = useSelector(state => state.designElements);
 
     function handleModulesDropDown(event) {
         event.preventDefault();
@@ -44,7 +46,7 @@ export default function DesktopToolbar({ projectName }) {
                     </AnimatePresence>
                 </div>
                 <UndoRedo />
-                <Zoom />
+                <Zoom zoom={state.zoom} />
                 <SavingStatus />
             </>
         </nav>
