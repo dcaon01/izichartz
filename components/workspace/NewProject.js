@@ -56,9 +56,9 @@ export default function NewProject({ funct }) {
                         </div>
                         <div className={classes.selection}>
                             <label>Select Size</label>
-                            <select id="project-module" name="project-module" className={classes.selector}>
+                            <select id="project-size" name="project-size" className={classes.selector}>
                                 <option value="-" selected>-</option>
-                                <option value={{width: 1920, height:1080}}>1920x1080</option>
+                                <option value='{ "width": 1920, "height": 1080 }'>1920x1080</option>
                             </select>
                         </div>
                         <FormButton text="Create" pendingText="Creating..." />
