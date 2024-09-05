@@ -5,7 +5,6 @@ import { AnimatePresence, motion } from "framer-motion";
 import { useState, useEffect } from "react";
 import DeleteProject from "@/components/workspace/DeleteProject";
 import RenameProject from "@/components/workspace/RenameProject";
-import { useRouter } from "next/navigation";
 import { getCookie } from "cookies-next";
 
 export default function ProjectCard({ id, name, module, creation, lastModified, preview }) {
@@ -14,7 +13,6 @@ export default function ProjectCard({ id, name, module, creation, lastModified, 
     let [isDeleting, setIsDeleting] = useState(false);
     let [isRenaming, setIsRenaming] = useState(false);
     let [username, setUsername] = useState(null);
-    const router = useRouter();
     let visualName = null;
 
     if (name.length > 20) {
@@ -64,7 +62,7 @@ export default function ProjectCard({ id, name, module, creation, lastModified, 
 
     function editProject(event) {
         event.stopPropagation();
-        router.push(`/workspace/${username}/editor/${id}`);
+        window.open(`http://localhost:3000/workspace/${username}/editor/${id}`)
     }
 
     useEffect(() => {

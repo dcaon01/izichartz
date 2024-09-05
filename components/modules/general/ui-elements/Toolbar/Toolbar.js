@@ -1,9 +1,9 @@
 import DesktopToolbar from "./DesktopToolbar";
 
-export default function Toolbar({ projectName }) {
+export default function Toolbar({ projectName, id }) {
     return (
         <>
-            <DesktopToolbar projectName={projectName} />
+            <DesktopToolbar projectName={projectName} id={id}/>
         </>
     );
 }

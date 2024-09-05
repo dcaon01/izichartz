@@ -16,10 +16,14 @@ export const Zoom = memo(function Zoom({ zoom }) {
     const dispatch = useDispatch();
 
     function handleZoomChange(event) {
+        event.preventDefault();
+        event.stopPropagation();
         dispatch(elementsSlice.actions.modifyZoom(event.target.value));
     }
 
     function handleReset() {
+        event.preventDefault();
+        event.stopPropagation();
         dispatch(elementsSlice.actions.modifyZoom(70));
     }
 

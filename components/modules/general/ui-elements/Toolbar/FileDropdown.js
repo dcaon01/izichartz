@@ -1,8 +1,22 @@
 import classes from "./FileDropdown.module.css";
 import { robotoMono } from "@/app/fonts";
 import { motion } from "framer-motion";
+import { saveProject } from "@/store/design/elements-slice";
+import { useDispatch } from "react-redux";
 
-export default function FileDropdown() {
+/**
+ * Filedropdown
+ * Componente per la renderizzazione di un menu di dropdown.
+ * @param state stato del progetto.
+ */
+export default function FileDropdown({id, state}) {
+    const dispatch = useDispatch();
+
+    function handleSave(event) {
+        event.preventDefault();
+        console.log("HANDLE SAVE: " + id);
+        dispatch(saveProject({ id: id, content: state} ));
+    }
 
     return (
         <motion.div
@@ -20,12 +34,8 @@ export default function FileDropdown() {
                 opacity: 0,
             }}
         >
-            <form>
-                <button className={`${classes.link} ${robotoMono.className}`} href="">Save</button>
-            </form>
-            <form>
-                <button className={`${classes.link} ${robotoMono.className}`} type="submit">Export</button>
-            </form>
+            <p className={`${classes.link} ${robotoMono.className}`} onClick={handleSave}>Save</p>
+            <p className={`${classes.link} ${robotoMono.className}`}>Export</p>
         </motion.div>
     );
 }

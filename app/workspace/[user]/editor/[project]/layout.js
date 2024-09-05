@@ -2,7 +2,7 @@ import "@/app/globals.css";
 import { robotoMono } from "../../../../fonts";
 
 export const metadata = {
-  title: "Izichartz",
+  title: "Izichartz - Editor",
   description: "The best software design tool",
 };
 

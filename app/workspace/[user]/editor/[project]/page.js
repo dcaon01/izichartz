@@ -26,12 +26,14 @@ export default async function EditorPage() {
     const headersList = headers();
     const id = headersList.get('Project-Id');
     const project = await getProject(id);
-    console.log("Stampiamo il progetto in EditorPage: " + JSON.stringify(project))
+    console.log("Stampiamo il progetto in EditorPage: " + JSON.stringify(project));
+
+    // Scelta del modulo da utilizzare
 
     return (
         <main>
             <StoreProvider content={project.content}>
-                <Toolbar projectName={project.name} />
+                <Toolbar projectName={project.name} id={project.id}/>
                 <ERModule />
             </StoreProvider>
         </main>

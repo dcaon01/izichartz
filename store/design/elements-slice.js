@@ -1,4 +1,4 @@
-import { createSlice } from "@reduxjs/toolkit";
+import { createSlice, createAsyncThunk } from "@reduxjs/toolkit";
 
 /* Stato iniziale dello slice elementsSlice.
 L'array contiene tutti i JSON che codificano gli elementi presenti nel
@@ -26,6 +26,22 @@ const init = {
     saved: false,
     elements: []
 }
+
+export const saveProject = createAsyncThunk(
+    'project/saveProject',
+    async (payload, thunkAPI) => {
+        console.log("THUNK " + payload.id + " " + payload.content);
+        const response = await fetch(new URL("http://localhost:3000/api/save/saveProject"),
+            {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json'
+                },
+                body: JSON.stringify({ id: payload.id, content: payload.content })
+            }
+        );
+    }
+)
 
 /* Creiamo uno slice che memorizza gli elementi grafici che ci sono all'interno di
 un workpane come oggetti all'interno dell'array presente nello slice stesso.*/
@@ -269,5 +285,18 @@ export const elementsSlice = createSlice({
         modifyZoom(state, action) {
             state.zoom = action.payload;
         }
-    } // end reducers
+    }, // end reducers
+    extraReducers: (builder) => {
+        builder
+            .addCase(saveProject.pending, (state) => {
+                state.status = 'loading';
+            })
+            .addCase(saveProject.fulfilled, (state) => {
+                state.status = 'saved';
+            })
+            .addCase(saveProject.rejected, (state) => {
+                state.status = 'notsaved';
+                state.errors.push("Something is wrong...");
+            })
+    }
 });

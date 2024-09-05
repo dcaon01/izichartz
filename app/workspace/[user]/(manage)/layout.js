@@ -4,7 +4,7 @@ import Footer from "@/components/layouts/Footer.js";
 import { robotoMono } from "../../../fonts.js";
 
 export const metadata = {
-  title: "Izichartz",
+  title: "Izichartz - Workspace",
   description: "The best software design tool",
 };
 

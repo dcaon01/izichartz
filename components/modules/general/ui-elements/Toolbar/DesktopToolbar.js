@@ -11,9 +11,10 @@ import { Zoom } from "./Zoom";
 import SavingStatus from "./SavingStatus";
 import { useSelector } from "react-redux";
 
-export default function DesktopToolbar({ projectName }) {
+export default function DesktopToolbar({ projectName, id }) {
     let [modulesDropDown, setModulesDropDown] = useState(false);
     const state = useSelector(state => state.designElements);
+    console.log(JSON.stringify(state));
 
     function handleModulesDropDown(event) {
         event.preventDefault();
@@ -41,7 +42,7 @@ export default function DesktopToolbar({ projectName }) {
                     </motion.svg>
                     <AnimatePresence>
                         {modulesDropDown &&
-                            <FileDropdown />
+                            <FileDropdown state={state} id={id} />
                         }
                     </AnimatePresence>
                 </div>
