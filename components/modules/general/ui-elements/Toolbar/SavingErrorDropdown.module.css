@@ -1,0 +1,16 @@
+.savingErrorDropdown {
+    position: absolute;
+    display: flex;
+    min-height: 20px;
+    min-width: 100px;
+    border-width: 2px;
+    border-color: rgb(136, 0, 0);
+    background-color: rgb(255, 38, 74);
+    border-radius: 5px;
+    padding: 10px;
+    flex-direction: column;
+}
+
+.errorText {
+    font-size: 13px;
+}

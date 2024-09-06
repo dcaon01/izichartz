@@ -1,7 +1,5 @@
 .loadingCircle {
     border: 6px solid grey;
-    width: 30px;
-    height: 30px;
     border-radius: 50%;
     border-top-color: black;
     animation: spin 1s infinite ease-in-out;

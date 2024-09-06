@@ -23,7 +23,7 @@ export default function StoreProvider({ children, content }) {
         justifyContent: "center",
         alignItems: "center"
       }}>
-        <LoadingItem text="Loading project..." />
+        <LoadingItem text="Loading project..." circleSize={30}/>
       </div>
     }>
       <Provider store={storeRef.current}>

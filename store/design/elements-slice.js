@@ -40,6 +40,9 @@ export const saveProject = createAsyncThunk(
                 body: JSON.stringify({ id: payload.id, content: payload.content })
             }
         );
+        if (!response.ok) {
+            throw new Error("An error occured");
+        }
     }
 )
 
@@ -289,7 +292,7 @@ export const elementsSlice = createSlice({
     extraReducers: (builder) => {
         builder
             .addCase(saveProject.pending, (state) => {
-                state.status = 'loading';
+                state.status = 'saving';
             })
             .addCase(saveProject.fulfilled, (state) => {
                 state.status = 'saved';

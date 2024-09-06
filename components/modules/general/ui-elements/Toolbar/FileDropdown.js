@@ -14,7 +14,6 @@ export default function FileDropdown({id, state}) {
 
     function handleSave(event) {
         event.preventDefault();
-        console.log("HANDLE SAVE: " + id);
         dispatch(saveProject({ id: id, content: state} ));
     }
 

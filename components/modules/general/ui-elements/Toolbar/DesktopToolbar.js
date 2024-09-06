@@ -48,7 +48,7 @@ export default function DesktopToolbar({ projectName, id }) {
                 </div>
                 <UndoRedo />
                 <Zoom zoom={state.zoom} />
-                <SavingStatus />
+                <SavingStatus status={state.status}/>
             </>
         </nav>
     );

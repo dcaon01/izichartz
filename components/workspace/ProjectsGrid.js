@@ -33,7 +33,7 @@ export default async function ProjectGrid() {
     return (
         <div className={classes.gridContainer}>
             <Suspense fallback={
-                <LoadingItem text="Fetching projects..." />
+                <LoadingItem text="Fetching projects..." circleSize={30}/>
             }>
                 {
                     projects.length === 0 ?
