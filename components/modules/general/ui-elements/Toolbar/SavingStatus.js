@@ -20,6 +20,9 @@ export default function SavingStatus({ status }) {
         case "notsaved":
             statusText = "Not Saved";
             break;
+        case "error":
+            statusText = "Error";
+            break;
     }
 
     return (
@@ -28,10 +31,14 @@ export default function SavingStatus({ status }) {
             {statusText === "Saved" && <img className={classes.savingImage} src="/assets/global/verification-on-cloud.png" width={22} height={22} />}
             {statusText === "Saving..." && <LoadingCircle size={22} />}
             {statusText === "Not Saved" &&
+                <img className={classes.savingImage} src="/assets/global/error-on-cloud.png" width={22} height={22} />
+
+            }
+            {statusText === "Error" &&
                 <>
                     <img className={classes.savingImage} src="/assets/global/error-on-cloud.png" width={22} height={22} />
                     <AnimatePresence>
-                       <SavingErrorDropdown />
+                        <SavingErrorDropdown />
                     </AnimatePresence>
                 </>
             }

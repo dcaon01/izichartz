@@ -3,7 +3,7 @@ import { Client } from "pg";
 import { NextResponse } from "next/server";
 
 /**
- * 
+ * Route handler che gestisce il salvataggio dei progetti
  * @param request request con un json che ha questa struttura:
  * - id: identificativo del progetto
  * - content: 
@@ -39,7 +39,7 @@ export async function POST(request) {
     }
     return new NextResponse(JSON.stringify(null),
         {
-            status: 500,
+            status: 200,
             headers: {
                 "Content-Type": "application/json"
             },

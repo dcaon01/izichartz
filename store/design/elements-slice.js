@@ -64,6 +64,7 @@ export const elementsSlice = createSlice({
         addElement(state, action) {
             let id = state.elements.length + 1;
             state.elements.push({ id: id, ...action.payload });
+            state.status = "notsaved";
         },
 
         /**
@@ -86,6 +87,7 @@ export const elementsSlice = createSlice({
          */
         modifyElementOptions(state, action) {
             state.elements[action.payload.id - 1].options[action.payload.option] = action.payload.value;
+            state.status = "notsaved";
         },
 
         /**
@@ -126,6 +128,7 @@ export const elementsSlice = createSlice({
                     }
                 }
             });
+            state.status = "notsaved";
         },
 
         /**
@@ -234,7 +237,7 @@ export const elementsSlice = createSlice({
          * @param state stato corrente.
          * @param action azione che ha scatenato questa reducer. Il payload dell'azione avrà i 
          * seguenti parametri:
-         * - id: id dell'elememnto che sta cercando di fare la connessione.
+         * - id: id dell'elemento che sta cercando di fare la connessione.
          */
         connecting(state, action) {
             let startId = 0;
@@ -271,6 +274,7 @@ export const elementsSlice = createSlice({
                     }
                 }
                 state.elements.push(linker);
+                state.status = "notsaved";
             } else {
                 console.log("Non puoi connettere lo stesso elemento");
             }
@@ -288,6 +292,7 @@ export const elementsSlice = createSlice({
         modifyZoom(state, action) {
             state.zoom = action.payload;
         }
+
     }, // end reducers
     extraReducers: (builder) => {
         builder
@@ -298,7 +303,7 @@ export const elementsSlice = createSlice({
                 state.status = 'saved';
             })
             .addCase(saveProject.rejected, (state) => {
-                state.status = 'notsaved';
+                state.status = 'error';
                 state.errors.push("Something is wrong...");
             })
     }
