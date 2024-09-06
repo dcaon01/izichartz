@@ -6,11 +6,12 @@ export const metadata = {
   description: "The best software design tool",
 };
 
+/*
 export const viewport = {
   width: 'device-width',
   initialScale: 1,
 }
-
+*/
 export default function EditorLayout({ children }) {
   return (
     <html lang="en">

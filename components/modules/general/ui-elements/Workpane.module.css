@@ -12,12 +12,11 @@
 }
 
 .pane {
+    position: relative;
     background-repeat: repeat;
     background-image: url(../../../../public/assets/design/workpane-bg.png);
     background-color: white;
     z-index: 1;
     border-width: 1.5px;
     border-color: black;
-    overflow: hidden;
-    overflow: auto;
 }

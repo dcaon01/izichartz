@@ -1,0 +1,20 @@
+.sidebarButton {
+    position: relative;
+    width: 35px;
+    height: 35px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    border-width: 1.5px;
+    padding: 5px;
+    border-bottom-left-radius: 5px;
+    border-bottom-right-radius: 5px;
+    background-color: black;
+    transition: background-color 0.2s ease;
+    border-color: black;
+}
+
+.sidebarButton:hover {
+    background-color: white;
+    cursor: pointer;
+}

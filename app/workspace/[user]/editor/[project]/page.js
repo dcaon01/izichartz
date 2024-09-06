@@ -1,6 +1,7 @@
 import ERModule from '@/components/modules/ER/ERModule.js';
 import StoreProvider from './StoreProvider.js';
 import Toolbar from "@/components/modules/general/ui-elements/Toolbar/Toolbar.js";
+import Sidebar from "@/components/modules/general/ui-elements/Sidebar/Sidebar.js";
 import { headers } from 'next/headers';
 
 /**
@@ -34,6 +35,7 @@ export default async function EditorPage() {
         <main>
             <StoreProvider content={project.content}>
                 <Toolbar projectName={project.name} id={project.id}/>
+                <Sidebar />
                 <ERModule />
             </StoreProvider>
         </main>

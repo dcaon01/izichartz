@@ -99,7 +99,7 @@ export default function ERModule() {
 
     /* Rendering */
     return (
-        <>
+        <>  
             {/* Possiamo usare suspanse nel mentre che si caricano i dati */}
             <Workpane h={wpHeight} w={wpWidth} zoom={state.zoom} onContextMenu={handleRightClickMenu} onClick={handleWorkpaneClicked}>
                 <ERGenerator generate={state.elements} />

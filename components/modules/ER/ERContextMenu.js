@@ -28,6 +28,7 @@ export default function ERContextMenu({ posX, posY }) {
      * Funzione che gestisce l'inserimento di una nuova entità all'interno del progetto. 
      */
     function handleNewEntity() {
+        
         dispatch(elementsSlice.actions.addElement(
             {
                 type: "entity",

@@ -1,0 +1,9 @@
+.sidebarContainer {
+    position: fixed;
+    display: flex;
+    height: 100%;
+    top: 70px;
+    right: 0;
+    flex-direction: row;
+    z-index: 1;
+}
