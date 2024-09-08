@@ -5,7 +5,7 @@ import { useState } from "react";
 
 /**
  * Input
- * Componente che va a rendereizzare un input. Esistono tre tipi di input (per ora):
+ * Componente che va a rendereizzare un input. Esistono tre tipi di input:
  * - password
  * - email
  * - text
@@ -38,11 +38,18 @@ export default function AuthInput({ id, type, label }) {
                 <div className={classes.passwordHead}>
                     <label>{label}</label>
                     <div className={classes.visible} onClick={handlePswVisible}>
-                        <img src={isVisible ? "/assets/global/visible.png" : "/assets/global/not_visible.png"} height={16} width={16} alt={isVisible ? "hide" : "show"} />
+                        <img
+                            src={isVisible
+                                ? "/assets/global/visible.png"
+                                : "/assets/global/not_visible.png"
+                            }
+                            height={16}
+                            width={16}
+                            alt={isVisible ? "hide" : "show"} />
                     </div>
                 </div>
             }
-            {!isPassword && 
+            {!isPassword &&
                 <label>{label}</label>
             }
             <input
