@@ -16,12 +16,13 @@ export default function StoreProvider({ children, content }) {
       <div style={{
         position: "fixed",
         display: "flex",
-        width: "100%",
-        height: "100%",
+        width: "100vw",
+        height: "100vh",
         left: 0,
         top: 0,
         justifyContent: "center",
-        alignItems: "center"
+        alignItems: "center",
+        flexDirection: "column"
       }}>
         <LoadingItem text="Loading project..." circleSize={30}/>
       </div>

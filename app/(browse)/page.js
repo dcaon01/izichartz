@@ -46,14 +46,16 @@ export default function HomePage() {
 
         <h1 className={`${general.title}`}>What's Izichartz?</h1>
         <div className={classes.section}>
-          <OnScrollWrapper direction="right" intensity={30} size={45}>
+          <OnScrollWrapper direction="right" intensity={30} size={100}>
             <p className={`${classes.description}`}>
               Izichartz is the best tool for software design. It aims to facilitate this crucial
               phase by improving functionalities and addressing issues found in similar
               existing programs.
             </p>
           </OnScrollWrapper>
-          <OnScrollWrapper direction="left" intensity={30} size={45}>
+        </div>
+        <div className={classes.section}>
+          <OnScrollWrapper direction="left" intensity={30} size={100}>
             <Suspense fallback={<img className={classes.homeVideo} src="/assets/global/homeimg.png" />}>
               <video className={classes.miniVideo} autoPlay muted loop playsInline>
                 <source src="/assets/global/homevideo.mp4" type="video/mp4" />
@@ -62,14 +64,7 @@ export default function HomePage() {
           </OnScrollWrapper>
         </div>
         <div className={classes.section}>
-          <OnScrollWrapper direction="right" intensity={30} size={45}>
-            <Suspense fallback={<img className={classes.homeVideo} src="/assets/global/homeimg.png" />}>
-              <video className={classes.miniVideo} autoPlay muted loop playsInline>
-                <source src="/assets/global/homevideo.mp4" type="video/mp4" />
-              </video>
-            </Suspense>
-          </OnScrollWrapper>
-          <OnScrollWrapper direction="left" intensity={30} size={45}>
+          <OnScrollWrapper direction="right" intensity={30} size={100}>
             <p className={`${classes.description}`}>
               Izichartz is the best tool for software design. It aims to facilitate this crucial
               phase by improving functionalities and addressing issues found in similar

@@ -42,7 +42,10 @@ export default function OnScrollWrapper({ children, direction, intensity, size})
                 duration: 0.5
             }}
             style={{
-                width: `${size}%`
+                width: `${size}%`,
+                display: "flex",
+                alignItems: "center",
+                justifyContent: "center"
             }}
         >
             {children}
