@@ -12,6 +12,7 @@
     background-color: black;
     transition: background-color 0.2s ease;
     border-color: black;
+    top: 0;
 }
 
 .sidebarButton:hover {

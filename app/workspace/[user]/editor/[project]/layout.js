@@ -15,7 +15,7 @@ export const viewport = {
 export default function EditorLayout({ children }) {
   return (
     <html lang="en">
-      <body className={robotoMono.className} style={{display: "flex"}}>
+      <body className={robotoMono.className}>
         {children}
       </body>
     </html>

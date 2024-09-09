@@ -14,15 +14,12 @@ export default function StoreProvider({ children, content }) {
   return (
     <Suspense fallback={
       <div style={{
-        position: "fixed",
         display: "flex",
         width: "100vw",
         height: "100vh",
         left: 0,
         top: 0,
-        justifyContent: "center",
-        alignItems: "center",
-        flexDirection: "column"
+        overflow: "hidden"
       }}>
         <LoadingItem text="Loading project..." circleSize={30}/>
       </div>

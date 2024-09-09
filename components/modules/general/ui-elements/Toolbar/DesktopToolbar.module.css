@@ -1,8 +1,8 @@
 .toolbar {
-    position: fixed;
+    position: relative;
     top: 0px;
     left: 0px;
-    z-index: 10;
+    z-index: 0;
     display: flex;
     height: 72px;
     padding-right: 40px;
@@ -20,6 +20,8 @@
     cursor: pointer;
     justify-content: space-between;
     align-items: center;
+    position: relative;
+    top: 0;
 }
 
 .modulesSelectorText {

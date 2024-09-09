@@ -3,6 +3,7 @@ import StoreProvider from './StoreProvider.js';
 import Toolbar from "@/components/modules/general/ui-elements/Toolbar/Toolbar.js";
 import Sidebar from "@/components/modules/general/ui-elements/Sidebar/Sidebar.js";
 import { headers } from 'next/headers';
+import classes from "./EditorPage.module.css";
 
 /**
  * EditorPage
@@ -34,9 +35,11 @@ export default async function EditorPage() {
     return (
         <main>
             <StoreProvider content={project.content}>
-                <Toolbar projectName={project.name} id={project.id}/>
-                <Sidebar />
-                <ERModule />
+                <Toolbar projectName={project.name} id={project.id} />
+                <div className={classes.editWrapper}>
+                    <ERModule />
+                    <Sidebar />
+                </div>
             </StoreProvider>
         </main>
     );

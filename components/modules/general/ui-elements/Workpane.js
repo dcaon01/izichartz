@@ -32,10 +32,6 @@ export const Workpane = memo(function Workpane({ children, h, w, onContextMenu, 
         <div
             className={classes.view}
             id="view"
-            style={{
-                minHeight: height,
-                minWidth: width
-            }}
         >
             <div
                 onClick={onClick}
