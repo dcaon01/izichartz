@@ -1,5 +1,6 @@
 # DOCS 
 
+Documentazione provvisoria
 
 ## Cos'è Izichartz
 Izichartz è un progetto [Next.js](https://nextjs.org/) creato con [`create-next-app`](https://github.com/vercel/next.js/tree/canary/packages/create-next-app).
