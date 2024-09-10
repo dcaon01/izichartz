@@ -66,9 +66,8 @@ export default function HomePage() {
         <div className={classes.section}>
           <OnScrollWrapper direction="right" intensity={30} size={100}>
             <p className={`${classes.description}`}>
-              Izichartz is the best tool for software design. It aims to facilitate this crucial
-              phase by improving functionalities and addressing issues found in similar
-              existing programs.
+              Select the module you're looking for from the available ones, and start creating
+              in the easiest and less time-consuming way.
             </p>
           </OnScrollWrapper>
         </div>
