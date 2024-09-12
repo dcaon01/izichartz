@@ -14,9 +14,9 @@ import { memo, useEffect } from 'react';
  */
 export const Workpane = memo(function Workpane({ children, h, w, onContextMenu, onClick, zoom }) {
     /* Campi di esemplare */
-    const height = h * (zoom/100);
-    const width = w * (zoom/100);
-    //const aspectRatio = width / height;
+    const height = h;
+    const width = w;
+    const zoomValue = zoom/100;
 
     /*
     useEffect(() => {
@@ -37,7 +37,7 @@ export const Workpane = memo(function Workpane({ children, h, w, onContextMenu, 
                 onClick={onClick}
                 onContextMenu={onContextMenu}
                 className={classes.pane}
-                style={{ height: height, width: width }}
+                style={{ height: height, width: width, zoom: zoomValue}}
                 id="workpane"
             >
                 {children}

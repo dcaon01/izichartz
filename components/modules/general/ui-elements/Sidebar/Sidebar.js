@@ -7,7 +7,7 @@ import SidebarFunctions from "./SidebarFunctions";
 import SidebarRenderButton from "./SidebarRenderButton";
 
 export default function Sidebar() {
-    let [render, setRender] = useState(false);
+    let [render, setRender] = useState(true);
 
     function handleRender() {
         if(render) {

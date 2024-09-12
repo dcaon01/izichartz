@@ -5,7 +5,7 @@ import classes from "./SidebarRenderButton.module.css"
 import { useState } from "react";
 
 export default function SidebarRenderButton({ onClick }) {
-    let [opened, setOpened] = useState(false);
+    let [opened, setOpened] = useState(true);
     let [hover, setHover] = useState(false);
     let imgName = "";
 
