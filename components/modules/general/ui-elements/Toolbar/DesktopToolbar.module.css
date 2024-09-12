@@ -12,6 +12,7 @@
     background-color: white;
     border-bottom: 1.5px solid black;
     border-top: 1.5px solid black;
+    z-index: 12;
 }
 
 .modulesSelector {

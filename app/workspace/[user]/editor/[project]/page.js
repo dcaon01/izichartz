@@ -33,7 +33,13 @@ export default async function EditorPage() {
     // Scelta del modulo da utilizzare
 
     return (
-        <main>
+        <main style={{
+            width: "100%",
+            height: "100%",
+            display: "flex",
+            flexDirection: "column",
+            overflow: "hidden"
+        }}>
             <StoreProvider content={project.content}>
                 <Toolbar projectName={project.name} id={project.id} />
                 <div className={classes.editWrapper}>

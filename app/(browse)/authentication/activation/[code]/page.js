@@ -17,7 +17,7 @@ export default function ActivationPage({ params }) {
         <>
             <h1>Activate</h1>
             <div style={{ width: 300 }}>
-                {state.messages.length > 0 && <ErrorDisplayer messages={state.messages} />}
+                {resError.messages.length > 0 && <ErrorDisplayer messages={resError.messages} />}
             </div>
             {accActError.messages.length > 0 && <ErrorDisplayer messages={accActError.messages} />}
             <p className={`${classes.header}`}>
