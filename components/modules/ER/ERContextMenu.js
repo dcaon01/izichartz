@@ -77,6 +77,14 @@ export default function ERContextMenu({ posX, posY }) {
     }
 
     /**
+     * handleDelete
+     * Funzione che gestisce l'eliminazione di un elemento.
+     */
+    function handleDelete() {
+        return null;
+    }
+
+    /**
      * handleNewAttribute
      * Funzione che gestisce l'inserimento di un nuovo attributo per una determinata 
      * entità/relazine.
@@ -85,17 +93,28 @@ export default function ERContextMenu({ posX, posY }) {
         return null;
     }
 
+    /**
+     * handleNewAttribute
+     * Funzione che gestisce l'inserimento di un nuovo attributo per una determinata 
+     * entità/relazine.
+     */
+    function handleNewCardinality() {
+        return null;
+    }
+
     return (
         <ContextMenu posX={posX} posY={posY}>
             {isForElement
                 ?
                 <>
-                    <ContextMenuOption text="Attribute" img="/assets/design/add.png" onClick={handleNewAttribute} /> 
+                    <ContextMenuOption text="Delete" img="/assets/global/crossed-menu.png" onClick={handleDelete}/>
                 </>
                 :
                 <>
                     <ContextMenuOption text="Entity" img="/assets/design/add.png" onClick={handleNewEntity} />
                     <ContextMenuOption text="Relationship" img="/assets/design/add.png" onClick={handleNewRelationship} />
+                    <ContextMenuOption text="Attribute" img="/assets/design/add.png" onClick={handleNewAttribute} />
+                    <ContextMenuOption text="Cardinality" img="/assets/design/add.png" onClick={handleNewCardinality} />
                 </>
             }
         </ContextMenu>

@@ -1,26 +1,9 @@
 .view {
     position: relative;
-    top: 0;
-    left: 0;
-    z-index: 0;
-    display: flex;
-    min-height: 100%;
-    width: 100%;
-    overflow: auto;
-    z-index: 1;
-}
-
-.pane {
-    position: relative;
     background-repeat: repeat;
+    z-index: 0;
     background-image: url(../../../../public/assets/design/workpane-bg.png);
     background-color: white;
-    z-index: 1;
-    border-width: 1.5px;
-    border-color: black;
-    flex-shrink: 0; /* Impedisce che venga ridotto */
-    flex-grow: 0;
-    transform-origin: top left;
-    top: 0;
-    left: 0;
+    height: 100vh;
+    width: 100vw;
 }

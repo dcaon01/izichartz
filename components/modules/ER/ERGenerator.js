@@ -1,6 +1,6 @@
 'use client';
 
-import { EntityRelationship } from "./EntityRelationship.js";
+import { ERA } from "./ERA.js";
 import { Linker } from "../general/design-elements/Linker.js";
 
 /**
@@ -30,7 +30,7 @@ export default function Generator({ generate }) {
         switch (element.type) {
             case "entity":
                 return (
-                    <EntityRelationship
+                    <ERA
                         key={`${element.type}-${element.id}`}
                         id={element.id}
                         type={element.type}
@@ -42,7 +42,7 @@ export default function Generator({ generate }) {
             // end case
             case "relationship":
                 return (
-                    <EntityRelationship
+                    <ERA
                         key={`${element.type}-${element.id}`}
                         id={element.id}
                         type={element.type}

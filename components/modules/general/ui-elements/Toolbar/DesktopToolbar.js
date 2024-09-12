@@ -46,8 +46,6 @@ export default function DesktopToolbar({ projectName, id }) {
                         }
                     </AnimatePresence>
                 </div>
-                <UndoRedo />
-                <Zoom zoom={state.zoom} />
                 <SavingStatus status={state.status}/>
             </>
         </nav>

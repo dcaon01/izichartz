@@ -24,6 +24,7 @@ export default function Segment({ id, index, x1, y1, x2, y2, selected }) {
     function handleSelection(event) {
         event.stopPropagation();
         dispatch(elementsSlice.actions.setSelectedSegment({id, index}));
+        console.log("Selezionato");
     }
 
     return (

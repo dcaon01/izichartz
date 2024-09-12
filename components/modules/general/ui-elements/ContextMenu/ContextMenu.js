@@ -2,7 +2,6 @@
 
 import classes from "./ContextMenu.module.css";
 import { motion } from "framer-motion";
-import ContextMenuOption from "./ContextMenuOption";
 
 /**
  * ContextMenu
@@ -27,10 +26,6 @@ export default function ContextMenu({children, posX, posY }) {
                 opacity: 1
             }}
         >
-            <ContextMenuOption text="Copy" img="/assets/design/copy.png" />
-            <ContextMenuOption text="Cut" img="/assets/design/cut.png" />
-            <ContextMenuOption text="Paste" img="/assets/design/paste.png" />
-            <hr className={classes.contextLine}/>
             {children}
         </motion.div>
     );

@@ -260,7 +260,7 @@ export const elementsSlice = createSlice({
                 }
                 const linker = {
                     type: "linker",
-                    id: state.length + 1,
+                    id: state.elements.length + 1,
                     selected: false,
                     options: {
                         text: "",

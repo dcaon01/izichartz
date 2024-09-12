@@ -42,10 +42,7 @@ export default async function EditorPage() {
         }}>
             <StoreProvider content={project.content}>
                 <Toolbar projectName={project.name} id={project.id} />
-                <div className={classes.editWrapper}>
-                    <ERModule />
-                    <Sidebar />
-                </div>
+                <ERModule />
             </StoreProvider>
         </main>
     );

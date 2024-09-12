@@ -10,13 +10,13 @@ import DFLRElement from "../general/design-elements/DFLRElement.js";
 
 /**
  * Entity
- * Componente che renderizza un'entità del modello ER.
+ * Componente che renderizza un'entità, una relazione o un attributo del modello ER.
  * @param id indice e identificatore dell'elemento all'interno dell'array degli elementi.
  * @param type tipo di elemento.
  * @param options opzioni utili al rendering dell'elemento.
  * @param selected flag di selezione dell'elemento.
  */
-export const EntityRelationship = memo(function EntityRelationship({ id, type, options, selected }) {
+export const ERA = memo(function ERA({ id, type, options, selected }) {
     /* Prelevamento delle opzioni utili */
     let text = options.text; // Testo interno al rettangolo.
     let connecting = options.connecting; // Gestione della connessione.
@@ -132,21 +132,41 @@ export const EntityRelationship = memo(function EntityRelationship({ id, type, o
 
 > Relationship
 {
-        type: "relationship",
-        id: numero di elemento,
-        selected: false,
-        options: {
-            text: { value: "", width: 0 },
-            position: {
-                x: 600,
-                y: 150,
-            },
-            minSize: 80,
-            size: {
-                width: 80,
-                height: 80,
-            },
-            connecting: false
+    type: "relationship",
+    id: numero di elemento,
+    selected: false,
+    options: {
+        text: { value: "", width: 0 },
+        position: {
+            x: 600,
+            y: 150,
         },
+        minSize: 80,
+        size: {
+            width: 80,
+            height: 80,
+        },
+        connecting: false
     },
+},
+
+{
+    type: "Attribute",
+    id: numero di elemento,
+    selected: false,
+    options: {
+        text: { value: "ENTITY2", width: 49.5 },
+        position: {
+            x: 400,
+            y: 300,
+        },
+        minSize: 70,
+        size: {
+            width: 127.75,
+            height: 70,
+        },
+        connecting: false,
+        key: true
+    },
+},
 */

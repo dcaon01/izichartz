@@ -12,11 +12,10 @@ import { memo, useEffect } from 'react';
  * @param onContextMenu: funzione che viene utilizzata dal modulo che lo richiama per gestire quello che vuole
  * @param children: l'elemento viene utilizzato con figli al suo interno.
  */
-export const Workpane = memo(function Workpane({ children, h, w, onContextMenu, onClick, zoom }) {
+export const Workpane = memo(function Workpane({ children, h, w, onContextMenu, onClick }) {
     /* Campi di esemplare */
     const height = h;
     const width = w;
-    const zoomValue = zoom/100;
 
     /*
     useEffect(() => {
@@ -32,16 +31,10 @@ export const Workpane = memo(function Workpane({ children, h, w, onContextMenu, 
         <div
             className={classes.view}
             id="view"
+            onClick={onClick}
+            onContextMenu={onContextMenu}
         >
-            <div
-                onClick={onClick}
-                onContextMenu={onContextMenu}
-                className={classes.pane}
-                style={{ height: height, width: width, zoom: zoomValue}}
-                id="workpane"
-            >
-                {children}
-            </div>
+            {children}
         </div>
     );
 });
