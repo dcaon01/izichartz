@@ -3,18 +3,23 @@ import { robotoMono } from "@/app/fonts";
 import { motion } from "framer-motion";
 import { saveProject } from "@/store/design/elements-slice";
 import { useDispatch } from "react-redux";
+import html2canvas from "html2canvas";
 
 /**
  * Filedropdown
  * Componente per la renderizzazione di un menu di dropdown.
  * @param state stato del progetto.
  */
-export default function FileDropdown({id, state}) {
+export default function FileDropdown({ id, state }) {
     const dispatch = useDispatch();
 
-    function handleSave(event) {
+    async function handleSave(event) {
         event.preventDefault();
-        dispatch(saveProject({ id: id, content: state} ));
+        // Usare html2canvas
+        const workpane = document.getElementById('view');
+        const canva = await html2canvas(workpane);
+        const imgData = canva.toDataURL('image/png');
+        dispatch(saveProject({ id: id, content: state, preview: imgData }));
     }
 
     return (

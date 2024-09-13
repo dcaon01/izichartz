@@ -37,7 +37,7 @@ export const saveProject = createAsyncThunk(
                 headers: {
                     'Content-Type': 'application/json'
                 },
-                body: JSON.stringify({ id: payload.id, content: payload.content })
+                body: JSON.stringify({ id: payload.id, content: payload.content, preview: payload.preview })
             }
         );
         if (!response.ok) {

@@ -111,7 +111,7 @@ export default function ProjectCard({ id, name, module, creation, lastModified, 
                     null
                 }
                 <AnimatePresence />
-                <div>
+                <div className={classes.previewContainer}>
                     <motion.img
                         src="/assets/global/pen.png"
                         width={17}

@@ -13,10 +13,24 @@
     cursor: pointer;
 }
 
-.preview {
-    width: 250px;
+.previewContainer {
     height: 200px;
+    width: 250px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
     overflow: hidden;
+    border-width: 1.5px;
+    border-color: black;
+    border-radius: 5px;
+}
+
+.preview {
+    width: auto;
+    height: 200px;
+    flex-grow: 0;
+    flex-shrink: 0;
+    object-fit: cover;
 }
 
 .info {

@@ -1,7 +1,8 @@
 import clientOpt from "@/lib/utility/pgClientOptions";
 import { Client } from "pg";
 import { NextResponse } from "next/server";
-
+import path from "path";
+import fs from "fs";
 /**
  * Route handler che gestisce il salvataggio dei progetti
  * @param request request con un json che ha questa struttura:
@@ -9,8 +10,8 @@ import { NextResponse } from "next/server";
  * - content: 
  */
 export async function POST(request) {
-    const { id, content } = await request.json();
-    const saveProjectQuery = 'UPDATE "PROJECTS" SET "content"=$1, "lastModified"=$2 WHERE "id"=$3';
+    const { id, content, preview } = await request.json();
+    const saveProjectQuery = 'UPDATE "PROJECTS" SET "content"=$1, "lastModified"=$2, "preview"=$3 WHERE "id"=$4';
     const newContent = {
         ...content,
         status: "saved",
@@ -18,11 +19,15 @@ export async function POST(request) {
         zoom: 50
     }
     const client = new Client(clientOpt);
+    const imgName = `${id}.png`;
+    const base64Data = preview.replace(/^data:image\/png;base64,/, '');
+    // Definisci il percorso del file
+    const filePath = path.join(process.cwd(), 'public', 'previews', imgName);
     try {
         await client.connect();
         await client.query("BEGIN");
         const date = new Date(Date.now());
-        await client.query(saveProjectQuery, [newContent, date, id]);
+        await client.query(saveProjectQuery, [newContent, date, `/previews/${imgName}`, id]);
         await client.query("COMMIT");
         client.end()
     } catch (error) {
@@ -37,6 +42,8 @@ export async function POST(request) {
             }
         );
     }
+    // Salviamo la preview
+    fs.writeFileSync(filePath, base64Data, 'base64');
     return new NextResponse(JSON.stringify(null),
         {
             status: 200,
