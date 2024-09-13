@@ -15,20 +15,32 @@ export default function ERContextMenu({ posX, posY }) {
     const elements = state.elements;
     const dispatch = useDispatch();
     let isForElement = false;
+    let isForAttribute = false;
+    let elementId = 0;
+    let isKey = false;
 
     // Dobbiamo trovare se un elemento è selezionato e agire di conseguenza:
     elements.forEach((element) => {
         if (element.selected) {
             isForElement = true;
+            if (element.type === "attribute") {
+                isForAttribute = true;
+                if (element.options.key) {
+                    isKey = true;
+                }
+            }
+            elementId = element.id;
         }
     });
+
+    console.log(!isKey);
 
     /**
      * handleNewEntity
      * Funzione che gestisce l'inserimento di una nuova entità all'interno del progetto. 
      */
     function handleNewEntity() {
-        
+
         dispatch(elementsSlice.actions.addElement(
             {
                 type: "entity",
@@ -90,7 +102,24 @@ export default function ERContextMenu({ posX, posY }) {
      * entità/relazine.
      */
     function handleNewAttribute() {
-        return null;
+        dispatch(elementsSlice.actions.addElement({
+            type: "attribute",
+            selected: false,
+            options: {
+                text: { value: "", width: 0 },
+                position: {
+                    x: posX,
+                    y: posY,
+                },
+                minSize: 80,
+                size: {
+                    width: 80,
+                    height: 80,
+                },
+                connecting: false,
+                key: false,
+            }
+        }));
     }
 
     /**
@@ -102,12 +131,22 @@ export default function ERContextMenu({ posX, posY }) {
         return null;
     }
 
+    /**
+     * handleKeyAttribute
+     * Funzione che gestisce il cambiamento a chiave primaria di un
+     * attributo.
+     */
+    function handleKeyAttribute(event) {
+        dispatch(elementsSlice.actions.modifyElementOptions({ id: elementId, option: "key", value: !isKey }));
+    }
+
     return (
         <ContextMenu posX={posX} posY={posY}>
             {isForElement
                 ?
                 <>
-                    <ContextMenuOption text="Delete" img="/assets/global/crossed-menu.png" onClick={handleDelete}/>
+                    {isForAttribute && <ContextMenuOption text="Key" img="/assets/design/key.png" onClick={handleKeyAttribute} />}
+                    <ContextMenuOption text="Delete" img="/assets/global/crossed-menu.png" onClick={handleDelete} />
                 </>
                 :
                 <>

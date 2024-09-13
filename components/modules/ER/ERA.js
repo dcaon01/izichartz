@@ -5,7 +5,8 @@ import { useDispatch } from "react-redux";
 import { useRef, memo } from "react";
 import { elementsSlice } from "@/store/design/elements-slice";
 import EntityGraphics from "./EntityGraphics.js";
-import RelationshipGrapics from "./RelationshipGraphics.js";
+import RelationshipGraphics from "./RelationshipGraphics.js";
+import AttributeGraphics from "./AttributeGraphics.js";
 import DFLRElement from "../general/design-elements/DFLRElement.js";
 
 /**
@@ -97,13 +98,14 @@ export const ERA = memo(function ERA({ id, type, options, selected }) {
                 onKeyDown={handleBlur}
                 style={{
                     width: (text.value.length === 0) ? 20 : (text.value.length * 1.15) + "ch",
-                    cursor: selected ? "text" : "pointer"
+                    cursor: selected ? "text" : "pointer",
+                    color: options.key ? "white" : "black",
+                    backgroundColor: options.key ? "black" : "white",
                 }}
             />
-            {type === "entity"
-                ? <EntityGraphics id={id} width={size.width} height={size.height} selected={selected} connecting={connecting} />
-                : <RelationshipGrapics id={id} width={size.width} height={size.height} selected={selected} connecting={connecting} />
-            }
+            {type === "entity" && <EntityGraphics id={id} width={size.width} height={size.height} selected={selected} connecting={connecting} />}
+            {type === "relationship" && <RelationshipGraphics id={id} width={size.width} height={size.height} selected={selected} connecting={connecting} />}
+            {type === "attribute" && <AttributeGraphics id={id} width={size.width} height={size.height} selected={selected} connecting={connecting} isKey={options.key} />}
         </DFLRElement>
     );
 });

@@ -1,6 +1,6 @@
 import { motion } from "framer-motion";
 
-export default function AttributeGrapics({ id, width, height, selected, connecting }) {
+export default function AttributeGrapics({ id, width, height, selected, connecting, isKey }) {
     return (
         <svg
             xmlns="http://www.w3.org/2000/svg"
@@ -14,8 +14,8 @@ export default function AttributeGrapics({ id, width, height, selected, connecti
                     id={`connect-entity-${id}`}
                     x="4"
                     y="4"
-                    rx="5"
-                    ry="5"
+                    rx={width - 8}
+                    ry={width - 8}
                     fill="white"
                     stroke="black"
                     strokeWidth="1"
@@ -40,9 +40,9 @@ export default function AttributeGrapics({ id, width, height, selected, connecti
                 width={width - 14.5}
                 x="7"
                 y="7"
-                rx="5"
-                ry="5"
-                fill="white"
+                rx={width - 14.5}
+                ry={height - 14.5}
+                fill={isKey ? "black" : "white"}
                 stroke="black"
                 animate={{
                     zIndex: 3,

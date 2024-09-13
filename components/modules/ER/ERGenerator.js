@@ -52,6 +52,17 @@ export default function Generator({ generate }) {
                     />
                 );
             // end case
+            case "attribute":
+                return (
+                    <ERA
+                        key={`${element.type}-${element.id}`}
+                        id={element.id}
+                        type={element.type}
+                        options={element.options}
+                        selected={element.selected}
+                    />
+                );
+            // end case
             case "linker":
                 return (
                     <Linker 
