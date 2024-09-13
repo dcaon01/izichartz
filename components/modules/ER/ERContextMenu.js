@@ -33,14 +33,13 @@ export default function ERContextMenu({ posX, posY }) {
         }
     });
 
-    console.log(!isKey);
+    console.log(elementId);
 
     /**
      * handleNewEntity
      * Funzione che gestisce l'inserimento di una nuova entità all'interno del progetto. 
      */
     function handleNewEntity() {
-
         dispatch(elementsSlice.actions.addElement(
             {
                 type: "entity",
@@ -49,7 +48,7 @@ export default function ERContextMenu({ posX, posY }) {
                     text: { value: "", width: 0 },
                     position: {
                         x: posX,
-                        y: posY,
+                        y: posY - 100,
                     },
                     minSize: 70,
                     size: {
@@ -75,7 +74,7 @@ export default function ERContextMenu({ posX, posY }) {
                     text: { value: "", width: 0 },
                     position: {
                         x: posX,
-                        y: posY,
+                        y: posY - 100,
                     },
                     minSize: 80,
                     size: {
@@ -93,7 +92,7 @@ export default function ERContextMenu({ posX, posY }) {
      * Funzione che gestisce l'eliminazione di un elemento.
      */
     function handleDelete() {
-        return null;
+        dispatch(elementsSlice.actions.removeElement({ id: elementId }));
     }
 
     /**
@@ -109,7 +108,7 @@ export default function ERContextMenu({ posX, posY }) {
                 text: { value: "", width: 0 },
                 position: {
                     x: posX,
-                    y: posY,
+                    y: posY - 100,
                 },
                 minSize: 80,
                 size: {

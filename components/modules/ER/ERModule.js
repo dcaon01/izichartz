@@ -72,7 +72,7 @@ export default function ERModule() {
             setContextMenu({
                 rendered: true,
                 x: event.clientX,
-                y: event.clientY
+                y: event.clientY ,
             });
         }
     }

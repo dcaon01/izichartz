@@ -102,6 +102,7 @@ export const ERA = memo(function ERA({ id, type, options, selected }) {
                     color: options.key ? "white" : "black",
                     backgroundColor: options.key ? "black" : "white",
                 }}
+                autoComplete="off"
             />
             {type === "entity" && <EntityGraphics id={id} width={size.width} height={size.height} selected={selected} connecting={connecting} />}
             {type === "relationship" && <RelationshipGraphics id={id} width={size.width} height={size.height} selected={selected} connecting={connecting} />}

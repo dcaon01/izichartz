@@ -72,7 +72,21 @@ export const elementsSlice = createSlice({
          * Reducer che si occupa dell'eliminazione di un elemento.
          * @param id identificatore dell'elemento da eliminare.
          */
-        removeElement() {
+        removeElement(state, action) {
+            const id = action.payload.id;
+            state.elements.splice(id - 1, 1);
+            // Trovare tutti i linkers che hanno come collegamento il bro
+            state.elements.forEach((element, index) => {
+                if (element.type === "linker") {
+                    if (element.options.linked[0] === id || element.options.linked[1] === id) {
+                        state.elements.splice(index, 1);
+                    }
+                }
+            });
+            // Ricalcoliamo tutti gli id degli elementi
+            for (let i = 1; i <= state.elements.length; i++) {
+                state.elements[i - 1].id = i;
+            }
         },
 
         /**
