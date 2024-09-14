@@ -8,7 +8,7 @@ import { elementsSlice } from "@/store/design/elements-slice";
  * Componente che "estende" il menu di contesto generale con le funzionalità
  * dell'ER.
  * @param posX coordinata delle ascisse della posizione del menu.
- * @param posY coordinata delle ordinate della posizione del menu
+ * @param posY coordinata delle ordinate della posizione del menu.
  */
 export default function ERContextMenu({ posX, posY }) {
     const state = useSelector(state => state.designElements);
@@ -127,7 +127,22 @@ export default function ERContextMenu({ posX, posY }) {
      * entità/relazine.
      */
     function handleNewCardinality() {
-        return null;
+        dispatch(elementsSlice.actions.addElement({
+            type: "cardinality",
+            selected: false,
+            options: {
+                text: { value: "", width: 0 },
+                position: {
+                    x: posX,
+                    y: posY - 100,
+                },
+                minSize: 70,
+                size: {
+                    width: 70,
+                    height: 70,
+                }
+            }
+        }));
     }
 
     /**

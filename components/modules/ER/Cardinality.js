@@ -4,23 +4,12 @@ import classes from "./EntityRelationship.module.css";
 import { useDispatch } from "react-redux";
 import { useRef, memo } from "react";
 import { elementsSlice } from "@/store/design/elements-slice";
-import EntityGraphics from "./EntityGraphics.js";
-import RelationshipGraphics from "./RelationshipGraphics.js";
-import AttributeGraphics from "./AttributeGraphics.js";
-import DFLRElement from "../general/design-elements/DFLRElement.js";
+import DFRElement from "../general/design-elements/DFRElement";
+import { motion } from "framer-motion";
 
-/**
- * Entity
- * Componente che renderizza un'entità, una relazione o un attributo del modello ER.
- * @param id indice e identificatore dell'elemento all'interno dell'array degli elementi.
- * @param type tipo di elemento.
- * @param options opzioni utili al rendering dell'elemento.
- * @param selected flag di selezione dell'elemento.
- */
-export const ERA = memo(function ERA({ id, type, options, selected }) {
+export const Cardinality = memo(function Cardinality({ id, type, options, selected }) {
     /* Prelevamento delle opzioni utili */
-    let text = options.text; // Testo interno al rettangolo.
-    let connecting = options.connecting; // Gestione della connessione.
+    let text = options.text; // Testo interno al rettangolo
     let size = options.size; // Dimensioni del componente, svg
 
     /* Elementi di Utility */
@@ -37,7 +26,6 @@ export const ERA = memo(function ERA({ id, type, options, selected }) {
     function handleInput(event) {
         event.stopPropagation();
         let oldEffectiveWidth = size.width - text.width;
-        let newHeight = (inputRef.current.getBoundingClientRect().height * size.width) / (2 * (size.width - inputRef.current.getBoundingClientRect().width)) + 80;
         dispatch(elementsSlice.actions.setConnectingElement(0));
         dispatch(elementsSlice.actions.modifyElementOptions({ id: id, option: "text", value: { value: event.target.value, width: inputRef.current.getBoundingClientRect().width } }));
         dispatch(elementsSlice.actions.modifyElementOptionsAndLinkers({
@@ -45,16 +33,9 @@ export const ERA = memo(function ERA({ id, type, options, selected }) {
             option: "size",
             value: {
                 width: oldEffectiveWidth + inputRef.current.getBoundingClientRect().width,
-                height: type === "relationship" ? (size.height < newHeight ? newHeight : size.height) : size.height,
+                height: size.height,
             }
         }));
-        if (type === "relationship") {
-            dispatch(elementsSlice.actions.modifyElementOptions({
-                id: id,
-                option: "minSize",
-                value: newHeight
-            }));
-        }
     }
 
     /* Spostiamo il focus dell'elemento (togli il contorno in pratica) */
@@ -81,14 +62,14 @@ export const ERA = memo(function ERA({ id, type, options, selected }) {
 
     /* Rendering */
     return (
-        <DFLRElement
+        <DFRElement
             id={id}
             type={type}
             options={options}
             selected={selected}
         >
             <input
-                id={`input-entity-${id}`}
+                id={`input-cardinality-${id}`}
                 type="text"
                 value={text.value}
                 ref={inputRef}
@@ -99,68 +80,47 @@ export const ERA = memo(function ERA({ id, type, options, selected }) {
                 style={{
                     width: (text.value.length === 0) ? 20 : (text.value.length * 1.15) + "ch",
                     cursor: selected ? "text" : "pointer",
-                    color: options.key ? "white" : "black",
-                    backgroundColor: options.key ? "black" : "white",
+                    backgroundColor: "transparent"
                 }}
                 autoComplete="off"
             />
-            {type === "entity" && <EntityGraphics id={id} width={size.width} height={size.height} selected={selected} connecting={connecting} />}
-            {type === "relationship" && <RelationshipGraphics id={id} width={size.width} height={size.height} selected={selected} connecting={connecting} />}
-            {type === "attribute" && <AttributeGraphics id={id} width={size.width} height={size.height} selected={selected} connecting={connecting} isKey={options.key} />}
-        </DFLRElement>
+            <svg
+                xmlns="http://www.w3.org/2000/svg"
+                style={{
+                    height: size.height,
+                    width: size.width,
+                }}
+            >
+                <motion.rect
+                    id={`body-cardinality-${id}`}
+                    height={size.height - 14.5}
+                    width={size.width - 14.5}
+                    x="7"
+                    y="7"
+                    rx="5"
+                    ry="5"
+                    stroke="black"
+                    fill="transparent"
+                    animate={{
+                        zIndex: 3,
+                        strokeWidth: selected ? "2.5px" : (text.value.length === 0 ? "0.9px" : "0px"),
+                    }}
+                    transition={{ duration: 0.1 }}
+                />
+            </svg>
+        </DFRElement>
     );
 });
 
-/* STRUTTURE 
-
-> Entity
+/*
+> Cardinality
 {
-    type: "entity",
-    id: numero di elemento,
-    selected: false,
-    options: {
-        text: { value: "ENTITY2", width: 49.5 },
-        position: {
-            x: 400,
-            y: 300,
-        },
-        minSize: 70,
-        size: {
-            width: 127.75,
-            height: 70,
-        },
-        connecting: false,
-    },
-},
-
-> Relationship
-{
-    type: "relationship",
+    type: "cardinality",
     id: numero di elemento,
     selected: false,
     options: {
         text: { value: "", width: 0 },
         position: {
-            x: 600,
-            y: 150,
-        },
-        minSize: 80,
-        size: {
-            width: 80,
-            height: 80,
-        },
-        connecting: false
-    },
-},
-
-> Attribute
-{
-    type: "Attribute",
-    id: numero di elemento,
-    selected: false,
-    options: {
-        text: { value: "ENTITY2", width: 49.5 },
-        position: {
             x: 400,
             y: 300,
         },
@@ -169,8 +129,8 @@ export const ERA = memo(function ERA({ id, type, options, selected }) {
             width: 127.75,
             height: 70,
         },
-        connecting: false,
-        key: true
     },
 },
 */
+
+

@@ -11,7 +11,7 @@ export default function AttributeGrapics({ id, width, height, selected, connecti
         >
             {connecting &&
                 <motion.rect
-                    id={`connect-entity-${id}`}
+                    id={`connect-attribute-${id}`}
                     x="4"
                     y="4"
                     rx={width - 8}
@@ -35,7 +35,7 @@ export default function AttributeGrapics({ id, width, height, selected, connecti
             }
             {/* Rettangolo che costituisce l'area dell'entità*/}
             <motion.rect
-                id={`body-entity-${id}`}
+                id={`body-attribute-${id}`}
                 height={height - 14.5}
                 width={width - 14.5}
                 x="7"

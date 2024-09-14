@@ -2,6 +2,7 @@
 
 import { ERA } from "./ERA.js";
 import { Linker } from "../general/design-elements/Linker.js";
+import { Cardinality } from "./Cardinality.js";
 
 /**
  * Generator
@@ -36,7 +37,7 @@ export default function Generator({ generate }) {
                         type={element.type}
                         options={element.options}
                         selected={element.selected}
-                        //links={linksMatrix[element.id - 1]}
+                    //links={linksMatrix[element.id - 1]}
                     />
                 );
             // end case
@@ -48,7 +49,7 @@ export default function Generator({ generate }) {
                         type={element.type}
                         options={element.options}
                         selected={element.selected}
-                        //links={linksMatrix[element.id - 1]}
+                    //links={linksMatrix[element.id - 1]}
                     />
                 );
             // end case
@@ -65,14 +66,24 @@ export default function Generator({ generate }) {
             // end case
             case "linker":
                 return (
-                    <Linker 
-                        key={`${element.type}-${element.id}`} 
-                        id={element.id} 
-                        options={element.options} 
+                    <Linker
+                        key={`${element.type}-${element.id}`}
+                        id={element.id}
+                        options={element.options}
                         selected={element.selected}
                     />
                 );
             // end case
+            case "cardinality":
+                return (
+                    <Cardinality 
+                        key={`${element.type}-${element.id}`}
+                        id={element.id}
+                        options={element.options}
+                        selected={element.selected}
+                    />
+                );
+                // end case
             default:
                 return null;
             // end default
