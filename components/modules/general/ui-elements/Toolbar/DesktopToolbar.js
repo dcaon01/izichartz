@@ -6,8 +6,6 @@ const ProjectName = lazy(() => import("./ProjectName"));
 import { robotoMono } from "@/app/fonts";
 import { motion, AnimatePresence } from "framer-motion";
 import FileDropdown from './FileDropdown';
-import UndoRedo from "./UndoRedo";
-import { Zoom } from "./Zoom";
 import SavingStatus from "./SavingStatus";
 import { useSelector } from "react-redux";
 

@@ -1,5 +1,4 @@
 import classes from "./FileDropdown.module.css";
-import { robotoMono } from "@/app/fonts";
 import { motion } from "framer-motion";
 import { saveProject } from "@/store/design/elements-slice";
 import { useDispatch } from "react-redux";
@@ -38,8 +37,10 @@ export default function FileDropdown({ id, state }) {
                 opacity: 0,
             }}
         >
-            <p className={`${classes.link} ${robotoMono.className}`} onClick={handleSave}>Save</p>
-            <p className={`${classes.link} ${robotoMono.className}`}>Export</p>
+            <p className={`${classes.link}`} onClick={handleSave}>Save</p>
+            <a className={`${classes.link}`} href={`/previews/${id}.png`} download={`immagine.png`}>
+                Export
+            </a>
         </motion.div>
     );
 }
