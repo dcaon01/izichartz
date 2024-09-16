@@ -6,11 +6,6 @@ workpane.
 > Struttura dello Stato
 {
     status: ["saved" | "tosave" | "noconnection"],
-    selected: [],
-    contextModule: true | false,
-    sidebar: true, false,
-    workpane: { heigth: , width: }
-    zoom: 10-200 - Dove 200 è la visualizzazione massima
     elements: [  - Elementi che compongono il disegno
         {}
     ],
@@ -23,8 +18,9 @@ per il resto.
 */
 
 const init = {
-    saved: false,
-    elements: []
+    status: "saved",
+    elements: [],
+    errors: []
 }
 
 export const saveProject = createAsyncThunk(

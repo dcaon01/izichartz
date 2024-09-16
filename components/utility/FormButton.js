@@ -1,7 +1,7 @@
 import classes from "./FormButton.module.css";
 import { useFormStatus } from "react-dom";
 
-export default function FormButton({ text, pendingText }) {
+export default function FormButton({ text, pendingText, onClick }) {
     let { pending } = useFormStatus();
 
     return (
@@ -9,6 +9,7 @@ export default function FormButton({ text, pendingText }) {
             disabled={pending}
             className={`${classes.submitButton}`}
             type="submit"
+            onClick={onClick}
         >
             {pending ? pendingText : text}
         </button>

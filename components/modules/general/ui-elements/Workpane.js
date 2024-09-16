@@ -12,20 +12,7 @@ import { memo, useEffect } from 'react';
  * @param onContextMenu: funzione che viene utilizzata dal modulo che lo richiama per gestire quello che vuole
  * @param children: l'elemento viene utilizzato con figli al suo interno.
  */
-export const Workpane = memo(function Workpane({ children, h, w, onContextMenu, onClick }) {
-    /* Campi di esemplare */
-    const height = h;
-    const width = w;
-
-    /*
-    useEffect(() => {
-        const scrollHeight = document.documentElement.scrollHeight;
-        const scrollWidth = document.documentElement.scrollWidth;
-        window.scrollTo(0, scrollHeight / 4);
-        window.scrollTo(0, scrollWidth / 4);
-      }, []);
-    */
-
+export const Workpane = memo(function Workpane({ children, onContextMenu, onClick }) {
     /* Rendering */
     return (
         <div

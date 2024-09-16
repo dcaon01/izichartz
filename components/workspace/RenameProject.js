@@ -6,7 +6,7 @@ import { renameProject } from "@/lib/server-actions/manage";
 import { motion } from "framer-motion";
 import ErrorDisplayer from "@/components/authentication/ErrorDisplayer";
 import FormButton from "@/components/utility/FormButton";
-import { useState } from "react";
+import RenameInput from "./RenameInput.js";
 
 /**
  * DeleteProject
@@ -17,15 +17,9 @@ import { useState } from "react";
  */
 export default function RenameProject({ name, funct }) {
     let [state, formAction] = useFormState(renameProject, { messages: [] });
-    let [projectName, setProjectName] = useState(name);
 
     function handleFormClick(event) {
         event.stopPropagation();
-    }
-
-    function changeName(event) {
-        event.preventDefault()
-        setProjectName(event.target.value);
     }
 
     return (
@@ -48,13 +42,10 @@ export default function RenameProject({ name, funct }) {
                     </div>
                     <h1>Rename Project</h1>
                     <div style={{ width: 300 }}>
-                        {state.messages.length > 0 && <ErrorDisplayer messages={state.messages} />}
+                        {(state.messages.length > 0) && <ErrorDisplayer messages={state.messages} />}
                     </div>
                     <form action={formAction} className={classes.form}>
-                        <div className={classes.inputWrapper}>
-                            <label>Rename your Project</label>
-                            <input type="text" id="renaming-project-name" name="renaming-project-name" value={projectName} className={`${classes.input}`} onChange={changeName}/>
-                        </div>
+                        <RenameInput projectName={name} />
                         <input
                             id="renaming-project-prevName"
                             name="renaming-project-prevName"
@@ -64,7 +55,7 @@ export default function RenameProject({ name, funct }) {
                             style={{ display: "none" }}
                             readOnly
                         />
-                        <FormButton text="Rename" pendingText="Renaming..." />
+                        <FormButton text="Rename" pendingText="Renaming..." onClick={funct}/>
                     </form>
                 </motion.div>
             </div>

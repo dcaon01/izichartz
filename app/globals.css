@@ -12,6 +12,10 @@
   img {
     @apply inline-block;
   }
+  input {
+    line-height: 2;
+    vertical-align: middle; /* Aiuta a centrare il testo */
+  }
 }
 
 body {

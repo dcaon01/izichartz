@@ -1,9 +1,7 @@
 import ERModule from '@/components/modules/ER/ERModule.js';
 import StoreProvider from './StoreProvider.js';
 import Toolbar from "@/components/modules/general/ui-elements/Toolbar/Toolbar.js";
-import Sidebar from "@/components/modules/general/ui-elements/Sidebar/Sidebar.js";
 import { headers } from 'next/headers';
-import classes from "./EditorPage.module.css";
 
 /**
  * EditorPage
@@ -29,9 +27,15 @@ export default async function EditorPage() {
     const id = headersList.get('Project-Id');
     const project = await getProject(id);
     console.log("Stampiamo il progetto in EditorPage: " + JSON.stringify(project));
+    let module = null;
 
-    // Scelta del modulo da utilizzare
-
+    switch (project.module) {
+        case "entity-relationship":
+            module = <ERModule />;
+            break;
+        //end case
+    }
+        
     return (
         <main style={{
             width: "100%",
@@ -42,7 +46,7 @@ export default async function EditorPage() {
         }}>
             <StoreProvider content={project.content}>
                 <Toolbar projectName={project.name} id={project.id} />
-                <ERModule />
+                {module}
             </StoreProvider>
         </main>
     );
