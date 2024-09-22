@@ -9,7 +9,7 @@ Successivamente si può procedere al forking del repository. Una volta clonato q
 
 Prima di eseguire il programma, scaricare [PostgreSQL](https://www.postgresql.org/) in locale e importare il file `db` che si trova nella root del progetto. Basterà creare un nuovo database `izichartz` su pgAdmin, cliccare col tasto destro sul nome del db appena creato, e avviare una provedura di "Restore", selezionando il file `db`. Se la procedura fallisce, seguire le istruzioni al seguente [video](https://www.youtube.com/watch?v=kkw6-zXkr0I).
 
-Successivamente, è importante creare, sempre nella root del progetto, un file `.env-local` contente le seguenti variabili locali:
+Successivamente, è importante creare, sempre nella root del progetto, un file `.env.local` contente le seguenti variabili locali:
 
 ```
 DB_CLIENT_USER="Nome dell'utente del DB"
