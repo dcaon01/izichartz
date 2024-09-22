@@ -44,9 +44,7 @@ export default async function ProjectGrid() {
                         :
                         projects.map((project) => {
                             const creation = timestampToReadableFormat(project.creation);
-                            console.log(project.lastModified);
                             const lastModified = timestampToReadableFormat(project.lastModified);
-                            console.log(project.preview);
                             return (<ProjectCard key={project.id} id={project.id} name={project.name} module={project.module} creation={creation} lastModified={lastModified} preview={project.preview} />);
                         })
                 }

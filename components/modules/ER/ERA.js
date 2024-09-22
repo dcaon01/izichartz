@@ -77,8 +77,6 @@ export const ERA = memo(function ERA({ id, type, options, selected }) {
 
     /* Gestione dinamica del cursore */
 
-    //console.log(id);
-
     /* Rendering */
     return (
         <DFLRElement

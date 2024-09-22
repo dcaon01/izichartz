@@ -22,7 +22,6 @@ export default function MobileNavbar() {
         } else {
             setMenuDropDown(true);
         }
-        console.log("handleMenuDropDown");
     }
 
     function handleModulesDropDown(event) {
@@ -32,7 +31,6 @@ export default function MobileNavbar() {
         } else {
             setModulesDropDown(true);
         }
-        console.log("handleModulesDropDown");
     }
 
     function animateLinksPresence() {

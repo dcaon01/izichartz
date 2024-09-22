@@ -26,7 +26,6 @@ const init = {
 export const saveProject = createAsyncThunk(
     'project/saveProject',
     async (payload, thunkAPI) => {
-        console.log("THUNK " + payload.id + " " + payload.content);
         const response = await fetch(new URL("http://localhost:3000/api/save/saveProject"),
             {
                 method: 'POST',
@@ -151,7 +150,6 @@ export const elementsSlice = createSlice({
          */
         setSelectedElement(state, action) {
             const id = action.payload;
-            console.log("Stampiamo gli elementi: " + state.elements);
             if (id === 0) {
                 state.elements.forEach((element) => {
                     element.selected = false;

@@ -26,7 +26,6 @@ export default async function EditorPage() {
     const headersList = headers();
     const id = headersList.get('Project-Id');
     const project = await getProject(id);
-    console.log("Stampiamo il progetto in EditorPage: " + JSON.stringify(project));
     let module = null;
 
     switch (project.module) {

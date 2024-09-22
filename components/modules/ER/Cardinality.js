@@ -58,8 +58,6 @@ export const Cardinality = memo(function Cardinality({ id, type, options, select
 
     /* Gestione dinamica del cursore */
 
-    //console.log(id);
-
     /* Rendering */
     return (
         <DFRElement

@@ -31,7 +31,6 @@ export async function POST(request) {
         await client.query("COMMIT");
         client.end()
     } catch (error) {
-        console.log(error);
         client.end();
         return new NextResponse(JSON.stringify(null),
             {

@@ -33,8 +33,6 @@ export default function ERContextMenu({ posX, posY }) {
         }
     });
 
-    console.log(elementId);
-
     /**
      * handleNewEntity
      * Funzione che gestisce l'inserimento di una nuova entità all'interno del progetto. 

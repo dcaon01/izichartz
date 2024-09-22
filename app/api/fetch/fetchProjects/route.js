@@ -15,7 +15,6 @@ export async function POST(request) {
     try {
         await client.connect();
         results = await client.query(fetchProjectsQuery, [email]);
-        console.log(results.rows);
         projects = results.rows;
         client.end()
     } catch (error) {

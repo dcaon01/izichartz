@@ -9,7 +9,6 @@ export async function POST(request) {
     const { sid } = await request.json();
     const email = JSON.parse(sid.value).email;
     const token = JSON.parse(sid.value).token;
-    console.log("user: " + email + " token: " + token);
     const findUserQuery = 'SELECT * FROM "SESSIONS" WHERE "user"=$1';
     const checkEnroll = 'SELECT * FROM "VERIF_CODES" WHERE "user"=$1';
     const updateSidQuery = 'UPDATE "SESSIONS" SET "expires"=$1 WHERE "user"=$2';
@@ -23,7 +22,6 @@ export async function POST(request) {
         await client.query('BEGIN');
         result = await client.query(findUserQuery, [email]);
         // Controlliamo che ci sia un record con il token
-        console.log("Risultato delle query: " + result.rows[0].user);
         if (result.rows.length !== 0) {
             // Troviamo il token associato
             const hashedToken = result.rows[0].sessionId;
@@ -36,13 +34,11 @@ export async function POST(request) {
                     if (result.rows[0].data.type === "enroll") {
                         const user = result.rows[0].user;
                         result = await client.query(checkEnroll, [user]);
-                        console.log("Risultato delle query: " + result.rows[0]);
                         response.verifSlug = result.rows[0].slug;
                     } else {
                         // Aggiorniamo la data di scadenza del token el DB
                         const date = new Date(Date.now() + 43200000);
                         client.query(updateSidQuery, [date, email]);
-                        console.log("Risultato delle query: " + result.rows[0]);
                     }
                 }
             } 
@@ -56,7 +52,6 @@ export async function POST(request) {
             }
         });
     } catch (error) {
-        console.log(error);
         await client.query('ROLLBACK');
         client.end();
         return new NextResponse(JSON.stringify({

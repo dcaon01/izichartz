@@ -1,2 +1,0 @@
-Creare un modulo generico, che gestisca le operazioni base di visualizzazione degli elementi di UI, 
-di copia, incolla, etc, se possibile

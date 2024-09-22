@@ -4,7 +4,6 @@ import { NextResponse } from "next/server";
 
 export async function POST(request) {
     const { id } = await request.json();
-    //console.log("Dalla api route:" + id);
     const fetchProjectQuery = 'SELECT * FROM "PROJECTS" WHERE "id"=$1';
     let results = null;
     let project = {};
@@ -12,11 +11,9 @@ export async function POST(request) {
     try {
         await client.connect();
         results = await client.query(fetchProjectQuery, [id]);
-        //console.log(results.rows);
         project = results.rows[0];
         client.end()
     } catch (error) {
-        //console.log(error);
         client.end();
         return new NextResponse(JSON.stringify(null),
             {

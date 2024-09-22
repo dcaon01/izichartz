@@ -22,7 +22,6 @@ export const Linker = memo(function Linker({ id, options, selected }) {
     /* Generazione del Rendering */
     let generatedSegments = segments.map((segment, index) => {
         if (segments.length === 1) { // C'è un solo segmento che compone il linker.
-            console.log("Genero un linker con un segment");
             minX = maxX = segment.p1.x;
             minY = maxY = segment.p1.y;
             // p2

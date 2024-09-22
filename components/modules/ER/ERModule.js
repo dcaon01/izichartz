@@ -23,7 +23,6 @@ export default function ERModule() {
         x: 0,
         y: 0
     });
-    console.log(state);
 
     /* Elementi di Utility */
     const dispatch = useDispatch(); // Prelevamento del riferimento di useDispatch per poterlo usare liberamente.

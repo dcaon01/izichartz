@@ -10,20 +10,6 @@ import { Cardinality } from "./Cardinality.js";
  * @param generate array di JSON da renderizzare.
  */
 export default function Generator({ generate }) {
-    /* Creiamo la matrice di collegamenti, in modo da riuscire a passarli agli elementi che non sono
-    link e gestirli all'interno di essi - Ma ha senso? */
-    /*let linksMatrix = [];
-    generate.forEach((element) => {
-        linksMatrix.push([]);
-        console.log(linksMatrix);
-        if (element.type === "linker") {
-            element.options.linked.forEach((id) => {
-                linksMatrix[id - 1].array.push(element);
-            });
-        }
-    });*/
-
-    // console.log(linksMatrix);
 
     /* Mappiamo i JSON contenuti in generate e in base al type
     generiamo un elemente diverso, tra quelli del modulo */

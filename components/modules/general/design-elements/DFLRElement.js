@@ -124,7 +124,6 @@ export default function DFLRElement(props) {
             if (dimensions[0] && dimensions[1]) {
                 dispatch(elementsSlice.actions.modifyElementOptionsAndLinkers({ id: id, option: "position", value: { x: position.x, y: event.pageY - 14 } }));
                 dispatch(elementsSlice.actions.modifyElementOptionsAndLinkers({ id: id, option: "size", value: { width: newWidth, height: newHeight } }));
-                console.log("culo");
             } else {
                 if (!dimensions[1]) {
                     dispatch(elementsSlice.actions.modifyElementOptionsAndLinkers({ id: id, option: "size", value: { width: newWidth, height: minSize } }))
@@ -211,11 +210,9 @@ export default function DFLRElement(props) {
     function verifyDimensions(w, h) {
         let verify = [true, true];
         if (w < text.width + minSize) {
-            console.log("larghezza rifiutata");
             verify[0] = false;
         }
         if (h < minSize) {
-            console.log("altezza rifiutata");
             verify[1] = false;
         }
         return verify;
