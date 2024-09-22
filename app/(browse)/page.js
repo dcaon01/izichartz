@@ -58,7 +58,7 @@ export default function HomePage() {
           <OnScrollWrapper direction="left" intensity={30} size={100}>
             <Suspense fallback={<img className={classes.homeVideo} src="/assets/global/homeimg.png" />}>
               <video className={classes.miniVideo} autoPlay muted loop playsInline>
-                <source src="/assets/global/homevideo.mp4" type="video/mp4" />
+                <source src="/assets/global/Izichartz.mp4" type="video/mp4" />
               </video>
             </Suspense>
           </OnScrollWrapper>

@@ -10,11 +10,9 @@ export async function middleware(request) {
 
     if (path.startsWith('/workspace')) {
         const sid = request.cookies.get("sid");
-        console.log(sid);
         if (sid) {
             // fetchamo l'api routes per la verifica della sessione
             const data = await callVerifySession(sid, request);
-            console.log(data);
             if (data.isSessionValid) {
                 if (data.verifSlug) {
                     return NextResponse.redirect(new URL(`/authentication/activation/${data.verifSlug}`, request.url));
@@ -31,7 +29,6 @@ export async function middleware(request) {
                         if (path.includes("/editor/")) {
                             //Preleviamo il nome del progetto
                             const id = path.substring(path.lastIndexOf("/") + 1);
-                            console.log(id);
                             //Controlliamo che il progetto esista
                             const project = await callFetchProject(id, value.email, request);
                             if (project.isOk) {
@@ -78,11 +75,8 @@ export async function middleware(request) {
 
     if (path.startsWith('/authentication/activation')) {
         const sid = request.cookies.get("sid");
-        console.log(sid);
         if (sid) {
-            console.log("Trovato il cookie");
             const data = await callVerifySession(sid, request);
-            console.log(data);
             if (data.isSessionValid) {
                 if (!data.verifSlug) {
                     return NextResponse.redirect(new URL(`/workspace/${sid.value.username}`, request.url));
