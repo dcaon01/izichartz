@@ -24,3 +24,7 @@ Come riportato nella tesi alla Sezione 2.3, per eseguire Izichartz in modalità 
 che farà partire il compilatore di Next.js. 
 
 Per buildare l'applicazione, utilizzare il comando `npm build`, e, successivamente, il comando `npm start` per eseguire la versione ottimizzata e finale dell'applicazione.
+
+## Bugs e Accortezze
+- Nella fase di registrazione, il codice di attivazione deve essere letto direttamente dal database
+- La rinominazione nel workspace non funziona al meglio. Basta comunque refreshare la pagina dopo la visualizzazione dell'errore per vedere il progetto rinominato.
